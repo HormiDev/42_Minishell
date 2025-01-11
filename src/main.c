@@ -1,45 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_readline.c                                    :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/10 21:37:02 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/01/11 12:21:07 by ide-dieg         ###   ########.fr       */
+/*   Created: 2025/01/11 12:28:53 by ide-dieg          #+#    #+#             */
+/*   Updated: 2025/01/11 14:05:28 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include "../42_Libft/libft.h"
+#include "../include/minishell.h"
 
-int main()
+int	main(void)
 {
 	char *line;
-
+	char *prompt;
 
 	while (1)
 	{
-		line = readline("prompt> ");
-		printf("line: %s\n", line);
+		prompt = get_prompt();
+		line = readline(prompt);
 		if (!line)
 			break;
-		if (ft_strncmp_p(line, "re", 2) == 0)
-		{
-			sleep(5);
-			rl_replace_line("adios", 0);
-			rl_redisplay();
-			sleep(1);
-		}
 		add_history(line);
-		printf("line: %s\n", line);
 		free(line);
 	}
 	readline(0);
 	rl_clear_history();
-	printf("History cleared\n");
 	return (0);
 }
