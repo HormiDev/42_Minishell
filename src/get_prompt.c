@@ -6,7 +6,7 @@
 /*   By: dagimeno <dagimeno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 13:59:51 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/01/11 15:51:31 by dagimeno         ###   ########.fr       */
+/*   Updated: 2025/01/11 16:01:46 by dagimeno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*get_prompt(void)
 	ft_printf("host_name: %s\n", host_name);
 	cwd = get_current();
 	ft_printf("cwd: %s\n", cwd);
-	ft_sprintf(prompt, "%s%s@%s%s:%s%s%s> %s", BOLD, user_name, host_name, RESET, YELLOW, cwd, RESET, RESET);
+	ft_sprintf(prompt, "%s%s@%s%s:%s%s%sB========> %s", RED, user_name, host_name, RESET, YELLOW, cwd, RED, RESET);
 	free(cwd);
 	return (ft_strdup(prompt));
 }
