@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
+/*   By: dagimeno <dagimeno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:28:53 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/01/11 14:05:28 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/01/11 17:08:37 by dagimeno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,15 @@ int	main(void)
 	while (1)
 	{
 		prompt = get_prompt();
-		line = readline(prompt);
+		line = ft_input(prompt);
+		free(prompt);
 		if (!line)
 			break;
-		add_history(line);
+		if (*line)
+		{
+			add_history(line);
+			//ejecucion de Line
+		}
 		free(line);
 	}
 	readline(0);
