@@ -1,41 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_update_prompt.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/11 12:28:53 by ide-dieg          #+#    #+#             */
+/*   Created: 2025/01/13 19:52:44 by ide-dieg          #+#    #+#             */
 /*   Updated: 2025/01/13 20:25:12 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+void	ft_update_prompt(t_minishell *minishell)
 {
-	char *line;
-	t_minishell *minishell;
-
-	char *args[] = {"/bin/unset", "USER", NULL};
-	execve(args[0], args, envp);
-	if (argc != 1 || !argv)
-		return (ft_putstr_fd("Error: invalid arguments\n", 2), 1);
-	minishell = ft_loading_minishell(envp);
-	while (1)
-	{
-		ft_update_prompt(minishell);
-		line = ft_input(minishell->prompt);
-		if (!line)
-			break;
-		if (*line)
-		{
-			add_history(line);
-			printf("%s", line);// ejecucion
-		}
-		free(line);
-	}
-	rl_clear_history();
-	ft_alloc_lst(0, 0);
-	return (0);
+	ft_sprintf(minishell->prompt, "%s%s@%s%s:%s%s%s$ ", BOLD, minishell->user,
+		minishell->host, RESET, YELLOW, minishell->cwd, RESET);
 }
