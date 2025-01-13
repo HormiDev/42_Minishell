@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 17:30:21 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/01/13 20:25:12 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/01/13 22:04:49 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char	*get_current(char *user_name)
 	char	*join;
 	int		i;
 
-	cwd = getcwd(NULL, 0);
+	cwd = getcwd(NULL, 0);// revisar para liverar
 	if (!cwd)
 		return (NULL);
 	split = ft_split_ae(cwd, '/');
@@ -39,7 +39,7 @@ static char	*get_current(char *user_name)
 	return (cwd);
 }
 
-static char	*get_hostname(char **envp)
+static char	*get_hostname(t_list *envp)
 {// proteger funcion y liverar memoria
 	char	*session_manager;
 	char	**split;
@@ -59,14 +59,20 @@ t_minishell	*ft_loading_minishell(char **envp)
 
 	minishell = ft_alloc_lst(sizeof(t_minishell), 4);
 	if (envp)
-	{// revisar protecciones
-		minishell->envp = envp;// crear copia de envp en forma de lista
-		minishell->user = ft_strdup_ae(ft_getenv("USER", envp));
-		minishell->host = get_hostname(envp);
+	{
+		ft_array_to_list(envp, &minishell->envp);// crear copia de envp en forma de lista
+		minishell->user = ft_strdup_ae(ft_getenv("USER", minishell->envp));
+		if (!minishell->user)
+			minishell->user = ft_strdup_ae("ide-dieg");
+		minishell->host = get_hostname(minishell->envp);
+		if (!minishell->host)
+			minishell->host = ft_strdup_ae("dagimeno");
+		//minishell->user = ft_strdup_ae(ft_getenv("USER", envp));
+		//minishell->host = get_hostname(envp);
 	}
 	else
 	{
-		minishell->envp = NULL;// crear nuevo envp
+		// crear nuevo envp
 		minishell->user = ft_strdup_ae("ide-dieg");
 		minishell->host = ft_strdup_ae("dagimeno");
 	}

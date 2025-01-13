@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:28:53 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/01/13 20:25:12 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/01/13 22:04:40 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ int	main(int argc, char **argv, char **envp)
 	char *line;
 	t_minishell *minishell;
 
-	char *args[] = {"/bin/unset", "USER", NULL};
-	execve(args[0], args, envp);
 	if (argc != 1 || !argv)
 		return (ft_putstr_fd("Error: invalid arguments\n", 2), 1);
 	minishell = ft_loading_minishell(envp);

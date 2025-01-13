@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_getenv.c                                        :+:      :+:    :+:   */
+/*   ft_new_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/13 17:27:02 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/01/13 22:04:53 by ide-dieg         ###   ########.fr       */
+/*   Created: 2025/01/13 21:28:01 by ide-dieg          #+#    #+#             */
+/*   Updated: 2025/01/13 22:04:48 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char	*ft_getenv(char *needle, t_list *envp)
+t_env	*ft_new_env(char *envp)
 {
-	int		len;
+	t_env	*hash;
+	int		i;
 
-	len = ft_strlen_p(needle);
-	while (envp)
-	{
-		if (ft_strncmp_p(((t_env *)envp->content)->name, needle, len + 1) == 0)
-			return (((t_env *)envp->content)->value);
-		envp = envp->next;
-	}
-	return (NULL);
+	hash = (t_env *)ft_alloc_lst(sizeof(t_env), 3);
+	i = 0;
+	while (envp[i] != '=')
+		i++;
+	hash->name = ft_substr_ae(envp, 0, i);
+	hash->value = ft_strdup_ae(envp + i + 1);
+	return (hash);
 }

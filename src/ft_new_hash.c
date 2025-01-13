@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_datolist.c                                      :+:      :+:    :+:   */
+/*   ft_new_hash.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/13 19:06:40 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/01/13 20:23:05 by ide-dieg         ###   ########.fr       */
+/*   Created: 2025/01/13 21:11:51 by dagimeno          #+#    #+#             */
+/*   Updated: 2025/01/13 22:08:18 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-typedef	struct s_env 
+t_env	*ft_export(char *envp)
 {
-	char			*key;
-	char			*value;
-	char			*line;
-	struct s_env	*next;
-}			t_env;
+	t_env	*hash;
+	int		i;
 
-t_env	*ft_atolist(char **env)
-{
-	t_env	*head;
-
-	
+	hash = (t_env *)ft_alloc_lst(sizeof(t_env), 3);
+	i = 0;
+	while (envp[i] != '=')
+		i++;
+	hash->name = ft_substr_ae(envp, 0, i);
+	hash->value = ft_strdup_ae(envp + i + 1);
+	return (hash);
 }
