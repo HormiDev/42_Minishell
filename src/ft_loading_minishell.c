@@ -6,38 +6,11 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 17:30:21 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/01/13 22:04:49 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/01/16 00:46:03 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-static char	*get_current(char *user_name)
-{
-	char	*cwd;
-	char	**split;
-	char	*join;
-	int		i;
-
-	cwd = getcwd(NULL, 0);// revisar para liverar
-	if (!cwd)
-		return (NULL);
-	split = ft_split_ae(cwd, '/');
-	if (split[0] && !ft_strncmp_p(split[0], "home", 5) && split[1]
-		&& !ft_strncmp_p(split[1], user_name, ft_strlen_p(user_name) + 1))
-	{
-		join = ft_strdup_ae("~");
-		i = 2;
-		while (split[i])
-		{
-			join = ft_strjoin_ae(join, "/");
-			join = ft_strjoin_ae(join, split[i++]);
-		}
-		free(cwd);
-		return (join);
-	}
-	return (cwd);
-}
 
 static char	*get_hostname(t_list *envp)
 {// proteger funcion y liverar memoria
@@ -58,6 +31,7 @@ t_minishell	*ft_loading_minishell(char **envp)
 	t_minishell	*minishell;
 
 	minishell = ft_alloc_lst(sizeof(t_minishell), 4);
+	getcwd(minishell->cwd, PATH_MAX);
 	if (envp)
 	{
 		ft_array_to_list(envp, &minishell->envp);// crear copia de envp en forma de lista
@@ -76,6 +50,5 @@ t_minishell	*ft_loading_minishell(char **envp)
 		minishell->user = ft_strdup_ae("ide-dieg");
 		minishell->host = ft_strdup_ae("dagimeno");
 	}
-	minishell->cwd = get_current(minishell->user);
 	return (minishell);
 }
