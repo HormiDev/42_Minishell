@@ -1,34 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   ft_parsing_and_exec.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/18 13:04:27 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/01/18 17:35:06 by ide-dieg         ###   ########.fr       */
+/*   Created: 2025/01/18 16:26:50 by ide-dieg          #+#    #+#             */
+/*   Updated: 2025/01/18 17:37:31 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_echo(char **args)
+void	ft_parsing_and_exec(char *line, t_minishell *minishell)
 {
-	char	flag;
-	int		i;
+	char	**args;
+	char	*command;
 
-	flag = 1;
-	i = 0;
-	if (!args[0])
-		return ;
-	if (ft_strncmp_p(args[0], "-n", 3) == 0)
-	{
-		flag = 0;
-		i++;
-	}
-	printf("%s", args[i++]);
-	while (args[i])
-		printf(" %s", args[i++]);
-	if (flag)
-		printf("\n");
+	args = ft_split_ae(line, ' ');
+	command = args[0];
+	mini_exec(command, &args[1], minishell);
 }

@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:28:53 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/01/18 14:55:51 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/01/18 17:37:33 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		ft_update_prompt(minishell);
-		line = ft_input(minishell->prompt);
-		//line = readline(minishell->prompt);
+		//line = ft_input(minishell->prompt);
+		line = readline(minishell->prompt);
 		if (!line)
 			break;
 		if (*line)
 		{
 			//add_history(line);
-			mini_exec(line, minishell);
+			ft_parsing_and_exec(line, minishell);
 		}
 		free(line);
 	}

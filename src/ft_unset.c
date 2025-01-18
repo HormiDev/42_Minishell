@@ -6,13 +6,13 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:31:01 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/01/18 14:55:58 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/01/18 17:37:30 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void   ft_unset(char *envp, t_list **env_list)
+void	ft_unset(char *envp, t_list **env_list)
 {
 	t_list	*tmp_list;
 
@@ -34,5 +34,17 @@ void   ft_unset(char *envp, t_list **env_list)
 			return ;
 		}
 		tmp_list = tmp_list->next;
+	}
+}
+
+void	ft_unset_args(char **args, t_list **env_list)
+{
+	int	i;
+
+	i = 0;
+	while (args[i])
+	{
+		ft_unset(args[i], env_list);
+		i++;
 	}
 }

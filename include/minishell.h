@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:34:17 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/01/18 14:48:18 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/01/18 17:31:04 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,21 @@ typedef struct s_tree
 	struct s_tree	*branches;
 }	t_tree;
 
+int			ft_atou_p(const char *str);
 void		ft_array_to_list(char **envp, t_list **envp_list);
+void		ft_echo(char **args);
 void		ft_export(char *envp, t_list **envp_list);
 t_minishell	*ft_loading_minishell(char **envp);
 char		*ft_getenv(char *needle, t_list *envp);
 void		ft_update_prompt(t_minishell *minishell);
 void		ft_print_env(t_list *env);
 void		ft_export(char *envp, t_list **envp_list);
-void		ft_exit(void);
+void		ft_exit(char **arg);
 void		ft_pwd(t_minishell *minishell);
-void   ft_unset(char *envp, t_list **env_list);
-void		mini_exec(char *comand, t_minishell *minishell);
+void		ft_unset(char *envp, t_list **env_list);
+void		ft_unset_args(char **args, t_list **env_list);
+void		mini_exec(char *command, char **args, t_minishell *minishell);
+void		ft_parsing_and_exec(char *line, t_minishell *minishell);
 
 #endif
 
