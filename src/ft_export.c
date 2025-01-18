@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 21:32:31 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/01/13 21:43:09 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/01/18 14:56:10 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	ft_export(char *envp, t_list **envp_list)
 {
 	t_env	*hash;
+	t_list	*tmp_list;
 	int		i;
 
 	i = 0;
@@ -25,5 +26,16 @@ void	ft_export(char *envp, t_list **envp_list)
 	hash = (t_env *)ft_alloc_lst(sizeof(t_env), 3);
 	hash->name = ft_substr_ae(envp, 0, i);
 	hash->value = ft_strdup_ae(envp + i + 1);
+	tmp_list = *envp_list;
+	while (tmp_list && (t_env *)tmp_list->content)
+	{
+		if (!ft_strncmp_p(((t_env *)tmp_list->content)->name, hash->name,
+			ft_strlen_p(hash->name) + 1))
+		{
+			((t_env *)tmp_list->content)->value = hash->value;
+			return ;
+		}
+		tmp_list = tmp_list->next;
+	}
 	ft_lstadd_back(envp_list, ft_lstnew_ae(hash));
 }

@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:34:17 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/01/16 00:25:34 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/01/18 14:48:18 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,22 @@ typedef struct s_minishell
 	t_list			*envp;
 }	t_minishell;
 
+typedef struct s_tree
+{
+	char			*commands;
+	struct s_tree	*branches;
+}	t_tree;
+
 void		ft_array_to_list(char **envp, t_list **envp_list);
 void		ft_export(char *envp, t_list **envp_list);
 t_minishell	*ft_loading_minishell(char **envp);
 char		*ft_getenv(char *needle, t_list *envp);
 void		ft_update_prompt(t_minishell *minishell);
 void		ft_print_env(t_list *env);
-t_env		*ft_new_env(char *envp);
 void		ft_export(char *envp, t_list **envp_list);
-
+void		ft_exit(void);
+void		ft_pwd(t_minishell *minishell);
+void   ft_unset(char *envp, t_list **env_list);
 void		mini_exec(char *comand, t_minishell *minishell);
 
 #endif

@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_new_env.c                                       :+:      :+:    :+:   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/13 21:28:01 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/01/13 22:04:48 by ide-dieg         ###   ########.fr       */
+/*   Created: 2025/01/18 12:46:47 by ide-dieg          #+#    #+#             */
+/*   Updated: 2025/01/18 14:56:11 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+# include "minishell.h"
 
-t_env	*ft_new_env(char *envp)
+/**
+ * @brief Salir del minishell liberando la memoria y limpiando el historial
+ * 
+ * @return void
+ */
+void	ft_exit(void)
 {
-	t_env	*hash;
-	int		i;
-
-	hash = (t_env *)ft_alloc_lst(sizeof(t_env), 3);
-	i = 0;
-	while (envp[i] != '=')
-		i++;
-	hash->name = ft_substr_ae(envp, 0, i);
-	hash->value = ft_strdup_ae(envp + i + 1);
-	return (hash);
+	rl_clear_history();
+	ft_alloc_lst(0, 0);
+	exit(0);
 }
