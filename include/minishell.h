@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:34:17 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/01/19 22:04:36 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/01/20 22:01:06 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <linux/limits.h>
+# include <errno.h>
 
 typedef	struct s_env
 {
@@ -40,8 +41,9 @@ typedef struct s_tree
 	struct s_tree	*branches;
 }	t_tree;
 
+void		clean_and_exit(int exit_code);
 void		ft_array_to_list(char **envp, t_list **envp_list);
-void		ft_cd(char *path, t_list **env, char **cwd);
+void		ft_cd(char **args, t_list **env, t_minishell *minishell);
 void		ft_echo(char **args);
 void		ft_export(char *envp, t_list **envp_list);
 t_minishell	*ft_loading_minishell(char **envp);

@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 19:52:44 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/01/18 14:55:49 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/01/20 22:28:06 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
  * @param minishell Estructura del minishell
  * @return void
  */
-void	ft_update_prompt(t_minishell *minishell)
+void	ft_update_prompt(t_minishell *minishell)//revisar esta funcion
 {
 	char	*home;
 

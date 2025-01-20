@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 21:44:42 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/01/19 22:04:11 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/01/20 22:02:23 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	mini_exec(char *command, char **args, t_minishell *minishell)
 {
 	if (!ft_strncmp_p(command, "cd", 3))
-		ft_cd(args[0], &minishell->envp, &minishell->cwd);
+		ft_cd(args, &minishell->envp, minishell);
 	else if (!ft_strncmp_p(command, "export", 6))
 		ft_export_args(args, &minishell->envp);
 	else if (!ft_strncmp_p(command, "unset", 5))
