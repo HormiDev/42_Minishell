@@ -1,5 +1,5 @@
 2 (echo -n hola && echo -n adios) && echo esto es una prueba | cat -e
-|_2 echo -n hola && echo -n adios
+|_2 (echo -n hola && echo -n adios)
 | |_0 echo -n hola
 | |_0 echo -n adios
 |_0 echo esto es una prueba | cat -e

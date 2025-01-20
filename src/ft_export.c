@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 21:32:31 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/01/18 14:56:10 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/01/20 01:58:48 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,15 @@ void	ft_export(char *envp, t_list **envp_list)
 		tmp_list = tmp_list->next;
 	}
 	ft_lstadd_back(envp_list, ft_lstnew_ae(hash));
+}
+void	ft_export_args(char **args, t_list **env_list)
+{
+	int	i;
+
+	i = 0;
+	while (args[i])
+	{
+		ft_export(args[i], env_list);
+		i++;
+	}
 }
