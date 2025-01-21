@@ -6,11 +6,11 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 13:04:27 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/01/18 17:35:06 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/01/21 17:49:45 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../include/minishell.h"
 
 void	ft_echo(char **args)
 {

@@ -30,3 +30,5 @@ implementar cd ko
 implementar pwd ko
 
 cambiar envp a formato de lista y modificar ft_getenv() ok
+
+si tenemos tiempo y ganas gestionar que si no hay env cree uno con el el pwd, SHLVL y _

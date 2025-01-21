@@ -6,11 +6,11 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 21:44:42 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/01/20 22:02:23 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/01/21 17:50:20 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../include/minishell.h"
 
 void	mini_exec(char *command, char **args, t_minishell *minishell)
 {

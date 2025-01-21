@@ -6,11 +6,11 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 21:24:59 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/01/18 14:56:06 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/01/21 17:50:01 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../include/minishell.h"
 
 /**
  * @brief implementacion del comando env que imprime la lista de env

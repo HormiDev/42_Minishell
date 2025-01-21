@@ -1,23 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parsing_and_exec.c                              :+:      :+:    :+:   */
+/*   ft_minisplit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/18 16:26:50 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/01/21 17:49:59 by ide-dieg         ###   ########.fr       */
+/*   Created: 2025/01/21 17:47:45 by ide-dieg          #+#    #+#             */
+/*   Updated: 2025/01/21 17:59:52 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	ft_parsing_and_exec(t_minishell *minishell)
+char	**ft_minisplit(char *str, char c)
 {
-	char	**args;
-	char	*command;
+	char	**array;
+	int		i;
+	int		j;
+	int		k;
 
-	args = ft_split_ae(minishell->line, ' ');
-	command = args[0];
-	mini_exec(command, &args[1], minishell);
+	array = ft_alloc_lst(sizeof(char *), 3);
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			i++;
+		else
+		{
+			k = i;
+			while (str[i] && str[i] != c)
+				i++;
+			array[j] = ft_substr_ae(str, k, i - k);
+			j++;
+		}
+	}
+	array[j] = NULL;
+	return (array);
 }

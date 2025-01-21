@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dagimeno <dagimeno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:34:17 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/01/21 15:06:35 by dagimeno         ###   ########.fr       */
+/*   Updated: 2025/01/21 16:04:53 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void		ft_pwd(t_minishell *minishell);
 void		ft_unset(char *envp, t_list **env_list);
 void		ft_unset_args(char **args, t_list **env_list);
 void		mini_exec(char *command, char **args, t_minishell *minishell);
-void		ft_parsing_and_exec(char *line, t_minishell *minishell);
+void		ft_parsing_and_exec(t_minishell *minishell);
 
 #endif
 
