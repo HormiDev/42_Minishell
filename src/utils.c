@@ -3,17 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dagimeno <dagimeno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 20:40:52 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/01/21 14:53:35 by dagimeno         ###   ########.fr       */
+/*   Updated: 2025/01/24 13:49:13 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	clean_and_exit(int exit_code)
+void	clean_and_exit(int exit_code, char *message)
 {
+	if (message)
+		ft_dprintf(2, "%s\n", message);
 	//rl_clear_history();
 	ft_alloc_lst(0, 0);
 	exit(exit_code);

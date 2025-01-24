@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 18:58:26 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/01/23 21:20:15 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/01/24 14:00:33 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,24 @@ int	ft_manage_spaces(char *c)
 		c++;
 		size++;
 	}
-	return (0);
+	return (size);
 }
 
 int	ft_manage_quotes(char *c)
 {
-	int	size;
+	int		size;
+	char	quote;
 
 	size = 1;
+	quote = *c;
 	c++;
-	while (ft_strncmp_p(c, "'", 1))
+	while (*c != quote)
 	{
+		if (*c == '\0')
+			return (-1);
 		c++;
 		size++;
 	}
-	c++;
 	return (++size);
 }
 
@@ -53,13 +56,12 @@ int	ft_is_special_token(char *c)
 		return (2);
 	if (!ft_strncmp_p(c, ">", 1) || !ft_strncmp_p(c, "<", 1)
 		|| !ft_strncmp_p(c, "|", 1) || !ft_strncmp_p(c, "(", 1)
-		|| !ft_strncmp_p(c, ")", 1)
-		|| !ft_strncmp_p(c, "\"", 1) || !ft_strncmp_p(c, "$", 1)
+		|| !ft_strncmp_p(c, ")", 1) || !ft_strncmp_p(c, "$", 1)
 		|| !ft_strncmp_p(c, "\n", 1))
 		return (1);
 	if (!ft_strncmp_p(c, " ", 1) || !ft_strncmp_p(c, "\t", 1))
 		size = ft_manage_spaces(c);
-	if (!ft_strncmp_p(c, "'", 1))
+	if (!ft_strncmp_p(c, "'", 1) || !ft_strncmp_p(c, "\"", 1))
 		size = ft_manage_quotes(c);
 	return (size);
 }
@@ -90,6 +92,11 @@ t_list	*ft_split_tokenizer_lst(char *str/*, t_list *envp*/)
 	while (str[i])
 	{
 		size = ft_is_special_token(&str[i]);
+		if (size == -1)
+		{
+			ft_dprintf(2, "%sminishell: syntax error open quotes%s\n", RED, RESET);
+			return (NULL);
+		}
 		if (size)
 		{
 			if (i != 0)
@@ -117,10 +124,12 @@ int main()
 	char *line;
 
 	line = readline("minishell$ ");
+	add_history(line);
 	while(line)
 	{
 		list = ft_split_tokenizer_lst(line);
-		ft_print(list);
+		if (list)
+			ft_print(list);
 		line = readline("minishell$ ");
 		add_history(line);
 	}
