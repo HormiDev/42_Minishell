@@ -6,20 +6,19 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 18:58:26 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/01/24 14:00:33 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/01/24 19:47:00 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../include/minishell.h"
-# include <readline/readline.h>
-# include <readline/history.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
 int	ft_manage_spaces(char *c)
 {
 	int	size;
 
-	size = 0;	
+	size = 0;
 	while (!ft_strncmp_p(c, " ", 1) || !ft_strncmp_p(c, "\t", 1))
 	{
 		c++;
@@ -56,8 +55,7 @@ int	ft_is_special_token(char *c)
 		return (2);
 	if (!ft_strncmp_p(c, ">", 1) || !ft_strncmp_p(c, "<", 1)
 		|| !ft_strncmp_p(c, "|", 1) || !ft_strncmp_p(c, "(", 1)
-		|| !ft_strncmp_p(c, ")", 1) || !ft_strncmp_p(c, "$", 1)
-		|| !ft_strncmp_p(c, "\n", 1))
+		|| !ft_strncmp_p(c, ")", 1) || !ft_strncmp_p(c, "\n", 1))
 		return (1);
 	if (!ft_strncmp_p(c, " ", 1) || !ft_strncmp_p(c, "\t", 1))
 		size = ft_manage_spaces(c);
@@ -66,9 +64,9 @@ int	ft_is_special_token(char *c)
 	return (size);
 }
 
-void ft_print (t_list *list)
+void	ft_print(t_list *list)
 {
-	t_list *tmp;
+	t_list	*tmp;
 
 	tmp = list;
 	while (tmp)
@@ -79,42 +77,54 @@ void ft_print (t_list *list)
 	printf("\n");
 }
 
-t_list	*ft_split_tokenizer_lst(char *str/*, t_list *envp*/)
+int	ft_split_tokenizer_lst_while(char *str, t_list **list, int *i, int *start)
+{
+	int		size;
+
+	size = ft_is_special_token(&str[*i]);
+	if (size == -1)
+	{
+		ft_dprintf(2, "%sminishell: syntax error open quotes%s\n", RED, RESET);
+		return (0);
+	}
+	if (size)
+	{
+		if (*i != 0)
+		{
+			if (*i - *start)
+				ft_lstadd_back(list, ft_lstnew_ae(ft_substr_ae(str, *start,
+							*i - *start)));
+			ft_lstadd_back(list, ft_lstnew_ae(ft_substr_ae(str, *i, size)));
+		}
+		else
+			ft_lstadd_back(list, ft_lstnew_ae(ft_substr_ae(str, *start, size)));
+		(*start) = *i + size;
+		(*i) += size;
+	}
+	else
+		(*i)++;
+	return (1);
+}
+void	dollar_variable_converter(t_list *list);
+
+t_list	*ft_split_tokenizer_lst(char *str)
 {
 	t_list	*list;
 	int		i;
-	int 	start;
-	int		size;
+	int		start;
 
 	list = NULL;
 	i = 0;
 	start = 0;
 	while (str[i])
 	{
-		size = ft_is_special_token(&str[i]);
-		if (size == -1)
-		{
-			ft_dprintf(2, "%sminishell: syntax error open quotes%s\n", RED, RESET);
+		if (!ft_split_tokenizer_lst_while(str, &list, &i, &start))
 			return (NULL);
-		}
-		if (size)
-		{
-			if (i != 0)
-			{
-				if (i - start)
-					ft_lstadd_back(&list, ft_lstnew_ae(ft_substr_ae(str, start, i - start)));
-				ft_lstadd_back(&list, ft_lstnew_ae(ft_substr_ae(str, i, size)));
-			}
-			else
-				ft_lstadd_back(&list, ft_lstnew_ae(ft_substr_ae(str, start, size)));
-			start = i + size;
-			i += size;
-		}
-		else
-			i++;	
 	}
 	if (i - start)
-		ft_lstadd_back(&list, ft_lstnew_ae(ft_substr_ae(str, start, i - start)));
+		ft_lstadd_back(&list, ft_lstnew_ae
+			(ft_substr_ae(str, start, i - start)));
+	dollar_variable_converter(list);
 	return (list);
 }
 
@@ -128,8 +138,9 @@ int main()
 	while(line)
 	{
 		list = ft_split_tokenizer_lst(line);
-		if (list)
-			ft_print(list);
+		//if (list)
+		//	ft_print(list);
+		free(line);		
 		line = readline("minishell$ ");
 		add_history(line);
 	}

@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 21:32:31 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/01/20 01:58:48 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/01/24 20:09:57 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,68 @@ void	ft_export(char *envp, t_list **envp_list)
 	}
 	ft_lstadd_back(envp_list, ft_lstnew_ae(hash));
 }
-void	ft_export_args(char **args, t_list **env_list)
+
+char	**create_array_env_name(t_list *env_list)
 {
-	int	i;
+	char	**array;
+	int		i;
+
+	array = (char **)ft_alloc_lst(sizeof(char *) * ft_lstsize(env_list) + 1, 3);
+	i = 0;
+	while (env_list)
+	{
+		if (ft_strncmp_p(((t_env *)env_list->content)->name, "_", 2))
+		{
+			array[i] = ((t_env *)env_list->content)->name;
+			i++;
+		}
+		env_list = env_list->next;
+	}
+	array[i] = NULL;
+	return (array);
+}
+
+void	ft_alpha_orderer(char **array)
+{
+	int		i;
+	int		j;
+	char	*temp;
 
 	i = 0;
+	while (array[i])
+	{
+		j = i + 1;
+		while (array[j])
+		{
+			if (ft_strncmp_p(array[i], array[j], ft_strlen_p(array[j])) > 0)
+			{
+				temp = array[i];
+				array[i] = array[j];
+				array[j] = temp;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+void	ft_export_args(char **args, t_list **env_list)
+{
+	int		i;
+	char	**array;
+
+	i = 0;
+	if (ft_splitlen(args) == 0)
+	{
+		array = create_array_env_name(*env_list);
+		ft_alpha_orderer(array);
+		while (array[i])
+		{
+			ft_printf("declare -x %s=\"%s\"\n", array[i], ft_getenv(array[i], *env_list));
+			i++;
+		}		
+		return ;
+	}
 	while (args[i])
 	{
 		ft_export(args[i], env_list);
