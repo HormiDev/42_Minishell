@@ -3,84 +3,82 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_tokenizer_lst_2.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
+/*   By: dagimeno <dagimeno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 16:07:05 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/01/24 20:08:07 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/01/24 21:36:46 by dagimeno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static char	*ft_getenv_2(char *needle/*, t_list *envp*/)
+static char	*ft_getenv_2(char *needle)
 {
 	if (*needle == 0)
 		return (NULL);
-	return (ft_strdup_ae("SOY_UNA_VARIABLE"));
+	return (ft_strdup_ae("SOY_UNA_VARIABLE_DE_PRUEBA"));
 }
 
-char	*ft_parse_var(char *str)
+char	*ft_parse_var(char *str, int *i)
 {
 	size_t	len;
 	char	*var;
 
 	len = 0;
-	printf("STR: %s\n", str);
-	while (str[len] && str[len] != ' '
+	(*i)++;
+	while (str[len] && str[len] != ' ' && str[len] != '"'
 		&& str[len] != '\t' && str[len] != '$')
+	{
 		len++;
-	printf("Len: %zu\n", len);
+		(*i)++;
+	}
 	if (len == 0)
 		return ("$");
-	printf("LEN: %zu\n", len);
 	var = ft_substr_ae(str, 0, len);
-	printf("VAR: %s\n", var);
 	if (!ft_strncmp_p(var, "?", 1))
 		return (ft_getenv_2(var));//hay que cambiar el valor de retorno de esta linea, se usa el ft_getenv solo para pruebas
 	return (ft_getenv_2(var));
 }
 
-char	*split_and_join(char *str, char *var)
+char	*split_and_join(char *str, char *var, int i)
 {
 	int		len;
+	char	*substr;
 
 	len = 0;
 	while (str[len] != '$')
 		len++;
-	len++;
-	return (ft_strjoin_ae(ft_strjoin_ae(ft_substr_ae(str, 0, len), var), &str[len]));
+	substr = ft_substr_ae(str, 0, len);
+	return (ft_strjoin_ae(ft_strjoin_ae(substr, var), &str[i]));
 }
 
 void	dollar_variable_converter(t_list *list)
 {
 	int		i;
 	char	*var;
-	t_list	*tmp;
 
-	tmp = list;
+	//t_list *tmp = list;
 	while (list)
 	{
 		if (*(char *)list->content != '\'')
 		{
-
 			i = 0;
 			while (((char *)list->content)[i])
 			{
 				if (((char *)list->content)[i] == '$')
 				{
-					printf("ENTRO\n");
-					var = ft_parse_var(&((char *)list->content)[i + 1]);
-					printf("var: %s\n", var);
-					list->content = split_and_join(list->content, var);
+					var = ft_parse_var(&((char *)list->content)[i + 1], &i);
+					list->content = split_and_join(list->content, var, i);
 				}
-				i++;
+				else
+					i++;
 			}
 		}
 		list = list->next;
 	}
-	while (tmp)
+	/*while (tmp)
 	{
 		printf("%s\n", (char *)tmp->content);
 		tmp = tmp->next;
-	}
+	}*/
 }
