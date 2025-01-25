@@ -6,7 +6,7 @@
 /*   By: dagimeno <dagimeno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 16:07:05 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/01/24 21:36:46 by dagimeno         ###   ########.fr       */
+/*   Updated: 2025/01/25 18:20:31 by dagimeno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ char	*ft_parse_var(char *str, int *i)
 
 	len = 0;
 	(*i)++;
-	while (str[len] && str[len] != ' ' && str[len] != '"'
-		&& str[len] != '\t' && str[len] != '$')
+	while (str[len] == '_' || ft_isalnum(str[len]))
 	{
 		len++;
 		(*i)++;
@@ -37,7 +36,7 @@ char	*ft_parse_var(char *str, int *i)
 	var = ft_substr_ae(str, 0, len);
 	if (!ft_strncmp_p(var, "?", 1))
 		return (ft_getenv_2(var));//hay que cambiar el valor de retorno de esta linea, se usa el ft_getenv solo para pruebas
-	return (ft_getenv_2(var));
+	return (ft_getenv_2(var));//aqi lo mism, hay que pasar el ft_getenv original
 }
 
 char	*split_and_join(char *str, char *var, int i)
@@ -76,7 +75,8 @@ void	dollar_variable_converter(t_list *list)
 		}
 		list = list->next;
 	}
-	/*while (tmp)
+	/*
+	while (tmp)
 	{
 		printf("%s\n", (char *)tmp->content);
 		tmp = tmp->next;
