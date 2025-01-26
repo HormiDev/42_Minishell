@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:34:17 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/01/21 16:04:53 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/01/25 21:29:51 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_minishell
 	char			cwd[PATH_MAX];
 	char			cwd_short[PATH_MAX];
 	char			prompt[PATH_MAX + 1024];// revisar tamaño maximo posible
+	int				exit_code;
 	t_list			*envp;
 }	t_minishell;
 

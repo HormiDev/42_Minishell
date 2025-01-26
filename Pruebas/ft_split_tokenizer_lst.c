@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 18:58:26 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/01/24 19:47:00 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/01/25 21:13:23 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,8 @@ int	ft_split_tokenizer_lst_while(char *str, t_list **list, int *i, int *start)
 	return (1);
 }
 void	dollar_variable_converter(t_list *list);
+void	ft_join_str_tokenizer(t_list *list);
+void	put_quotes(t_list *list);
 
 t_list	*ft_split_tokenizer_lst(char *str)
 {
@@ -124,7 +126,9 @@ t_list	*ft_split_tokenizer_lst(char *str)
 	if (i - start)
 		ft_lstadd_back(&list, ft_lstnew_ae
 			(ft_substr_ae(str, start, i - start)));
+	put_quotes(list);
 	dollar_variable_converter(list);
+	ft_join_str_tokenizer(list);
 	return (list);
 }
 
@@ -138,8 +142,8 @@ int main()
 	while(line)
 	{
 		list = ft_split_tokenizer_lst(line);
-		//if (list)
-		//	ft_print(list);
+		if (list)
+			ft_print(list);
 		free(line);		
 		line = readline("minishell$ ");
 		add_history(line);
