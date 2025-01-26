@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 18:58:26 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/01/25 21:13:23 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/01/26 21:54:13 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,12 +108,19 @@ int	ft_split_tokenizer_lst_while(char *str, t_list **list, int *i, int *start)
 void	dollar_variable_converter(t_list *list);
 void	ft_join_str_tokenizer(t_list *list);
 void	put_quotes(t_list *list);
+int		ft_check_parenthesis(t_list *tks);
+int		ft_check_instructions_after_tokens(t_list *tks);
+void	ft_print_syntax_error_message(char *token);
+int		ft_check_instructions_last_tokens(t_list *tks);
+int		ft_check_parenthesis_and_instructions(t_list *tks);
+int		ft_check_instructions_and_parenthesis(t_list *tks);
 
 t_list	*ft_split_tokenizer_lst(char *str)
 {
 	t_list	*list;
 	int		i;
 	int		start;
+	int		parenthesis_code;
 
 	list = NULL;
 	i = 0;
@@ -127,6 +134,25 @@ t_list	*ft_split_tokenizer_lst(char *str)
 		ft_lstadd_back(&list, ft_lstnew_ae
 			(ft_substr_ae(str, start, i - start)));
 	put_quotes(list);
+	parenthesis_code = ft_check_parenthesis(list);
+	if (parenthesis_code)
+	{
+		if (parenthesis_code < 0)
+			ft_print_syntax_error_message(")");
+		else
+			ft_print_syntax_error_message("(");
+		return (NULL);
+	}
+	//ft_dprintf(2, "%sminishell: syntax error open parenthesis%s\n", RED, RESET);
+	//	return (NULL);
+	if (ft_check_instructions_after_tokens(list))
+		return (NULL);
+	if (ft_check_instructions_last_tokens(list))
+		return (NULL);
+	if (ft_check_parenthesis_and_instructions(list))
+		return (NULL);
+	if (ft_check_instructions_and_parenthesis(list))
+		return (NULL);
 	dollar_variable_converter(list);
 	ft_join_str_tokenizer(list);
 	return (list);
