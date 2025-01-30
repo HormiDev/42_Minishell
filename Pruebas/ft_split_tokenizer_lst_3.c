@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 17:50:10 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/01/25 21:18:03 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/01/30 21:20:17 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,14 @@ void	put_quotes(t_list *list)
 
 void	ft_join_str_tokenizer(t_list *list)
 {
+	char	*tmpstr;
+
 	while (list)
 	{
 		if (*(char *)list->content == '\"' || *(char *)list->content == '\'')
 		{
 			list->content = ft_substr_ae((char *)list->content, 1,
-					ft_strlen_p((char *)list->content) - 2);
+				ft_strlen_p((char *)list->content) - 2);
 			while (list->next && (*(char *)list->next->content == '\"'
 					|| *(char *)list->next->content == '\''))
 			{
@@ -47,6 +49,9 @@ void	ft_join_str_tokenizer(t_list *list)
 				list->next = list->next->next;
 			}
 		}
+		tmpstr = (char *)list->content;
+		list->content = ft_alloc_lst(ft_strlen_p((char *)list->content) + 3, 3);
+		sprintf((char *)list->content, "\"%s\"", tmpstr);
 		list = list->next;
 	}
 }

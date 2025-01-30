@@ -34,3 +34,5 @@ cambiar envp a formato de lista y modificar ft_getenv() ok
 si tenemos tiempo y ganas gestionar que si no hay env cree uno con el el pwd, SHLVL y _
 
 gestion de sintaxis erronea ej () (echo hola && (echo hola))
+
+No hay que gestionar paréntesis más allá de para discernir prioridades de ejecución.

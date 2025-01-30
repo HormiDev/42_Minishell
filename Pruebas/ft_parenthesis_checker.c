@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:20:47 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/01/26 22:12:04 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/01/30 21:25:56 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	ft_check_instructions_after_tokens(t_list *tks)
 			if (instructions_after <= 0)
 			{
 				ft_print_syntax_error_message(tks->content);
+				printf("1\n");
 				return (1);
 			}
 			instructions_after = 0;
@@ -84,6 +85,7 @@ int	check_tokens_after_special_found(t_list *tks, int *instructions_last)
 			if (*instructions_last <= 0)
 			{
 				ft_print_syntax_error_message(tks->content);
+				printf("2\n");
 				return (1);
 			}
 			*instructions_last = 0;
@@ -114,6 +116,7 @@ int ft_check_instructions_last_tokens(t_list *tks)
 	if (instructions_last <= 0)
 	{
 		ft_print_syntax_error_message(tks->content);
+		printf("3\n");
 		return (1);
 	}
 	return (0);
@@ -132,11 +135,39 @@ int	ft_check_parenthesis_and_instructions(t_list *tks)
 				|| *(char *)tks->content == '\'' || *(char *)tks->content == '('))
 		{
 			ft_print_syntax_error_message(tks->content);
+			printf("4\n");
 			return (1);
 		}
 		else if (*(char *)tks->content == '&' || *(char *)tks->content == '|')
 			parenthesis = 0;
 		tks = tks->next;
+	}
+	return (0);
+}
+/*
+int	check_token_order_validity(t_list *tks, int *order, int *instructions)
+{
+	if (*order == 1 && (*(char *)tks->content == '"'
+			|| *(char *)tks->content == '\''))
+	{
+		(*instructions)++;
+		*order = 0;
+	}
+	if (*instructions > 0 && *(char *)tks->content == '(' && *order == 0)
+	{
+		ft_print_syntax_error_message(tks->content);
+		printf("5\n");
+		return (1);
+	}
+	if (*instructions == 0 && *(char *)tks->content == '(')
+	{
+		(*instructions)++;
+		*order = 0;
+	}
+	if ((*(char *)tks->content == '&' || *(char *)tks->content == '|'))
+	{
+		*instructions = 0;
+		*order = 1;
 	}
 	return (0);
 }
@@ -150,28 +181,69 @@ int	ft_check_instructions_and_parenthesis(t_list *tks)
 	order = 1;
 	while(tks)
 	{
-		if (order == 1 && (*(char *)tks->content == '"'
-				|| *(char *)tks->content == '\''))
-		{
+		if (check_token_order_validity(tks, &order, &instructions))
+			return (1);
+		tks = tks->next;
+	}
+	return (0);
+}*/
+
+int	ft_check_instructions_and_parenthesis(t_list *tks)
+{
+	int instructions;
+
+	instructions = 0;
+	while (tks)
+	{
+		if (*(char *)tks->content == '"' || *(char *)tks->content == '\''
+			|| *(char *)tks->content == ')')
 			instructions++;
-			order = 0;
-		}
-		if (instructions > 0 && *(char *)tks->content == '(' && order == 0)
+		if (*(char *)tks->content == '|' || *(char *)tks->content == '&')
+			instructions = 0;
+		if (instructions > 0 && *(char *)tks->content == '(')
 		{
 			ft_print_syntax_error_message(tks->content);
+			printf("5\n");
 			return (1);
-		}
-		if (instructions == 0 && *(char *)tks->content == '(')
-		{
-			instructions++;
-			order = 0;
-		}
-		if ((*(char *)tks->content == '&' || *(char *)tks->content == '|'))
-		{
-			instructions = 0;
-			order = 1;
 		}
 		tks = tks->next;
 	}
 	return (0);
+}
+
+int 	ft_check_for_redundant_parenthesis(t_list *tks, int exit_code)
+{
+	int	logic_operator_found;
+
+	if (exit_code)
+		return (1);
+	logic_operator_found = 0;
+	while (tks)
+	{
+		if (*(char *)tks->content == ')')
+		{
+			if (!logic_operator_found)
+			{
+				printf("Si se imprime esto, es que hay un error\n");
+				return (1);
+			}
+			return (0);
+		}
+		if (*(char *)tks->content == '(')
+		{
+			//exit_code = ft_check_for_redundant_parenthesis(tks->next, exit_code);
+			if (exit_code)
+				return (1);
+			//while (*(char *)tks->content != ')' || *(char *)tks->content != '&' /*|| ft_strncmp_p((char *)tks->content, "||" , 2)*/)
+			while (tks->content && tks)
+			{
+				printf("tks->content: %s\n", (char *)tks->content);
+				tks = tks->next;
+			}
+		}
+		if (*(char *)tks->content == '&' || !ft_strncmp_p(tks->content, "||" , 2))
+			logic_operator_found = 1;
+		tks = tks->next;
+	}
+	return (exit_code);
 }

@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:34:17 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/01/25 21:29:51 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/01/30 21:20:17 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,9 @@ typedef struct s_minishell
 
 typedef struct s_tree
 {
-	char			*commands;
+	t_list	*content;
+	int		id;
+	int		id_parent;
 	struct s_tree	*branches;
 }	t_tree;
 

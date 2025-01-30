@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 18:58:26 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/01/26 21:54:13 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/01/30 20:30:50 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,13 +114,43 @@ void	ft_print_syntax_error_message(char *token);
 int		ft_check_instructions_last_tokens(t_list *tks);
 int		ft_check_parenthesis_and_instructions(t_list *tks);
 int		ft_check_instructions_and_parenthesis(t_list *tks);
+int 	ft_check_for_redundant_parenthesis(t_list *tks, int exit_code);
+
+t_list	*ft_check_token_list(t_list *list)
+{
+	int		parenthesis_code;
+
+	parenthesis_code = ft_check_parenthesis(list);
+	if (parenthesis_code)
+	{
+		if (parenthesis_code < 0)
+		{
+			ft_print_syntax_error_message(")");
+			printf("6`\n");
+		}
+		else
+		{
+			ft_print_syntax_error_message("(");
+			printf("6`\n");
+		}
+		return (NULL);
+	}
+	if (ft_check_instructions_after_tokens(list) 
+		|| ft_check_instructions_last_tokens(list)
+		|| ft_check_parenthesis_and_instructions(list)
+		|| ft_check_instructions_and_parenthesis(list)
+		|| ft_check_for_redundant_parenthesis(list, 0))
+		return (NULL);
+	dollar_variable_converter(list);
+	ft_join_str_tokenizer(list);
+	return (list);
+}
 
 t_list	*ft_split_tokenizer_lst(char *str)
 {
 	t_list	*list;
 	int		i;
 	int		start;
-	int		parenthesis_code;
 
 	list = NULL;
 	i = 0;
@@ -134,28 +164,7 @@ t_list	*ft_split_tokenizer_lst(char *str)
 		ft_lstadd_back(&list, ft_lstnew_ae
 			(ft_substr_ae(str, start, i - start)));
 	put_quotes(list);
-	parenthesis_code = ft_check_parenthesis(list);
-	if (parenthesis_code)
-	{
-		if (parenthesis_code < 0)
-			ft_print_syntax_error_message(")");
-		else
-			ft_print_syntax_error_message("(");
-		return (NULL);
-	}
-	//ft_dprintf(2, "%sminishell: syntax error open parenthesis%s\n", RED, RESET);
-	//	return (NULL);
-	if (ft_check_instructions_after_tokens(list))
-		return (NULL);
-	if (ft_check_instructions_last_tokens(list))
-		return (NULL);
-	if (ft_check_parenthesis_and_instructions(list))
-		return (NULL);
-	if (ft_check_instructions_and_parenthesis(list))
-		return (NULL);
-	dollar_variable_converter(list);
-	ft_join_str_tokenizer(list);
-	return (list);
+	return (ft_check_token_list(list));
 }
 
 int main()
