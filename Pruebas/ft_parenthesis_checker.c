@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parenthesis_checker.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
+/*   By: dagimeno <dagimeno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:20:47 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/01/30 21:25:56 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/01/30 23:40:47 by dagimeno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,13 +211,35 @@ int	ft_check_instructions_and_parenthesis(t_list *tks)
 	return (0);
 }
 
+int	ft_find_open_parenthesis(t_list *tks)
+{
+	int	open_parenthesis;
+	//int	is_in_fact_open;
+
+	open_parenthesis = 0;
+	//is_in_fact_open = 0;
+
+	while (tks)
+	{
+		if (*(char *)tks->content == '(')
+			open_parenthesis++;
+		tks = tks->next;
+	}
+	return (open_parenthesis);
+}
+
 int 	ft_check_for_redundant_parenthesis(t_list *tks, int exit_code)
 {
 	int	logic_operator_found;
+	int	open_parenthesis;
+	//int len;
 
 	if (exit_code)
 		return (1);
+	open_parenthesis = ft_find_open_parenthesis(tks);
+	//open_parenthesis = 0;
 	logic_operator_found = 0;
+	//len = ft_lstsize(tks);
 	while (tks)
 	{
 		if (*(char *)tks->content == ')')
@@ -231,14 +253,25 @@ int 	ft_check_for_redundant_parenthesis(t_list *tks, int exit_code)
 		}
 		if (*(char *)tks->content == '(')
 		{
-			//exit_code = ft_check_for_redundant_parenthesis(tks->next, exit_code);
+			exit_code = ft_check_for_redundant_parenthesis(tks->next, exit_code);
 			if (exit_code)
 				return (1);
-			//while (*(char *)tks->content != ')' || *(char *)tks->content != '&' /*|| ft_strncmp_p((char *)tks->content, "||" , 2)*/)
-			while (tks->content && tks)
+			//len = ft_lstsize(tks);
+			//while (--len && (*(char *)tks->content != ')' || *(char *)tks->content != '&' || ft_strncmp_p(tks->content, "||" , 2)))
+			//open_parenthesis = 1;
+			while (tks && open_parenthesis > 0)
 			{
-				printf("tks->content: %s\n", (char *)tks->content);
+				if (*(char *)tks->content == '(')
+					open_parenthesis++;
+				if (*(char *)tks->content == ')')
+					open_parenthesis--;
 				tks = tks->next;
+				//len--;
+			}
+			if (!tks)
+			{
+				printf("Si se imprime esto, es que hay un error\n");
+				return (1);
 			}
 		}
 		if (*(char *)tks->content == '&' || !ft_strncmp_p(tks->content, "||" , 2))
