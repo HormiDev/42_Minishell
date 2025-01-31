@@ -114,7 +114,7 @@ void	ft_print_syntax_error_message(char *token);
 int		ft_check_instructions_last_tokens(t_list *tks);
 int		ft_check_parenthesis_and_instructions(t_list *tks);
 int		ft_check_instructions_and_parenthesis(t_list *tks);
-int 	ft_check_for_redundant_parenthesis(t_list *tks, int exit_code);
+int 	ft_check_for_redundant_parenthesis(t_list *tks);
 
 t_list	*ft_check_token_list(t_list *list)
 {
@@ -139,7 +139,7 @@ t_list	*ft_check_token_list(t_list *list)
 		|| ft_check_instructions_last_tokens(list)
 		|| ft_check_parenthesis_and_instructions(list)
 		|| ft_check_instructions_and_parenthesis(list)
-		|| ft_check_for_redundant_parenthesis(list, 0))
+		|| ft_check_for_redundant_parenthesis(list))
 		return (NULL);
 	dollar_variable_converter(list);
 	ft_join_str_tokenizer(list);

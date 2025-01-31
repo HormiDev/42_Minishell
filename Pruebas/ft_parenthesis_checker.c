@@ -211,72 +211,39 @@ int	ft_check_instructions_and_parenthesis(t_list *tks)
 	return (0);
 }
 
-int	ft_find_open_parenthesis(t_list *tks)
+int	ft_are_logic_operators_inside_parenthesis(t_list *tks)
 {
 	int	open_parenthesis;
-	//int	is_in_fact_open;
 
-	open_parenthesis = 0;
-	//is_in_fact_open = 0;
-
-	while (tks)
+	open_parenthesis = 1;
+	while (open_parenthesis)
 	{
 		if (*(char *)tks->content == '(')
 			open_parenthesis++;
+		if (*(char *)tks->content == ')')
+			open_parenthesis--;
+		if (open_parenthesis == 1
+			&& (*(char *)tks->content == '&'
+				|| !ft_strncmp_p(tks->content, "||", 2)))
+			return (1);
 		tks = tks->next;
 	}
-	return (open_parenthesis);
+	return (0);
 }
 
-int 	ft_check_for_redundant_parenthesis(t_list *tks, int exit_code)
+int	ft_check_for_redundant_parenthesis(t_list *tks)
 {
-	int	logic_operator_found;
-	int	open_parenthesis;
-	//int len;
-
-	if (exit_code)
-		return (1);
-	open_parenthesis = ft_find_open_parenthesis(tks);
-	//open_parenthesis = 0;
-	logic_operator_found = 0;
-	//len = ft_lstsize(tks);
 	while (tks)
 	{
-		if (*(char *)tks->content == ')')
-		{
-			if (!logic_operator_found)
-			{
-				printf("Si se imprime esto, es que hay un error\n");
-				return (1);
-			}
-			return (0);
-		}
 		if (*(char *)tks->content == '(')
 		{
-			exit_code = ft_check_for_redundant_parenthesis(tks->next, exit_code);
-			if (exit_code)
-				return (1);
-			//len = ft_lstsize(tks);
-			//while (--len && (*(char *)tks->content != ')' || *(char *)tks->content != '&' || ft_strncmp_p(tks->content, "||" , 2)))
-			//open_parenthesis = 1;
-			while (tks && open_parenthesis > 0)
+			if (!ft_are_logic_operators_inside_parenthesis(tks->next))
 			{
-				if (*(char *)tks->content == '(')
-					open_parenthesis++;
-				if (*(char *)tks->content == ')')
-					open_parenthesis--;
-				tks = tks->next;
-				//len--;
-			}
-			if (!tks)
-			{
-				printf("Si se imprime esto, es que hay un error\n");
+				ft_print_syntax_error_message(tks->content);
 				return (1);
 			}
 		}
-		if (*(char *)tks->content == '&' || !ft_strncmp_p(tks->content, "||" , 2))
-			logic_operator_found = 1;
 		tks = tks->next;
 	}
-	return (exit_code);
+	return (0);
 }
