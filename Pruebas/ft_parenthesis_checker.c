@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parenthesis_checker.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dagimeno <dagimeno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:20:47 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/01/30 23:40:47 by dagimeno         ###   ########.fr       */
+/*   Updated: 2025/02/01 18:41:50 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ int	ft_check_instructions_after_tokens(t_list *tks)
 			if (instructions_after <= 0)
 			{
 				ft_print_syntax_error_message(tks->content);
-				printf("1\n");
 				return (1);
 			}
 			instructions_after = 0;
@@ -85,7 +84,6 @@ int	check_tokens_after_special_found(t_list *tks, int *instructions_last)
 			if (*instructions_last <= 0)
 			{
 				ft_print_syntax_error_message(tks->content);
-				printf("2\n");
 				return (1);
 			}
 			*instructions_last = 0;
@@ -116,7 +114,6 @@ int ft_check_instructions_last_tokens(t_list *tks)
 	if (instructions_last <= 0)
 	{
 		ft_print_syntax_error_message(tks->content);
-		printf("3\n");
 		return (1);
 	}
 	return (0);
@@ -135,7 +132,6 @@ int	ft_check_parenthesis_and_instructions(t_list *tks)
 				|| *(char *)tks->content == '\'' || *(char *)tks->content == '('))
 		{
 			ft_print_syntax_error_message(tks->content);
-			printf("4\n");
 			return (1);
 		}
 		else if (*(char *)tks->content == '&' || *(char *)tks->content == '|')
@@ -203,7 +199,6 @@ int	ft_check_instructions_and_parenthesis(t_list *tks)
 		if (instructions > 0 && *(char *)tks->content == '(')
 		{
 			ft_print_syntax_error_message(tks->content);
-			printf("5\n");
 			return (1);
 		}
 		tks = tks->next;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_tokenizer_lst.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dagimeno <dagimeno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 18:58:26 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/01/30 23:05:08 by dagimeno         ###   ########.fr       */
+/*   Updated: 2025/02/02 16:11:17 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,15 +124,9 @@ t_list	*ft_check_token_list(t_list *list)
 	if (parenthesis_code)
 	{
 		if (parenthesis_code < 0)
-		{
 			ft_print_syntax_error_message(")");
-			printf("6`\n");
-		}
 		else
-		{
 			ft_print_syntax_error_message("(");
-			printf("6`\n");
-		}
 		return (NULL);
 	}
 	if (ft_check_instructions_after_tokens(list) 

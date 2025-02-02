@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_loading_minishell.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dagimeno <dagimeno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 17:30:21 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/01/21 14:49:26 by dagimeno         ###   ########.fr       */
+/*   Updated: 2025/02/02 20:51:23 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ t_minishell	*ft_loading_minishell(char **envp)
 	if (envp)
 	{
 		ft_array_to_list(envp, &minishell->envp);// crear copia de envp en forma de lista
+		minishell->envp_array = ft_refresh_env_array(minishell->envp, minishell->envp_array);	
 		minishell->user = ft_strdup_ae(ft_getenv("USER", minishell->envp));
 		if (!minishell->user)
 			minishell->user = ft_strdup_ae("ide-dieg");
