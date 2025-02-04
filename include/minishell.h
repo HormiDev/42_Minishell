@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:34:17 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/02/02 20:58:13 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/02/04 16:46:36 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void		ft_update_prompt(t_minishell *minishell);
 void		ft_print_env(t_list *env);
 void		ft_export(char *envp, t_list **envp_list);
 void		ft_export_args(char **args, t_list **env_list, t_minishell *mini);
-void		ft_exit(char **arg);
+void		ft_exit(char **arg, t_minishell *minishell);
 void		ft_pwd(t_minishell *minishell);
 void		ft_unset(char *envp, t_list **env_list);
 void		mini_exec(char *command, char **args, t_minishell *minishell);

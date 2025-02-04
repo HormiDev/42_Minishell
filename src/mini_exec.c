@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 21:44:42 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/02/02 21:19:07 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/02/04 16:44:25 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	ft_execute_execve(char *command, char **args, t_minishell *minishell)
 		if (execve(command, args, minishell->envp_array) < 0)
 		{
 			ft_dprintf(2, "%s%s: %s%s\n", RED, command, strerror(errno), RESET);
-			return ;
+			ft_alloc_lst(0, 0);
+			exit(127);// revisar
 		}
 	}
 	if (waitpid(id, &exit_status, 0) < 0)
@@ -66,7 +67,7 @@ void	mini_exec(char *command, char **args, t_minishell *minishell)
 	else if (!ft_strncmp_p(command, "env", 3))
 		ft_print_env(minishell->envp);
 	else if (!ft_strncmp_p(command, "exit", 4))
-		ft_exit(&args[1]);
+		ft_exit(&args[1], minishell);
 	else if (!ft_strncmp_p(command, "echo", 4))
 		ft_echo(&args[1]);
 	else if (!ft_strncmp_p(command, "pwd", 3))

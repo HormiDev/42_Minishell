@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 12:46:47 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/01/21 17:49:49 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/02/04 16:48:40 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	is_argument_valid(char *arg)
  * 
  * @return void
  */
-void	ft_exit(char **arg)
+void	ft_exit(char **arg, t_minishell *minishell)
 {
 	int				len;
 
@@ -56,5 +56,7 @@ void	ft_exit(char **arg)
 			return ;
 		}
 	}
+	free(minishell->line);
+	minishell->line = NULL;
 	clean_and_exit((unsigned int)ft_atoi_p(arg[0]));
 }
