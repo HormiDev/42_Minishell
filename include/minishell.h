@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:34:17 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/02/04 16:46:36 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/02/05 15:22:22 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,11 @@ void		clean_and_exit(int exit_code);
 void		ft_array_to_list(char **envp, t_list **envp_list);
 void		ft_cd(char **args, t_list **env, t_minishell *minishell);
 void		ft_echo(char **args);
-char		**ft_refresh_env_array(t_list *list, char **env_array);
+void		ft_refresh_env_array(t_list *list, t_minishell *minishell);
 void		ft_export(char *envp, t_list **envp_list);
+void		ft_init_env(t_minishell *minishell);
+void		ft_init_shlvl(t_minishell *minishell);
+int			ft_isnumber(char *str);
 t_minishell	*ft_loading_minishell(char **envp);
 char		*ft_getenv(char *needle, t_list *envp);
 void		ft_update_prompt(t_minishell *minishell);

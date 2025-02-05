@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:31:01 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/02/02 20:55:22 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/02/05 13:54:55 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,5 @@ void	ft_unset_args(char **args, t_list **env_list, t_minishell *mini)
 		ft_unset(args[i], env_list);
 		i++;
 	}
-	mini->envp_array = ft_refresh_env_array(mini->envp, mini->envp_array);	
+	ft_refresh_env_array(mini->envp, mini);	
 }

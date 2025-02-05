@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 17:30:21 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/02/02 20:51:23 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/02/05 20:09:25 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ t_minishell	*ft_loading_minishell(char **envp)
 	if (envp)
 	{
 		ft_array_to_list(envp, &minishell->envp);// crear copia de envp en forma de lista
-		minishell->envp_array = ft_refresh_env_array(minishell->envp, minishell->envp_array);	
+		ft_init_env(minishell);
+		ft_refresh_env_array(minishell->envp, minishell);
 		minishell->user = ft_strdup_ae(ft_getenv("USER", minishell->envp));
 		if (!minishell->user)
 			minishell->user = ft_strdup_ae("ide-dieg");
@@ -48,6 +49,8 @@ t_minishell	*ft_loading_minishell(char **envp)
 	else
 	{
 		// crear nuevo envp
+		ft_init_env(minishell);
+		ft_refresh_env_array(minishell->envp, minishell);
 		minishell->user = ft_strdup_ae("ide-dieg");
 		minishell->host = ft_strdup_ae("dagimeno");
 	}

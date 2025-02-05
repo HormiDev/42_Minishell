@@ -6,11 +6,38 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 21:32:31 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/02/02 20:56:03 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/02/05 21:21:58 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	ft_export_shlvl(t_env *env)
+{
+	char	*tmp;
+	int		number;
+
+	number = ft_atoi_p(env->value);
+	if (!ft_isnumber(env->value) || number < 0 
+		|| number > 1000)
+	{
+		ft_free_alloc(env->value);
+		env->value = ft_strdup_ae("0");
+		ft_free_alloc(env->full);
+		tmp = ft_strjoin_ae(env->name, "=");
+		env->full = ft_strjoin_ae(tmp, env->value);
+		ft_free_alloc(tmp);
+	}
+	else
+	{
+		ft_free_alloc(env->value);
+		env->value = ft_add_to_alloc_lst_e(ft_itoa(number));
+		ft_free_alloc(env->full);
+		tmp = ft_strjoin_ae(env->name, "=");
+		env->full = ft_strjoin_ae(tmp, env->value);
+		ft_free_alloc(tmp);
+	}
+}
 
 void	ft_export(char *envp, t_list **envp_list)
 {
@@ -34,6 +61,9 @@ void	ft_export(char *envp, t_list **envp_list)
 			ft_strlen_p(hash->name) + 1))
 		{
 			((t_env *)tmp_list->content)->value = hash->value;
+			((t_env *)tmp_list->content)->full = hash->full;
+			if (strncmp(hash->name, "SHLVL", 6) == 0)
+				ft_export_shlvl((t_env *)tmp_list->content);
 			return ;
 		}
 		tmp_list = tmp_list->next;
@@ -99,7 +129,8 @@ void	ft_export_args(char **args, t_list **env_list, t_minishell *mini)
 		{
 			ft_printf("declare -x %s=\"%s\"\n", array[i], ft_getenv(array[i], *env_list));
 			i++;
-		}		
+		}
+		ft_free_alloc(array);
 		return ;
 	}
 	while (args[i])
@@ -107,5 +138,5 @@ void	ft_export_args(char **args, t_list **env_list, t_minishell *mini)
 		ft_export(args[i], env_list);
 		i++;
 	}
-	mini->envp_array = ft_refresh_env_array(mini->envp, mini->envp_array);	
+	ft_refresh_env_array(mini->envp, mini);	
 }

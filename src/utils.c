@@ -6,11 +6,31 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 20:40:52 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/01/24 15:17:49 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/02/05 21:13:29 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int	ft_isnumber(char *str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i] == ' ' || (str[i] > 8 && str[i] < 14))
+		i++;
+	if (str[i] == '+')
+		i++;
+	while (ft_isdigit(str[i]))
+		i++;
+	if (str[i] && (str[i] != ' ' || (str[i] > 8 && str[i] < 14)))
+		return(0);
+	while (str[i] == ' ' || (str[i] > 8 && str[i] < 14))
+		i++;
+	if (str[i] && (str[i] != ' ' || (str[i] > 8 && str[i] < 14)))
+		return(0);
+	return (1);
+}
 
 void	clean_and_exit(int exit_code)
 {
