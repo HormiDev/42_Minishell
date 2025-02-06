@@ -6,11 +6,27 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 21:44:42 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/02/04 16:44:25 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/02/06 14:09:37 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+
+/*
+<hoola <que >tal cat >adios
+*/
+
+void	ft_execution_fork(char *command, char **args, t_minishell *minishell)
+{
+
+	if (execve(command, args, minishell->envp_array) < 0)
+	{
+		ft_dprintf(2, "%s%s: %s%s\n", RED, command, strerror(errno), RESET);
+		ft_alloc_lst(0, 0);
+		exit(127);// revisar
+	}
+}
 
 void	ft_execute_execve(char *command, char **args, t_minishell *minishell)
 {
@@ -21,17 +37,11 @@ void	ft_execute_execve(char *command, char **args, t_minishell *minishell)
 	if (id < 0)
 	{
 		ft_dprintf(2, "%s%s: %s%s\n", RED, "fork", strerror(errno), RESET);
+		minishell->exit_code = 1;
 		return ;
 	}
 	if (id == 0)
-	{
-		if (execve(command, args, minishell->envp_array) < 0)
-		{
-			ft_dprintf(2, "%s%s: %s%s\n", RED, command, strerror(errno), RESET);
-			ft_alloc_lst(0, 0);
-			exit(127);// revisar
-		}
-	}
+		ft_execution_fork(command, args, minishell);
 	if (waitpid(id, &exit_status, 0) < 0)
 	{
 		ft_dprintf(2, "%s%s: %s%s\n", RED, "waitpid", strerror(errno), RESET);

@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:34:17 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/02/05 15:22:22 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/02/06 18:05:56 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,29 @@
 # include <linux/limits.h>
 # include <sys/wait.h>
 # include <errno.h>
+
+/**
+ * @brief Estructura para almacenar los datos de redirecciones
+ * 
+ * @param file Nombre del archivo
+ * @param type Tipo de redirección
+ * 
+ * @note type puede ser 0 (<), 1 (>), 2 (>>), 3 (<<)
+ */
+typedef struct s_redir
+{
+	char	*file;
+	int		type;
+}	t_redir;
+
+typedef struct s_cmd
+{
+	char	*cmd;
+	char	**args;
+	t_redir	**infiles;
+	t_redir	**outfiles;
+	int		pipe[2];
+}	t_cmd;
 
 typedef	struct s_env
 {
@@ -75,6 +98,7 @@ void		ft_pwd(t_minishell *minishell);
 void		ft_unset(char *envp, t_list **env_list);
 void		mini_exec(char *command, char **args, t_minishell *minishell);
 void		ft_parsing_and_exec(t_minishell *minishell);
+void		ft_remove_spaces(t_list **list);
 char		*ft_search_in_path(char *cmd, t_list *envp);
 void		ft_unset_args(char **args, t_list **env_list, t_minishell *mini);
 

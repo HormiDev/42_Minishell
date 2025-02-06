@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 18:58:26 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/02/02 16:11:17 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/02/06 17:19:38 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,11 @@ t_list	*ft_split_tokenizer_lst(char *str)
 		ft_lstadd_back(&list, ft_lstnew_ae
 			(ft_substr_ae(str, start, i - start)));
 	put_quotes(list);
-	return (ft_check_token_list(list));
+	list = ft_check_token_list(list);
+	if (!list)
+		return (NULL);
+	ft_remove_spaces(&list);
+	return (list);
 }
 
 int main()

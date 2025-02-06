@@ -40,3 +40,5 @@ No hay que gestionar paréntesis más allá de para discernir prioridades de eje
 filename maximo admitido por bash 256
 
 gestionar SHLVL (idea, que export guarde la variable iterandola +1 o a 0 si algun caracaracter es no es numerico y que env lo imprima -1  excepto si es 0)
+
+ft_join_str_tokenizer revisar para liberar

@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 17:50:10 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/01/30 21:20:17 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/02/06 17:38:05 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,41 @@
 
 int	ft_is_special_token(char *c);
 
+void	ft_remove_spaces(t_list **list)
+{
+	t_list	*tmp;
+	t_list	*tmp2;
+
+	if (*(char *)list[0]->content == ' '
+		|| (*(char *)list[0]->content == '\t'))
+	{
+		tmp = *list;
+		*list = (*list)->next;
+		ft_free_alloc(tmp->content);
+		ft_free_alloc(tmp);
+	}
+	tmp = *list;
+	while (tmp)
+	{
+		while (tmp->next && (*(char *)tmp->next->content == ' '
+			|| (*(char *)tmp->next->content == '\t')))
+		{
+			tmp2 = tmp->next;
+			tmp->next = tmp->next->next;
+			ft_free_alloc(tmp2->content);
+			ft_free_alloc(tmp2);
+		}
+			tmp = tmp->next;
+	}
+}
+
 void	put_quotes(t_list *list)
 {
 	char	*str;
 
 	while (list)
 	{
+		//printf("%s is special token: %d\n", (char *)list->content, ft_is_special_token((char *)list->content));
 		if (!ft_is_special_token(((char *)list->content)))
 		{
 			str = ft_alloc_lst(ft_strlen_p((char *)list->content) + 3, 3);
@@ -48,10 +77,11 @@ void	ft_join_str_tokenizer(t_list *list)
 							ft_strlen_p((char *)list->next->content) - 2));
 				list->next = list->next->next;
 			}
+			tmpstr = (char *)list->content;
+			list->content = ft_alloc_lst(ft_strlen_p((char *)list->content) + 3, 3);
+			//if (*(char *)list->content == '\"')
+				sprintf((char *)list->content, "\"%s\"", tmpstr);//si se elimina la linea comentada superior indexar esta linea correctamente
 		}
-		tmpstr = (char *)list->content;
-		list->content = ft_alloc_lst(ft_strlen_p((char *)list->content) + 3, 3);
-		sprintf((char *)list->content, "\"%s\"", tmpstr);
 		list = list->next;
 	}
 }
