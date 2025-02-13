@@ -6,7 +6,7 @@
 #    By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/10 21:51:45 by ide-dieg          #+#    #+#              #
-#    Updated: 2025/01/13 20:25:12 by ide-dieg         ###   ########.fr        #
+#    Updated: 2025/02/13 19:01:36 by ide-dieg         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRC_DIR = src
 INCLUDE_DIR = include
 BUILD_DIR = build
 CFILES = $(wildcard $(SRC_DIR)/*.c)
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 LDFLAGS = -lreadline
 OFILES = $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(CFILES))
 LIBFT = 42_Libft/libft.a

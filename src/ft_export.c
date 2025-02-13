@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 21:32:31 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/02/05 21:21:58 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/02/13 19:42:40 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,25 @@ void	ft_export_shlvl(t_env *env)
 	}
 }
 
+void	ft_free_hash(t_env *hash)
+{
+	ft_free_alloc(hash->name);
+	ft_free_alloc(hash->value);
+	ft_free_alloc(hash->full);
+	ft_free_alloc(hash);
+}
+
+t_env	*ft_create_hash(char *envp, int i)
+{
+	t_env	*hash;
+
+	hash = (t_env *)ft_alloc_lst(sizeof(t_env), 3);
+	hash->full = ft_strdup_ae(envp);
+	hash->name = ft_substr_ae(envp, 0, i);
+	hash->value = ft_strdup_ae(envp + i + 1);
+	return (hash);
+}
+
 void	ft_export(char *envp, t_list **envp_list)
 {
 	t_env	*hash;
@@ -50,18 +69,15 @@ void	ft_export(char *envp, t_list **envp_list)
 		i++;
 	if (!envp[i])
 		return ;
-	hash = (t_env *)ft_alloc_lst(sizeof(t_env), 3);
-	hash->full = ft_strdup_ae(envp);
-	hash->name = ft_substr_ae(envp, 0, i);
-	hash->value = ft_strdup_ae(envp + i + 1);
+	hash = ft_create_hash(envp, i);
 	tmp_list = *envp_list;
 	while (tmp_list && (t_env *)tmp_list->content)
 	{
 		if (!ft_strncmp_p(((t_env *)tmp_list->content)->name, hash->name,
 			ft_strlen_p(hash->name) + 1))
 		{
-			((t_env *)tmp_list->content)->value = hash->value;
-			((t_env *)tmp_list->content)->full = hash->full;
+			ft_free_hash((t_env *)tmp_list->content);
+			tmp_list->content = hash;
 			if (strncmp(hash->name, "SHLVL", 6) == 0)
 				ft_export_shlvl((t_env *)tmp_list->content);
 			return ;

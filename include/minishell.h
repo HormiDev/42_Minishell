@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:34:17 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/02/06 18:05:56 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/02/13 19:44:56 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void		ft_cd(char **args, t_list **env, t_minishell *minishell);
 void		ft_echo(char **args);
 void		ft_refresh_env_array(t_list *list, t_minishell *minishell);
 void		ft_export(char *envp, t_list **envp_list);
+void		ft_free_hash(t_env *hash);
 void		ft_init_env(t_minishell *minishell);
 void		ft_init_shlvl(t_minishell *minishell);
 int			ft_isnumber(char *str);

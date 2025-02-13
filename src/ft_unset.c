@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:31:01 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/02/05 13:54:55 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/02/13 19:45:54 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	ft_unset(char *envp, t_list **env_list)
 {
 	t_list	*tmp_list;
+	t_list	*tmp_list_free;
 
 	tmp_list = *env_list;
 	if (!envp || !env_list)
@@ -30,7 +31,10 @@ void	ft_unset(char *envp, t_list **env_list)
 		if (!ft_strncmp_p(((t_env *)tmp_list->next->content)->name, envp,
 			ft_strlen_p(envp) + 1))
 		{
+			tmp_list_free = tmp_list->next;
 			tmp_list->next = tmp_list->next->next;
+			ft_free_hash(tmp_list_free->content);
+			ft_free_alloc(tmp_list_free);
 			return ;
 		}
 		tmp_list = tmp_list->next;

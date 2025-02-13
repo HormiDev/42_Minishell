@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 12:46:47 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/02/04 16:48:40 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/02/13 19:11:56 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	ft_exit(char **arg, t_minishell *minishell)
 			return ;
 		}
 	}
-	free(minishell->line);
+	ft_free_alloc((minishell->line));
 	minishell->line = NULL;
 	clean_and_exit((unsigned int)ft_atoi_p(arg[0]));
 }
