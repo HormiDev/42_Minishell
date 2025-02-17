@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 17:50:10 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/02/06 17:38:05 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/02/17 18:06:28 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,23 +42,48 @@ void	ft_remove_spaces(t_list **list)
 	}
 }
 
+/**
+ * @brief funcion que pone comillas "" a los strings para diferenciarlos 
+ * del resto de tokens
+ * @example hola || adios -> "hola" || "adios"
+ */
 void	put_quotes(t_list *list)
 {
 	char	*str;
 
 	while (list)
 	{
-		//printf("%s is special token: %d\n", (char *)list->content, ft_is_special_token((char *)list->content));
 		if (!ft_is_special_token(((char *)list->content)))
 		{
 			str = ft_alloc_lst(ft_strlen_p((char *)list->content) + 3, 3);
 			sprintf(str, "\"%s\"", (char *)list->content);
+			ft_free_alloc(list->content);
 			list->content = str;
 		}
 		list = list->next;
 	}
 }
 
+void	ft_join_str_tokenizer_while(t_list *list)
+{
+	char	*tmpstr;
+
+	tmpstr = (char *)list->next->content;
+	list->next->content = ft_substr_ae(tmpstr, 1,
+		ft_strlen_p(tmpstr) - 2);
+	ft_free_alloc(tmpstr);
+	tmpstr = (char *)list->content;
+	list->content = ft_strjoin_ae((char *)list->content,
+			(char *)list->next->content);
+	ft_free_alloc(tmpstr);
+	list->next = list->next->next;
+}
+/**
+ * @brief funcion que une los strings que estan entre comillas
+ * @example "hola mundo"' que tal '$VAR -> "hola mundo que tal var_content"
+ * @param list lista de tokens
+ * @return void
+ */
 void	ft_join_str_tokenizer(t_list *list)
 {
 	char	*tmpstr;
@@ -67,20 +92,17 @@ void	ft_join_str_tokenizer(t_list *list)
 	{
 		if (*(char *)list->content == '\"' || *(char *)list->content == '\'')
 		{
+			tmpstr = (char *)list->content;
 			list->content = ft_substr_ae((char *)list->content, 1,
 				ft_strlen_p((char *)list->content) - 2);
+			ft_free_alloc(tmpstr);
 			while (list->next && (*(char *)list->next->content == '\"'
-					|| *(char *)list->next->content == '\''))
-			{
-				list->content = ft_strjoin_ae((char *)list->content,
-						ft_substr_ae((char *)list->next->content, 1,
-							ft_strlen_p((char *)list->next->content) - 2));
-				list->next = list->next->next;
-			}
+				|| *(char *)list->next->content == '\''))
+				ft_join_str_tokenizer_while(list);
 			tmpstr = (char *)list->content;
-			list->content = ft_alloc_lst(ft_strlen_p((char *)list->content) + 3, 3);
-			//if (*(char *)list->content == '\"')
-				sprintf((char *)list->content, "\"%s\"", tmpstr);//si se elimina la linea comentada superior indexar esta linea correctamente
+			list->content = ft_alloc_lst(ft_strlen_p(tmpstr) + 3, 3);
+			sprintf((char *)list->content, "\"%s\"", tmpstr);
+			ft_free_alloc(tmpstr);
 		}
 		list = list->next;
 	}

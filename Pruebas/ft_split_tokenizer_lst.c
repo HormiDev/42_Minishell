@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 18:58:26 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/02/06 17:19:38 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/02/17 17:50:01 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	ft_split_tokenizer_lst_while(char *str, t_list **list, int *i, int *start)
 		{
 			if (*i - *start)
 				ft_lstadd_back(list, ft_lstnew_ae(ft_substr_ae(str, *start,
-							*i - *start)));
+					*i - *start)));
 			ft_lstadd_back(list, ft_lstnew_ae(ft_substr_ae(str, *i, size)));
 		}
 		else
@@ -105,7 +105,7 @@ int	ft_split_tokenizer_lst_while(char *str, t_list **list, int *i, int *start)
 		(*i)++;
 	return (1);
 }
-void	dollar_variable_converter(t_list *list);
+void	ft_dollar_variable_converter(t_list *list);
 void	ft_join_str_tokenizer(t_list *list);
 void	put_quotes(t_list *list);
 int		ft_check_parenthesis(t_list *tks);
@@ -116,7 +116,7 @@ int		ft_check_parenthesis_and_instructions(t_list *tks);
 int		ft_check_instructions_and_parenthesis(t_list *tks);
 int 	ft_check_for_redundant_parenthesis(t_list *tks);
 
-t_list	*ft_check_token_list(t_list *list)
+int	ft_check_token_list(t_list *list)
 {
 	int		parenthesis_code;
 
@@ -127,17 +127,17 @@ t_list	*ft_check_token_list(t_list *list)
 			ft_print_syntax_error_message(")");
 		else
 			ft_print_syntax_error_message("(");
-		return (NULL);
+		return (0);
 	}
 	if (ft_check_instructions_after_tokens(list) 
 		|| ft_check_instructions_last_tokens(list)
 		|| ft_check_parenthesis_and_instructions(list)
 		|| ft_check_instructions_and_parenthesis(list)
 		|| ft_check_for_redundant_parenthesis(list))
-		return (NULL);
-	dollar_variable_converter(list);
+		return (0);
+	ft_dollar_variable_converter(list);
 	ft_join_str_tokenizer(list);
-	return (list);
+	return (1);
 }
 
 t_list	*ft_split_tokenizer_lst(char *str)
@@ -158,9 +158,11 @@ t_list	*ft_split_tokenizer_lst(char *str)
 		ft_lstadd_back(&list, ft_lstnew_ae
 			(ft_substr_ae(str, start, i - start)));
 	put_quotes(list);
-	list = ft_check_token_list(list);
-	if (!list)
+	if (!ft_check_token_list(list))
+	{
+		ft_free_alloc_lst_clear(&list, ft_free_alloc);
 		return (NULL);
+	}
 	ft_remove_spaces(&list);
 	return (list);
 }
@@ -170,18 +172,23 @@ int main()
 	t_list *list;
 	char *line;
 
-	line = readline("minishell$ ");
-	add_history(line);
+	line = ft_input("minishell$ ");
+	//line = readline("minishell$ ");
+	//add_history(line);
 	while(line)
 	{
 		list = ft_split_tokenizer_lst(line);
 		if (list)
 			ft_print(list);
 		free(line);		
-		line = readline("minishell$ ");
-		add_history(line);
+		line = ft_input("minishell$ ");
+		//line = readline("minishell$ ");
+		if (!ft_strncmp_p(line, "exit", 4))
+			break;
+		//add_history(line);
 	}
-	rl_clear_history();
+	free(line);
+	//rl_clear_history();
 	ft_alloc_lst(0,0);
 	return (0);
 }
