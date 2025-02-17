@@ -42,3 +42,5 @@ filename maximo admitido por bash 256
 gestionar SHLVL (idea, que export guarde la variable iterandola +1 o a 0 si algun caracaracter es no es numerico y que env lo imprima -1  excepto si es 0)
 
 ft_join_str_tokenizer revisar para liberar
+
+checkeo de redirecciones epra la ejecucion  "bash: /home/ide-dieg: Es un directorio"  "bash: $HOLA: redireccionamiento ambiguo"

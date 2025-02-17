@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:20:47 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/02/01 18:41:50 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/02/17 20:38:53 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,7 @@ int ft_check_instructions_last_tokens(t_list *tks)
 	int		instructions_last;
 
 	instructions_last = 0;
-	while (tks && (*(char *)tks->content != '&' && *(char *)tks->content != '|'
-			&& *(char *)tks->content != '<' && *(char *)tks->content != '>'))
+	while (tks && (*(char *)tks->content != '&' && *(char *)tks->content != '|'))
 		tks = tks->next;
 	if (!tks)
 		return (0);

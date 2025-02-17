@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 18:58:26 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/02/17 17:50:01 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/02/17 21:22:57 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,66 @@ int		ft_check_instructions_last_tokens(t_list *tks);
 int		ft_check_parenthesis_and_instructions(t_list *tks);
 int		ft_check_instructions_and_parenthesis(t_list *tks);
 int 	ft_check_for_redundant_parenthesis(t_list *tks);
+/*
+int	ft_check_token_list(t_list *list)
+{
+	while (list)
+	{
+		if (!ft_strncmp_p((char *)list->content, "&&", 2)
+			|| !ft_strncmp_p((char *)list->content, "||", 2)
+			|| !ft_strncmp_p((char *)list->content, "(", 1)
+			|| !ft_strncmp_p((char *)list->content, ")", 1))
+		{
+			ft_print_syntax_error_message((char *)list->content);
+			return (0);
+		}
+		list = list->next;
+	}
+	ft_dollar_variable_converter(list);
+	ft_join_str_tokenizer(list);
+	return (1);
+}*/
+
+int	ft_check_redirections(t_list *list)
+{
+	while (list)
+	{
+		if ((*(char *)list->content == '>' || *(char *)list->content == '<')
+			&& (!list->next || *(char *)list->next->content != '"'))
+		{
+			ft_print_syntax_error_message((char *)list->content);
+			return (0);
+		}
+		list = list->next;
+	}
+	return (1);
+}
+
+void	ft_join_redirections(t_list *list)
+{
+	char	*tmp;
+	t_list	*tmp_list;
+
+	while (list)
+	{
+		if (*(char *)list->content == '>' || *(char *)list->content == '<')
+		{
+			tmp = (char *)list->next->content;
+			list->next->content = ft_substr_ae(tmp, 1, ft_strlen_p(tmp) - 2);
+			ft_free_alloc(tmp);
+			tmp = ft_alloc_lst(ft_strlen_p((char *)list->content)
+					+ ft_strlen_p((char *)list->next->content) + 3, 3);
+			sprintf(tmp, "\"%s%s\"", (char *)list->content, (char *)list->next->content);
+			ft_free_alloc(list->content);
+			list->content = tmp;
+			tmp_list = list->next;
+			list->next = list->next->next;
+			ft_free_alloc(tmp_list->content);
+			ft_free_alloc(tmp_list);
+		}
+		list = list->next;
+	}
+}
 
 int	ft_check_token_list(t_list *list)
 {
@@ -129,14 +189,18 @@ int	ft_check_token_list(t_list *list)
 			ft_print_syntax_error_message("(");
 		return (0);
 	}
+	ft_dollar_variable_converter(list);
+	ft_join_str_tokenizer(list);
+	ft_remove_spaces(&list);
+	if (!ft_check_redirections(list))
+		return (0);
+	ft_join_redirections(list);
 	if (ft_check_instructions_after_tokens(list) 
 		|| ft_check_instructions_last_tokens(list)
 		|| ft_check_parenthesis_and_instructions(list)
 		|| ft_check_instructions_and_parenthesis(list)
 		|| ft_check_for_redundant_parenthesis(list))
 		return (0);
-	ft_dollar_variable_converter(list);
-	ft_join_str_tokenizer(list);
 	return (1);
 }
 
@@ -163,7 +227,7 @@ t_list	*ft_split_tokenizer_lst(char *str)
 		ft_free_alloc_lst_clear(&list, ft_free_alloc);
 		return (NULL);
 	}
-	ft_remove_spaces(&list);
+	//ft_remove_spaces(&list);
 	return (list);
 }
 
@@ -172,23 +236,23 @@ int main()
 	t_list *list;
 	char *line;
 
-	line = ft_input("minishell$ ");
-	//line = readline("minishell$ ");
-	//add_history(line);
+	//line = ft_input("minishell$ ");
+	line = readline("minishell$ ");
+	add_history(line);
 	while(line)
 	{
 		list = ft_split_tokenizer_lst(line);
 		if (list)
 			ft_print(list);
 		free(line);		
-		line = ft_input("minishell$ ");
-		//line = readline("minishell$ ");
+		//line = ft_input("minishell$ ");
+		line = readline("minishell$ ");
 		if (!ft_strncmp_p(line, "exit", 4))
 			break;
-		//add_history(line);
+		add_history(line);
 	}
 	free(line);
-	//rl_clear_history();
+	rl_clear_history();
 	ft_alloc_lst(0,0);
 	return (0);
 }
