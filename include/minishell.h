@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:34:17 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/02/13 19:44:56 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/02/18 13:42:08 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ typedef struct s_cmd
 	char	**args;
 	t_redir	**infiles;
 	t_redir	**outfiles;
-	int		pipe[2];
+	int		*in_pipe;
+	int		*out_pipe;
 }	t_cmd;
 
 typedef	struct s_env

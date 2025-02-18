@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 18:58:26 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/02/17 21:22:57 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/02/18 14:10:07 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,25 +115,7 @@ int		ft_check_instructions_last_tokens(t_list *tks);
 int		ft_check_parenthesis_and_instructions(t_list *tks);
 int		ft_check_instructions_and_parenthesis(t_list *tks);
 int 	ft_check_for_redundant_parenthesis(t_list *tks);
-/*
-int	ft_check_token_list(t_list *list)
-{
-	while (list)
-	{
-		if (!ft_strncmp_p((char *)list->content, "&&", 2)
-			|| !ft_strncmp_p((char *)list->content, "||", 2)
-			|| !ft_strncmp_p((char *)list->content, "(", 1)
-			|| !ft_strncmp_p((char *)list->content, ")", 1))
-		{
-			ft_print_syntax_error_message((char *)list->content);
-			return (0);
-		}
-		list = list->next;
-	}
-	ft_dollar_variable_converter(list);
-	ft_join_str_tokenizer(list);
-	return (1);
-}*/
+void	ft_remove_quotes(t_list *list);
 
 int	ft_check_redirections(t_list *list)
 {
@@ -159,12 +141,10 @@ void	ft_join_redirections(t_list *list)
 	{
 		if (*(char *)list->content == '>' || *(char *)list->content == '<')
 		{
-			tmp = (char *)list->next->content;
-			list->next->content = ft_substr_ae(tmp, 1, ft_strlen_p(tmp) - 2);
-			ft_free_alloc(tmp);
 			tmp = ft_alloc_lst(ft_strlen_p((char *)list->content)
 					+ ft_strlen_p((char *)list->next->content) + 3, 3);
-			sprintf(tmp, "\"%s%s\"", (char *)list->content, (char *)list->next->content);
+			sprintf(tmp, "\"%s%s\"", (char *)list->content,
+				(char *)list->next->content);
 			ft_free_alloc(list->content);
 			list->content = tmp;
 			tmp_list = list->next;
@@ -176,33 +156,7 @@ void	ft_join_redirections(t_list *list)
 	}
 }
 
-int	ft_check_token_list(t_list *list)
-{
-	int		parenthesis_code;
-
-	parenthesis_code = ft_check_parenthesis(list);
-	if (parenthesis_code)
-	{
-		if (parenthesis_code < 0)
-			ft_print_syntax_error_message(")");
-		else
-			ft_print_syntax_error_message("(");
-		return (0);
-	}
-	ft_dollar_variable_converter(list);
-	ft_join_str_tokenizer(list);
-	ft_remove_spaces(&list);
-	if (!ft_check_redirections(list))
-		return (0);
-	ft_join_redirections(list);
-	if (ft_check_instructions_after_tokens(list) 
-		|| ft_check_instructions_last_tokens(list)
-		|| ft_check_parenthesis_and_instructions(list)
-		|| ft_check_instructions_and_parenthesis(list)
-		|| ft_check_for_redundant_parenthesis(list))
-		return (0);
-	return (1);
-}
+int	ft_check_token_list(t_list **list);
 
 t_list	*ft_split_tokenizer_lst(char *str)
 {
@@ -222,14 +176,16 @@ t_list	*ft_split_tokenizer_lst(char *str)
 		ft_lstadd_back(&list, ft_lstnew_ae
 			(ft_substr_ae(str, start, i - start)));
 	put_quotes(list);
-	if (!ft_check_token_list(list))
+	if (!ft_check_token_list(&list))
 	{
 		ft_free_alloc_lst_clear(&list, ft_free_alloc);
 		return (NULL);
 	}
-	//ft_remove_spaces(&list);
+	ft_remove_quotes(list);
 	return (list);
 }
+
+t_cmd	*ft_create_cmd(t_list *list);
 
 int main()
 {
@@ -243,7 +199,10 @@ int main()
 	{
 		list = ft_split_tokenizer_lst(line);
 		if (list)
+		{
 			ft_print(list);
+			ft_create_cmd(list);
+		}
 		free(line);		
 		//line = ft_input("minishell$ ");
 		line = readline("minishell$ ");

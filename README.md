@@ -44,3 +44,10 @@ gestionar SHLVL (idea, que export guarde la variable iterandola +1 o a 0 si algu
 ft_join_str_tokenizer revisar para liberar
 
 checkeo de redirecciones epra la ejecucion  "bash: /home/ide-dieg: Es un directorio"  "bash: $HOLA: redireccionamiento ambiguo"
+
+analizar posibles soluciones a esta mierda
+	export HOLA=">hola"
+	echo hola $HOLA		imprime "hola >hola"
+	echo hola >$HOLA	crea fichero >hola y escribe dentro hola
+posible solucion al jointear las redireccines con los strings no quitar las comillas del string y añadir unas extra
+ejemplo:	 > "str"	">"str""

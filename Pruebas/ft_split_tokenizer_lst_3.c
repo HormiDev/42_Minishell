@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 17:50:10 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/02/17 20:53:15 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/02/18 13:31:33 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_remove_spaces(t_list **list)
 		|| (*(char *)list[0]->content == '\t'))
 	{
 		tmp = *list;
-		*list = (*list)->next;
+		*list = tmp->next;
 		ft_free_alloc(tmp->content);
 		ft_free_alloc(tmp);
 	}
@@ -103,6 +103,30 @@ void	ft_join_str_tokenizer(t_list *list)
 			list->content = ft_alloc_lst(ft_strlen_p(tmpstr) + 3, 3);
 			sprintf((char *)list->content, "\"%s\"", tmpstr);
 			ft_free_alloc(tmpstr);
+		}
+		list = list->next;
+	}
+}
+
+void	ft_remove_quotes(t_list *list)
+{
+	char	*content;
+
+	while (list)
+	{
+		content = (char *)list->content;
+		if (*content == '"'
+			&& (((content[1] && content[1] == '<')
+					&& ((content[2] && content[2] == '"')
+						|| ((content[2] && content[2] == '<')
+							&& (content[3] && content[3] == '"'))))
+				|| ((content[1] && content[1] == '>')
+					&& ((content[2] && content[2] == '"')
+						|| ((content[2] && content[2] == '>')
+							&& (content[3] && content[3] == '"'))))))
+		{
+			list->content = ft_substr_ae(content, 1, ft_strlen_p(content) - 2);
+			ft_free_alloc(content);
 		}
 		list = list->next;
 	}

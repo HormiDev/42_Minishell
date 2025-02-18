@@ -7,3 +7,8 @@
 
 (echo $HOME" que tal")
 "(" "echo" "/home/ide-dieg que tal" ")"
+
+
+1 echo hola | cat -e >outfile | dfsg | fsfds && echo adios
+|_0 echo hola | cat -e >outfile | dfsg | fsfds
+|_0 echo adios
