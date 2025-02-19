@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parenthesis_checker.c                           :+:      :+:    :+:   */
+/*   parsing_checker.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:20:47 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/02/19 18:22:06 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/02/19 22:05:40 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 void	ft_print_syntax_error_message(char *token)
 {
@@ -18,6 +18,16 @@ void	ft_print_syntax_error_message(char *token)
 		RED, token, RESET);
 }
 
+/**
+ * @file ft_parenthesis_checker.c
+ * @brief Verifica si hay paréntesis abiertos y cerrados.
+ * 
+ * Esta función se encarga de analizar una secuencia de tokens y determinar si
+ * existen paréntesis abiertos y cerrados. Si hay un paréntesis cerrado sin un
+ * paréntesis abierto, se imprime un mensaje de error.
+ * 
+ * @param tks Puntero a la estructura de tokens que se va a analizar.
+ */
 int	ft_check_parenthesis(t_list *tks)
 {
 	int	parenthesis;
@@ -47,7 +57,16 @@ int	ft_check_parenthesis(t_list *tks)
 	return (parenthesis);
 }
 
-int	ft_check_instructions_after_tokens(t_list *tks)
+/**
+ * @file ft_parenthesis_checker.c
+ * @brief Verifica si hay instrucciones después de los tokens.
+ * 
+ * Esta función se encarga de analizar si despues de un string o un cierre de
+ * paréntesis hay un operador lógico o de redirección. |, ||, &&.
+ * 
+ * @param tks Puntero a la estructura de tokens que se va a analizar.
+ */
+int	ft_verify_correct_order_onwards(t_list *tks)
 {
 	int		instructions_after;
 
@@ -71,7 +90,16 @@ int	ft_check_instructions_after_tokens(t_list *tks)
 	return (0);
 }
 
-int	check_tokens_after_special_found(t_list *tks, int *instructions_last)
+/**
+ * @file ft_parenthesis_checker.c
+ * @brief Verifica si hay instrucciones después de los tokens.
+ * 
+ * Esta función se encarga de analizar si antes de un string o un apertura de
+ * paréntesis hay un operador lógico o de redirección. |, ||, &&, <, >, >>, <<.
+ * 
+ * @param tks Puntero a la estructura de tokens que se va a analizar.
+ */
+int	ft_check_tokens_after_special_found(t_list *tks, int *instructions_last)
 {
 	while (tks)
 	{
@@ -95,7 +123,16 @@ int	check_tokens_after_special_found(t_list *tks, int *instructions_last)
 	return (0);
 }
 
-int	ft_check_instructions_last_tokens(t_list *tks)
+/**
+ * @file ft_parenthesis_checker.c
+ * @brief Verifica si hay instrucciones después de los tokens.
+ * 
+ * Esta función se encarga de analizar una secuencia de tokens y determinar si
+ * existen instrucciones válidas después de los tokens de |, ||, &&.
+ * 
+ * @param tks Puntero a la estructura de tokens que se va a analizar.
+ */
+int	ft_verify_correct_order_backwards(t_list *tks)
 {
 	int		instructions_last;
 
@@ -108,96 +145,13 @@ int	ft_check_instructions_last_tokens(t_list *tks)
 	if (tks->next)
 	{
 		tks = tks->next;
-		if (check_tokens_after_special_found(tks, &instructions_last))
+		if (ft_check_tokens_after_special_found(tks, &instructions_last))
 			return (1);
 	}
 	if (instructions_last <= 0)
 	{
 		ft_print_syntax_error_message(tks->content);
 		return (1);
-	}
-	return (0);
-}
-
-int	ft_check_parenthesis_and_instructions(t_list *tks)
-{
-	int		parenthesis;
-	char	*content;
-
-	parenthesis = 0;
-	while (tks)
-	{
-		content = (char *)tks->content;
-		if (*content == ')')
-			parenthesis++;
-		else if (parenthesis > 0 && (*content == '"'
-				|| *content == '\'' || *content == '('))
-		{
-			ft_print_syntax_error_message(tks->content);
-			return (1);
-		}
-		else if (*content == '&' || *content == '|')
-			parenthesis = 0;
-		tks = tks->next;
-	}
-	return (0);
-}
-
-int	ft_check_instructions_and_parenthesis(t_list *tks)
-{
-	int	instructions;
-
-	instructions = 0;
-	while (tks)
-	{
-		if (*(char *)tks->content == '"' || *(char *)tks->content == '\''
-			|| *(char *)tks->content == ')')
-			instructions++;
-		if (*(char *)tks->content == '|' || *(char *)tks->content == '&')
-			instructions = 0;
-		if (instructions > 0 && *(char *)tks->content == '(')
-		{
-			ft_print_syntax_error_message(tks->content);
-			return (1);
-		}
-		tks = tks->next;
-	}
-	return (0);
-}
-
-int	ft_are_logic_operators_inside_parenthesis(t_list *tks)
-{
-	int	open_parenthesis;
-
-	open_parenthesis = 1;
-	while (open_parenthesis)
-	{
-		if (*(char *)tks->content == '(')
-			open_parenthesis++;
-		if (*(char *)tks->content == ')')
-			open_parenthesis--;
-		if (open_parenthesis == 1
-			&& (*(char *)tks->content == '&'
-				|| !ft_strncmp_p(tks->content, "||", 2)))
-			return (1);
-		tks = tks->next;
-	}
-	return (0);
-}
-
-int	ft_check_for_redundant_parenthesis(t_list *tks)
-{
-	while (tks)
-	{
-		if (*(char *)tks->content == '(')
-		{
-			if (!ft_are_logic_operators_inside_parenthesis(tks->next))
-			{
-				ft_print_syntax_error_message(tks->content);
-				return (1);
-			}
-		}
-		tks = tks->next;
 	}
 	return (0);
 }

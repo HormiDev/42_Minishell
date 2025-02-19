@@ -31,23 +31,25 @@ implementar pwd ko
 
 cambiar envp a formato de lista y modificar ft_getenv() ok
 
-si tenemos tiempo y ganas gestionar que si no hay env cree uno con el el pwd, SHLVL y _
+si tenemos tiempo y ganas gestionar que si no hay env cree uno con el el pwd, SHLVL y _ ok
 
-gestion de sintaxis erronea ej () (echo hola && (echo hola))
+gestion de sintaxis erronea ej () (echo hola && (echo hola)) ok
 
-No hay que gestionar paréntesis más allá de para discernir prioridades de ejecución.
+No hay que gestionar paréntesis más allá de para discernir prioridades de ejecución. ok
 
-filename maximo admitido por bash 256
+gestionar SHLVL (idea, que export guarde la variable iterandola +1 o a 0 si algun caracaracter es no es numerico y que env lo imprima -1  excepto si es 0) ok?
 
-gestionar SHLVL (idea, que export guarde la variable iterandola +1 o a 0 si algun caracaracter es no es numerico y que env lo imprima -1  excepto si es 0)
+ft_join_str_tokenizer revisar para liberar ok
 
-ft_join_str_tokenizer revisar para liberar
-
-checkeo de redirecciones epra la ejecucion  "bash: /home/ide-dieg: Es un directorio"  "bash: $HOLA: redireccionamiento ambiguo"
-
-analizar posibles soluciones a esta mierda
+analizar posibles soluciones a esta mierda ok
 	export HOLA=">hola"
 	echo hola $HOLA		imprime "hola >hola"
 	echo hola >$HOLA	crea fichero >hola y escribe dentro hola
 posible solucion al jointear las redireccines con los strings no quitar las comillas del string y añadir unas extra
 ejemplo:	 > "str"	">"str""
+
+NOTA: la creacion de la estructura s_data_container para el ultimo paso de la tokenizacion (el listado de s_cmd) ha sido una brillante idea que de haberseme ocurrido antes se podia haber facilitado mucho y hacer mas eciciente toda la tokenizacion, pero en principio nos quedamos con la funcional y mejorable version actual
+
+filename maximo admitido por bash 256
+
+checkeo de redirecciones para la ejecucion  "bash: /home/ide-dieg: Es un directorio"  "bash: $HOLA: redireccionamiento ambiguo"

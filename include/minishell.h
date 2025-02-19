@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:34:17 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/02/19 18:46:07 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/02/19 22:12:12 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,30 +83,55 @@ typedef struct s_building
 	struct s_building	*prev;
 }	t_building;
 
-void		clean_and_exit(int exit_code);
-void		ft_array_to_list(char **envp, t_list **envp_list);
-void		ft_cd(char **args, t_list **env, t_minishell *minishell);
-void		ft_echo(char **args);
-void		ft_refresh_env_array(t_list *list, t_minishell *minishell);
-void		ft_export(char *envp, t_list **envp_list);
-void		ft_free_hash(t_env *hash);
-void		ft_init_env(t_minishell *minishell);
-void		ft_init_shlvl(t_minishell *minishell);
-int			ft_isnumber(char *str);
-t_minishell	*ft_loading_minishell(char **envp);
-char		*ft_getenv(char *needle, t_list *envp);
-void		ft_update_prompt(t_minishell *minishell);
-void		ft_print_env(t_list *env);
-void		ft_export(char *envp, t_list **envp_list);
-void		ft_export_args(char **args, t_list **env_list, t_minishell *mini);
-void		ft_exit(char **arg, t_minishell *minishell);
-void		ft_pwd(t_minishell *minishell);
-void		ft_unset(char *envp, t_list **env_list);
-void		mini_exec(char *command, char **args, t_minishell *minishell);
-void		ft_parsing_and_exec(t_minishell *minishell);
-void		ft_remove_spaces(t_list **list);
-char		*ft_search_in_path(char *cmd, t_list *envp);
-void		ft_unset_args(char **args, t_list **env_list, t_minishell *mini);
+void				clean_and_exit(int exit_code);
+void				ft_array_to_list(char **envp, t_list **envp_list);
+void				ft_cd(char **args, t_list **env, t_minishell *minishell);
+void				ft_echo(char **args);
+void				ft_refresh_env_array(t_list *list, t_minishell *minishell);
+void				ft_export(char *envp, t_list **envp_list);
+void				ft_free_hash(t_env *hash);
+void				ft_init_env(t_minishell *minishell);
+void				ft_init_shlvl(t_minishell *minishell);
+int					ft_isnumber(char *str);
+t_minishell			*ft_loading_minishell(char **envp);
+char				*ft_getenv(char *needle, t_list *envp);
+void				ft_update_prompt(t_minishell *minishell);
+void				ft_print_env(t_list *env);
+void				ft_export(char *envp, t_list **envp_list);
+void				ft_export_args(char **args, t_list **env_list,
+						t_minishell *mini);
+void				ft_exit(char **arg, t_minishell *minishell);
+void				ft_pwd(t_minishell *minishell);
+void				ft_unset(char *envp, t_list **env_list);
+void				mini_exec(char *command, char **args,
+						t_minishell *minishell);
+void				ft_parsing_and_exec(t_minishell *minishell);
+void				ft_remove_spaces(t_list **list);
+char				*ft_search_in_path(char *cmd, t_list *envp);
+void				ft_unset_args(char **args, t_list **env_list,
+						t_minishell *mini);
+
+//tokenizer
+int					ft_is_special_token(char *c);
+void				ft_print_syntax_error_message(char *token);
+int					ft_check_token_list(t_list **list);
+void				ft_dollar_variable_converter(t_list *list);
+void				ft_join_str_tokenizer(t_list *list);
+void				ft_put_quotes(t_list *list);
+int					ft_check_parenthesis(t_list *tks);
+int					ft_verify_correct_order_onwards(t_list *tks);
+void				ft_print_syntax_error_message(char *token);
+int					ft_verify_correct_order_backwards(t_list *tks);
+int					ft_check_instructions_after_parenthesis(t_list *tks);
+int					ft_check_instructions_before_parenthesis(t_list *tks);
+int					ft_check_for_redundant_parenthesis(t_list *tks);
+void				ft_remove_quotes(t_list *list);
+t_cmd				*ft_create_cmd(t_list *list);
+t_data_container	*ft_new_data_container(void *data, int type);
+int					ft_check_token_list(t_list **list);
+void				ft_join_redirections(t_list *list);
+int					ft_check_redirections(t_list *list);
+t_list				*ft_create_cmds(t_list *list);
 
 #endif
 

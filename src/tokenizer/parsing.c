@@ -1,18 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split_tokenizer_lst_3.c                         :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/25 17:50:10 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/02/18 13:31:33 by ide-dieg         ###   ########.fr       */
+/*   Created: 2025/02/19 22:05:41 by ide-dieg          #+#    #+#             */
+/*   Updated: 2025/02/19 22:05:47 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
-
-int	ft_is_special_token(char *c);
+#include "../../include/minishell.h"
 
 void	ft_remove_spaces(t_list **list)
 {
@@ -47,7 +45,7 @@ void	ft_remove_spaces(t_list **list)
  * del resto de tokens
  * @example hola || adios -> "hola" || "adios"
  */
-void	put_quotes(t_list *list)
+void	ft_put_quotes(t_list *list)
 {
 	char	*str;
 
@@ -64,7 +62,7 @@ void	put_quotes(t_list *list)
 	}
 }
 
-void	ft_join_str_tokenizer_while(t_list *list)
+static void	ft_join_str_tokenizer_while(t_list *list)
 {
 	char	*tmpstr;
 

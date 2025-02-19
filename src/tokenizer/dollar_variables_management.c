@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split_tokenizer_lst_2.c                         :+:      :+:    :+:   */
+/*   ft_tokenizer_2.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,8 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
+//borrar esta funcion
 static char	*ft_getenv_2(char *needle)
 {
 	if (*needle == 0)
@@ -26,7 +27,7 @@ static char	*ft_getenv_2(char *needle)
 * @param i Indice de la cadena de texto
 * @return char* Nombre de la variable de entorno
 */
-char	*ft_parse_var(char *str, int *i)
+static char	*ft_parse_var(char *str, int *i)
 {
 	size_t	len;
 	char	*var;
@@ -46,7 +47,7 @@ char	*ft_parse_var(char *str, int *i)
 	return (ft_getenv_2(var));//aqi lo mism, hay que pasar el ft_getenv original
 }
 
-char	*ft_split_and_join(char *str, char *var, int i)
+static char	*ft_split_and_join(char *str, char *var, int i)
 {
 	int		len;
 	char	*substr;
