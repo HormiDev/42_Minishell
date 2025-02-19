@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:34:17 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/02/18 13:42:08 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:46:07 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,18 @@ typedef struct s_redir
 	int		type;
 }	t_redir;
 
+typedef struct s_data_container
+{
+	void	*data;
+	int		type;
+}	t_data_container;
+
 typedef struct s_cmd
 {
 	char	*cmd;
 	char	**args;
 	t_redir	**infiles;
 	t_redir	**outfiles;
-	int		*in_pipe;
-	int		*out_pipe;
 }	t_cmd;
 
 typedef	struct s_env

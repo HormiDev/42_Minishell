@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 18:13:52 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/02/18 14:18:37 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:49:19 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,15 +82,11 @@ void	ft_print_cmd(t_cmd *cmd)
 {
 	int	i;
 
-	if (cmd->in_pipe)
-		printf("(in_pipe: %d->%d) ", cmd->in_pipe[0], cmd->in_pipe[1]);
-	else
-		printf("in_pipe: NULL ");
 	i = 0;
 	if (cmd->infiles[i])
-		printf("infiles: ");
+		printf(" infiles: ");
 	else
-		printf("infiles: NULL ");
+		printf(" infiles: NULL ");
 	while (cmd->infiles[i])
 	{
 		if ((((t_redir *)cmd->infiles[i])->type) == 0)
@@ -101,9 +97,9 @@ void	ft_print_cmd(t_cmd *cmd)
 	}
 	i = 0;
 	if (cmd->outfiles[i])
-		printf("outfiles: ");
+		printf(" outfiles: ");
 	else
-		printf("outfiles: NULL ");
+		printf(" outfiles: NULL ");
 	while (cmd->outfiles[i])
 	{
 		if (((t_redir *)cmd->outfiles[i])->type == 1)
@@ -113,17 +109,13 @@ void	ft_print_cmd(t_cmd *cmd)
 		i++;
 	}
 	i = 0;
-	printf("cmd: %s ", cmd->cmd);
-	printf("args: ");
+	printf(" [cmd: %s] ", cmd->cmd);
+	printf(" args: ");
 	while (cmd->args[i])
 	{
 		printf("%s ", cmd->args[i]);
 		i++;
 	}
-	if (cmd->out_pipe)
-		printf("(out_pipe: %d->%d) ", cmd->out_pipe[0], cmd->out_pipe[1]);
-	else
-		printf("out_pipe: NULL ");
 	printf("\n");
 }
 
@@ -145,19 +137,88 @@ t_cmd	*ft_create_cmd(t_list *list)
 		list = list->next;
 	}
 	new_cmd->cmd = new_cmd->args[0];
-	ft_print_cmd(new_cmd);
+	//ft_print_cmd(new_cmd);
 	return (new_cmd);
 }
 
-/*
+void	ft_print_cmdlist(t_list *cmds)
+{
+	int i=0;
+
+	while (cmds)
+	{
+		if (((t_data_container *)cmds->content)->type == 0)
+		{
+			printf("%-4d", i);
+			ft_print_cmd((t_cmd *)((t_data_container *)cmds->content)->data);
+		}
+		else
+		{
+			printf("%-4d", i);
+			printf("%s\n", (char *)((t_data_container *)cmds->content)->data);	
+		}
+		i++;
+		cmds = cmds->next;
+	}
+}
+/**
+ * @brief Funcion que crea un contenedor de datos
+ * type = 0 -> t_cmd
+ * type = 1 -> char *
+ * 
+ * @param data
+ * @param type
+*/
+t_data_container *ft_new_data_container(void *data, int type)
+{
+	t_data_container *data_container;
+
+	data_container = ft_alloc_lst(sizeof(t_data_container), 4);
+	data_container->data = data;
+	data_container->type = type;
+	return (data_container);
+}
+
 t_list	*ft_create_cmds(t_list *list)
 {
 	t_list	*cmds;
-	t_cmd	*new_cmd;
 	t_list	*tmp;
-	int		i;
+	t_list	*tmp2;
+	int		is_cmd;
 
 	cmds = NULL;
-	tmp = list;
-	ft_lstadd_back(&cmds, ft_lstnew_ae(ft_create_cmd(list)));
-}*/
+	while (list)
+	{
+		tmp = list;
+		tmp2 = list;
+		is_cmd = 0;
+		while (list)
+		{
+			if (!ft_strncmp_p((char *)list->content, "|", 1)
+				|| !ft_strncmp_p((char *)list->content, "(", 1)
+				|| !ft_strncmp_p((char *)list->content, ")", 1)
+				|| !ft_strncmp_p((char *)list->content, "&&", 2)
+				|| !ft_strncmp_p((char *)list->content, "\n", 1))
+			{
+				if (is_cmd)
+					tmp2->next = NULL;
+				break;
+			}
+			is_cmd = 1;
+			tmp2 = list;
+			list = list->next;
+		}
+		if (is_cmd)
+			ft_lstadd_back(&cmds, ft_lstnew_ae(ft_new_data_container(ft_create_cmd(tmp), 0)));
+		if (list)
+			ft_lstadd_back(&cmds, ft_lstnew_ae(ft_new_data_container(ft_strdup_ae(list->content), 1)));
+		//liberar lista tmp
+		tmp = list;
+		if (list)
+			list = list->next;
+		//liberar lista tmp
+	}
+	ft_print_cmdlist(cmds);
+	ft_free_alloc_lst_clear(&list, ft_free_alloc);
+	return (cmds);
+}

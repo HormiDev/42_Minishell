@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 16:07:05 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/02/18 13:17:11 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/02/18 15:43:25 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static char	*ft_getenv_2(char *needle)
 {
 	if (*needle == 0)
 		return (NULL);
-	return (ft_strdup_ae(">SOY_UNA_VARIABLE_DE_PRUEBA"));
+	return (ft_strdup_ae("SOY_UNA_VARIABLE_DE_PRUEBA"));
 }
 /**
 * @brief Funcion que obtiene el nombre de la variable de entorno

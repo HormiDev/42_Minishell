@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 18:58:26 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/02/18 14:10:07 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/02/18 16:15:07 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,7 @@ t_list	*ft_split_tokenizer_lst(char *str)
 	return (list);
 }
 
-t_cmd	*ft_create_cmd(t_list *list);
+t_list	*ft_create_cmds(t_list *list);
 
 int main()
 {
@@ -201,7 +201,7 @@ int main()
 		if (list)
 		{
 			ft_print(list);
-			ft_create_cmd(list);
+			ft_create_cmds(list);
 		}
 		free(line);		
 		//line = ft_input("minishell$ ");
