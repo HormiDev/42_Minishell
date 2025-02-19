@@ -93,7 +93,7 @@ int	ft_split_tokenizer_lst_while(char *str, t_list **list, int *i, int *start)
 		{
 			if (*i - *start)
 				ft_lstadd_back(list, ft_lstnew_ae(ft_substr_ae(str, *start,
-					*i - *start)));
+							*i - *start)));
 			ft_lstadd_back(list, ft_lstnew_ae(ft_substr_ae(str, *i, size)));
 		}
 		else
@@ -114,7 +114,7 @@ void	ft_print_syntax_error_message(char *token);
 int		ft_check_instructions_last_tokens(t_list *tks);
 int		ft_check_parenthesis_and_instructions(t_list *tks);
 int		ft_check_instructions_and_parenthesis(t_list *tks);
-int 	ft_check_for_redundant_parenthesis(t_list *tks);
+int		ft_check_for_redundant_parenthesis(t_list *tks);
 void	ft_remove_quotes(t_list *list);
 
 int	ft_check_redirections(t_list *list)
@@ -187,15 +187,15 @@ t_list	*ft_split_tokenizer_lst(char *str)
 
 t_list	*ft_create_cmds(t_list *list);
 
-int main()
+int	main(void)
 {
-	t_list *list;
-	char *line;
+	t_list	*list;
+	char	*line;
 
 	//line = ft_input("minishell$ ");
 	line = readline("minishell$ ");
 	add_history(line);
-	while(line)
+	while (line)
 	{
 		list = ft_split_tokenizer_lst(line);
 		if (list)
@@ -203,15 +203,15 @@ int main()
 			ft_print(list);
 			ft_create_cmds(list);
 		}
-		free(line);		
+		free(line);
 		//line = ft_input("minishell$ ");
 		line = readline("minishell$ ");
 		if (!ft_strncmp_p(line, "exit", 4))
-			break;
+			break ;
 		add_history(line);
 	}
 	free(line);
 	rl_clear_history();
-	ft_alloc_lst(0,0);
+	ft_alloc_lst(0, 0);
 	return (0);
 }

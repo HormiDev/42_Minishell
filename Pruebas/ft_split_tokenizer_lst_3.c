@@ -31,14 +31,14 @@ void	ft_remove_spaces(t_list **list)
 	while (tmp)
 	{
 		while (tmp->next && (*(char *)tmp->next->content == ' '
-			|| (*(char *)tmp->next->content == '\t')))
+				|| (*(char *)tmp->next->content == '\t')))
 		{
 			tmp2 = tmp->next;
 			tmp->next = tmp->next->next;
 			ft_free_alloc(tmp2->content);
 			ft_free_alloc(tmp2);
 		}
-			tmp = tmp->next;
+		tmp = tmp->next;
 	}
 }
 
@@ -70,7 +70,7 @@ void	ft_join_str_tokenizer_while(t_list *list)
 
 	tmpstr = (char *)list->next->content;
 	list->next->content = ft_substr_ae(tmpstr, 1,
-		ft_strlen_p(tmpstr) - 2);
+			ft_strlen_p(tmpstr) - 2);
 	ft_free_alloc(tmpstr);
 	tmpstr = (char *)list->content;
 	list->content = ft_strjoin_ae((char *)list->content,
@@ -78,6 +78,7 @@ void	ft_join_str_tokenizer_while(t_list *list)
 	ft_free_alloc(tmpstr);
 	list->next = list->next->next;
 }
+
 /**
  * @brief funcion que une los strings que estan entre comillas
  * @example "hola mundo"' que tal '$VAR -> "hola mundo que tal var_content"
@@ -94,10 +95,10 @@ void	ft_join_str_tokenizer(t_list *list)
 		{
 			tmpstr = (char *)list->content;
 			list->content = ft_substr_ae((char *)list->content, 1,
-				ft_strlen_p((char *)list->content) - 2);
+					ft_strlen_p((char *)list->content) - 2);
 			ft_free_alloc(tmpstr);
 			while (list->next && (*(char *)list->next->content == '\"'
-				|| *(char *)list->next->content == '\''))
+					|| *(char *)list->next->content == '\''))
 				ft_join_str_tokenizer_while(list);
 			tmpstr = (char *)list->content;
 			list->content = ft_alloc_lst(ft_strlen_p(tmpstr) + 3, 3);

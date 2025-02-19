@@ -18,6 +18,7 @@ static char	*ft_getenv_2(char *needle)
 		return (NULL);
 	return (ft_strdup_ae("SOY_UNA_VARIABLE_DE_PRUEBA"));
 }
+
 /**
 * @brief Funcion que obtiene el nombre de la variable de entorno
 * @example $HOME, -> HOME
@@ -59,8 +60,9 @@ char	*ft_split_and_join(char *str, char *var, int i)
 	ft_free_alloc(substr);
 	return (jointed_str);
 }
+
 /**
-* @brief Funcion que convierte las variables de entorno en su valor correspondiente
+* @brief Funcion que convierte las variables de entorno en su valor
 * @example $HOME -> /home/user
 * @param list Lista de tokens
 * @return void

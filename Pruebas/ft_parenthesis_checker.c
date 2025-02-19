@@ -80,7 +80,7 @@ int	check_tokens_after_special_found(t_list *tks, int *instructions_last)
 			(*instructions_last)++;
 		if (*(char *)tks->content == '&' || *(char *)tks->content == '|'
 			|| *(char *)tks->content == '<' || *(char *)tks->content == '>')
-			{
+		{
 			if (*instructions_last <= 0)
 			{
 				ft_print_syntax_error_message(tks->content);
@@ -95,12 +95,13 @@ int	check_tokens_after_special_found(t_list *tks, int *instructions_last)
 	return (0);
 }
 
-int ft_check_instructions_last_tokens(t_list *tks)
+int	ft_check_instructions_last_tokens(t_list *tks)
 {
 	int		instructions_last;
 
 	instructions_last = 0;
-	while (tks && (*(char *)tks->content != '&' && *(char *)tks->content != '|'))
+	while (tks && (*(char *)tks->content != '&'
+			&& *(char *)tks->content != '|'))
 		tks = tks->next;
 	if (!tks)
 		return (0);
@@ -120,49 +121,24 @@ int ft_check_instructions_last_tokens(t_list *tks)
 
 int	ft_check_parenthesis_and_instructions(t_list *tks)
 {
-	int	parenthesis;
+	int		parenthesis;
+	char	*content;
 
 	parenthesis = 0;
 	while (tks)
 	{
-		if (*(char *)tks->content == ')')
+		content = (char *)tks->content;
+		if (*content == ')')
 			parenthesis++;
-		else if (parenthesis > 0 && (*(char *)tks->content == '"'
-				|| *(char *)tks->content == '\'' || *(char *)tks->content == '('))
+		else if (parenthesis > 0 && (*content == '"'
+				|| *content == '\'' || *content == '('))
 		{
 			ft_print_syntax_error_message(tks->content);
 			return (1);
 		}
-		else if (*(char *)tks->content == '&' || *(char *)tks->content == '|')
+		else if (*content == '&' || *content == '|')
 			parenthesis = 0;
 		tks = tks->next;
-	}
-	return (0);
-}
-/*
-int	check_token_order_validity(t_list *tks, int *order, int *instructions)
-{
-	if (*order == 1 && (*(char *)tks->content == '"'
-			|| *(char *)tks->content == '\''))
-	{
-		(*instructions)++;
-		*order = 0;
-	}
-	if (*instructions > 0 && *(char *)tks->content == '(' && *order == 0)
-	{
-		ft_print_syntax_error_message(tks->content);
-		printf("5\n");
-		return (1);
-	}
-	if (*instructions == 0 && *(char *)tks->content == '(')
-	{
-		(*instructions)++;
-		*order = 0;
-	}
-	if ((*(char *)tks->content == '&' || *(char *)tks->content == '|'))
-	{
-		*instructions = 0;
-		*order = 1;
 	}
 	return (0);
 }
@@ -170,22 +146,6 @@ int	check_token_order_validity(t_list *tks, int *order, int *instructions)
 int	ft_check_instructions_and_parenthesis(t_list *tks)
 {
 	int	instructions;
-	int order;
-
-	instructions = 0;
-	order = 1;
-	while(tks)
-	{
-		if (check_token_order_validity(tks, &order, &instructions))
-			return (1);
-		tks = tks->next;
-	}
-	return (0);
-}*/
-
-int	ft_check_instructions_and_parenthesis(t_list *tks)
-{
-	int instructions;
 
 	instructions = 0;
 	while (tks)

@@ -9,7 +9,7 @@ void	ft_print_syntax_error_message(char *token);
 int		ft_check_instructions_last_tokens(t_list *tks);
 int		ft_check_parenthesis_and_instructions(t_list *tks);
 int		ft_check_instructions_and_parenthesis(t_list *tks);
-int 	ft_check_for_redundant_parenthesis(t_list *tks);
+int		ft_check_for_redundant_parenthesis(t_list *tks);
 int		ft_check_redirections(t_list *list);
 void	ft_join_redirections(t_list *list);
 
