@@ -94,7 +94,7 @@ static int	ft_tokenizer_while(char *str, t_list **list, int *i, int *start)
 	return (1);
 }
 
-t_list	*ft_tokenizer(char *str)
+t_list	*ft_tokenizer(char *str, t_minishell *minishell)
 {
 	t_list	*list;
 	int		i;
@@ -112,7 +112,7 @@ t_list	*ft_tokenizer(char *str)
 		ft_lstadd_back(&list, ft_lstnew_ae
 			(ft_substr_ae(str, start, i - start)));
 	ft_put_quotes(list);
-	if (!ft_check_token_list(&list))
+	if (!ft_check_token_list(&list, minishell))
 	{
 		ft_free_alloc_lst_clear(&list, ft_free_alloc);
 		return (NULL);
@@ -122,7 +122,7 @@ t_list	*ft_tokenizer(char *str)
 }
 
 //borrar funcion
-int	main(void)
+/*int	main(void)
 {
 	t_list	*list;
 	char	*line;
@@ -150,3 +150,4 @@ int	main(void)
 	ft_alloc_lst(0, 0);
 	return (0);
 }
+*/

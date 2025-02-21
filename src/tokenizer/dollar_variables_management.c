@@ -13,12 +13,12 @@
 #include "../../include/minishell.h"
 
 //borrar esta funcion
-static char	*ft_getenv_2(char *needle)
+/*static char	*ft_getenv_2(char *needle)
 {
 	if (*needle == 0)
 		return (NULL);
 	return (ft_strdup_ae("SOY_UNA_VARIABLE_DE_PRUEBA"));
-}
+}*/
 
 /**
 * @brief Funcion que obtiene el nombre de la variable de entorno
@@ -27,11 +27,16 @@ static char	*ft_getenv_2(char *needle)
 * @param i Indice de la cadena de texto
 * @return char* Nombre de la variable de entorno
 */
-static char	*ft_parse_var(char *str, int *i)
+static char	*ft_parse_var(char *str, int *i, t_minishell *mini)
 {
 	size_t	len;
 	char	*var;
 
+	if (str[0] && str[0] == '?')
+	{
+		(*i) += 2;
+		return (ft_add_to_alloc_lst_e(ft_itoa(mini->exit_code)));
+	}
 	len = 0;
 	(*i)++;
 	while (str[len] == '_' || ft_isalnum(str[len]))
@@ -42,9 +47,7 @@ static char	*ft_parse_var(char *str, int *i)
 	if (len == 0)
 		return ("$");
 	var = ft_substr_ae(str, 0, len);
-	if (!ft_strncmp_p(var, "?", 1))
-		return (ft_getenv_2(var));//hay que cambiar el valor de retorno de esta linea, se usa el ft_getenv solo para pruebas
-	return (ft_getenv_2(var));//aqi lo mism, hay que pasar el ft_getenv original
+	return (ft_getenv(var, mini->envp));//aqi lo mism, hay que pasar el ft_getenv original
 }
 
 static char	*ft_split_and_join(char *str, char *var, int i)
@@ -68,7 +71,7 @@ static char	*ft_split_and_join(char *str, char *var, int i)
 * @param list Lista de tokens
 * @return void
 */
-void	ft_dollar_variable_converter(t_list *list)
+void	ft_dollar_variable_converter(t_list *list, t_minishell *minishell)
 {
 	int		i;
 	char	*var;
@@ -82,9 +85,10 @@ void	ft_dollar_variable_converter(t_list *list)
 			{
 				if (((char *)list->content)[i] == '$')
 				{
-					var = ft_parse_var(&((char *)list->content)[i + 1], &i);
-					list->content = ft_split_and_join(list->content, var, i);
-					ft_free_alloc(var);
+					var = ft_parse_var(
+						&((char *)list->content)[i + 1], &i, minishell);
+					if (var)// revisar
+						list->content = ft_split_and_join(list->content, var, i);
 				}
 				else
 					i++;

@@ -6,7 +6,7 @@
 #    By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/10 21:51:45 by ide-dieg          #+#    #+#              #
-#    Updated: 2025/02/19 22:11:27 by ide-dieg         ###   ########.fr        #
+#    Updated: 2025/02/21 13:25:54 by ide-dieg         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,16 +18,22 @@ BUILD_DIR = build
 CFILES = $(wildcard $(SRC_DIR)/*.c) $(wildcard $(SRC_DIR)/*/*.c)
 CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 LDFLAGS = -lreadline
-OFILES = $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(CFILES))
+# Generamos la lista de objetos usando solo el nombre base de cada fuente
+OFILES = $(addprefix $(BUILD_DIR)/, $(notdir $(CFILES:.c=.o)))
 LIBFT = 42_Libft/libft.a
+
+# Función que, dado un nombre de archivo sin ruta (sin la extensión), devuelve la ruta del .c correspondiente.
+# Se asume que los nombres de archivo son únicos.
+find_src = $(firstword $(filter %/$(1).c, $(CFILES)))
 
 all: $(NAME)
 
 $(NAME): update_submodules build_libft $(OFILES)
 	$(CC) $(CFLAGS) $(BUILD_DIR)/*.o $(LIBFT) -o $(NAME) $(LDFLAGS)
 
-$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c |  $(BUILD_DIR)
-	@$(CC) $(CFLAGS) -I$(INCLUDE_DIR) -c $< -o $@
+# Regla para compilar cada objeto. La dependencia se obtiene mediante la función find_src.
+$(BUILD_DIR)/%.o: $(call find_src,$*) | $(BUILD_DIR)
+	@$(CC) $(CFLAGS) -I$(INCLUDE_DIR) -c $(call find_src,$*) -o $@
 
 $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
@@ -41,7 +47,6 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
-
 
 build_libft:
 	@if [ ! -f 42_Libft/libft.a ]; then \

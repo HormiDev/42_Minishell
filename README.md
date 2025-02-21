@@ -53,3 +53,4 @@ NOTA: la creacion de la estructura s_data_container para el ultimo paso de la to
 filename maximo admitido por bash 256
 
 checkeo de redirecciones para la ejecucion  "bash: /home/ide-dieg: Es un directorio"  "bash: $HOLA: redireccionamiento ambiguo"
+
