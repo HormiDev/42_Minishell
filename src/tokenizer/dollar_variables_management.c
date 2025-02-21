@@ -32,22 +32,22 @@ static char	*ft_parse_var(char *str, int *i, t_minishell *mini)
 	size_t	len;
 	char	*var;
 
-	if (str[0] && str[0] == '?')
+	if (str[0] == '?')
 	{
-		(*i) += 2;
+		(*i)++;
 		return (ft_add_to_alloc_lst_e(ft_itoa(mini->exit_code)));
 	}
 	len = 0;
-	(*i)++;
 	while (str[len] == '_' || ft_isalnum(str[len]))
 	{
+		
 		len++;
 		(*i)++;
 	}
 	if (len == 0)
 		return ("$");
 	var = ft_substr_ae(str, 0, len);
-	return (ft_getenv(var, mini->envp));//aqi lo mism, hay que pasar el ft_getenv original
+	return (ft_getenv(var, mini->envp));
 }
 
 static char	*ft_split_and_join(char *str, char *var, int i)
@@ -85,10 +85,11 @@ void	ft_dollar_variable_converter(t_list *list, t_minishell *minishell)
 			{
 				if (((char *)list->content)[i] == '$')
 				{
-					var = ft_parse_var(
-						&((char *)list->content)[i + 1], &i, minishell);
-					if (var)// revisar
-						list->content = ft_split_and_join(list->content, var, i);
+					i++;
+					var = ft_parse_var
+						(&((char *)list->content)[i], &i, minishell);
+					list->content = ft_split_and_join(list->content, var, i);
+					i = ft_strlen_p(var);
 				}
 				else
 					i++;
