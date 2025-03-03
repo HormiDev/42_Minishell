@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 21:44:42 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/02/06 14:09:37 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/03/03 17:49:57 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,15 @@ void	ft_execute(char *command, char **args, t_minishell *minishell)
 		ft_execute_execve(command, args, minishell);
 		return ;
 	}
-	command_path = ft_search_in_path(command, minishell->envp);
+	command_path = ft_search_in_path(command, minishell);
 	if (!command_path)
 		return ;
 	ft_execute_execve(command_path, args, minishell);
-
 }
 
 void	mini_exec(char *command, char **args, t_minishell *minishell)
 {
+	minishell->exit_code = 0;
 	if (!ft_strncmp_p(command, "cd", 3))
 		ft_cd(&args[1], &minishell->envp, minishell);
 	else if (!ft_strncmp_p(command, "export", 6))

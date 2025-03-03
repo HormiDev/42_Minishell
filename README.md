@@ -54,3 +54,5 @@ filename maximo admitido por bash 256
 
 checkeo de redirecciones para la ejecucion  "bash: /home/ide-dieg: Es un directorio"  "bash: $HOLA: redireccionamiento ambiguo"
 
+revisar exit codes emitidos por exit
+

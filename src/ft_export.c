@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 21:32:31 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/02/13 19:42:40 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/03/03 17:55:29 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	ft_export(char *envp, t_list **envp_list)
 		{
 			ft_free_hash((t_env *)tmp_list->content);
 			tmp_list->content = hash;
-			if (strncmp(hash->name, "SHLVL", 6) == 0)
+			if (ft_strncmp_p(hash->name, "SHLVL", 6) == 0)
 				ft_export_shlvl((t_env *)tmp_list->content);
 			return ;
 		}
@@ -154,5 +154,5 @@ void	ft_export_args(char **args, t_list **env_list, t_minishell *mini)
 		ft_export(args[i], env_list);
 		i++;
 	}
-	ft_refresh_env_array(mini->envp, mini);	
+	ft_refresh_env_array(mini->envp, mini);
 }

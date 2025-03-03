@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 13:04:27 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/02/02 20:40:56 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/03/03 17:49:42 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ void	ft_echo(char **args)
 		flag = 0;
 		i++;
 	}
-	printf("%s", args[i++]);
+	ft_printf("%s", args[i++]);
 	while (args[i])
-		printf(" %s", args[i++]);
+		ft_printf(" %s", args[i++]);
 	if (flag)
-		printf("\n");
+		ft_printf("\n");
 }
 

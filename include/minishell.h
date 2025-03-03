@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:34:17 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/02/21 16:41:28 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/03/03 17:50:17 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void				mini_exec(char *command, char **args,
 						t_minishell *minishell);
 void				ft_parsing_and_exec(t_minishell *minishell);
 void				ft_remove_spaces(t_list **list);
-char				*ft_search_in_path(char *cmd, t_list *envp);
+char				*ft_search_in_path(char *cmd, t_minishell *minishell);
 void				ft_unset_args(char **args, t_list **env_list,
 						t_minishell *mini);
 
