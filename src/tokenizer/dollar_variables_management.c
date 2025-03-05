@@ -50,6 +50,31 @@ static char	*ft_parse_var(char *str, int *i, t_minishell *mini)
 	return (ft_getenv(var, mini->envp));
 }
 
+static void	ft_put_single_quotes(t_list *list)
+{
+	char	*str;
+
+	if (*(char *)list->content == ' ' || *(char *)list->content == '\t')
+		list = list->next;
+	while (list &&
+		(*(char *)list->content == '\'' || *(char *)list->content == '\"'))
+	{
+		if (*(char *)list->content == '\'')
+		{
+			list = list->next;
+			continue ;
+		}
+		if (ft_strchr((char *)list->content, '$'))
+		{
+			str = ft_substr_ae((char *)list->content, 1,
+					ft_strlen_p((char *)list->content) - 2);
+			sprintf(list->content, "\'%s\'", str);
+			ft_free_alloc(str);
+		}
+		list = list->next;
+	}
+}
+
 static char	*ft_split_and_join(char *str, char *var, int i)
 {
 	int		len;
@@ -71,13 +96,15 @@ static char	*ft_split_and_join(char *str, char *var, int i)
 * @param list Lista de tokens
 * @return void
 */
-void	ft_dollar_variable_converter(t_list *list, t_minishell *minishell)
+void	ft_dollar_variable_converter(t_list *list, t_minishell *mini)
 {
 	int		i;
 	char	*var;
 
 	while (list)
 	{
+		if (!ft_strncmp_p((char *)list->content, "<<", 2))
+			ft_put_single_quotes(list->next);
 		if (*(char *)list->content != '\'')
 		{
 			i = 0;
@@ -86,8 +113,7 @@ void	ft_dollar_variable_converter(t_list *list, t_minishell *minishell)
 				if (((char *)list->content)[i] == '$')
 				{
 					i++;
-					var = ft_parse_var
-						(&((char *)list->content)[i], &i, minishell);
+					var = ft_parse_var(&((char *)list->content)[i], &i, mini);
 					list->content = ft_split_and_join(list->content, var, i);
 					i = ft_strlen_p(var);
 				}
