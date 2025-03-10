@@ -56,15 +56,11 @@ static void	ft_put_single_quotes(t_list *list)
 
 	if (*(char *)list->content == ' ' || *(char *)list->content == '\t')
 		list = list->next;
-	while (list &&
-		(*(char *)list->content == '\'' || *(char *)list->content == '\"'))
+	while (list
+		&& (*(char *)list->content == '\'' || *(char *)list->content == '\"'))
 	{
-		if (*(char *)list->content == '\'')
-		{
-			list = list->next;
-			continue ;
-		}
-		if (ft_strchr((char *)list->content, '$'))
+		if (*(char *)list->content == '\"'
+			&& ft_strchr((char *)list->content, '$'))
 		{
 			str = ft_substr_ae((char *)list->content, 1,
 					ft_strlen_p((char *)list->content) - 2);

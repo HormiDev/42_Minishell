@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:34:17 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/03/03 17:50:17 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/03/10 19:47:30 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_minishell
 	char			cwd_short[PATH_MAX];
 	char			prompt[PATH_MAX + 1024];// revisar tamaño maximo posible
 	int				exit_code;
+	int				io_fd[2];
 	t_list			*envp;
 	char			**envp_array;
 }	t_minishell;
@@ -86,7 +87,7 @@ typedef struct s_building
 void				clean_and_exit(int exit_code);
 void				ft_array_to_list(char **envp, t_list **envp_list);
 void				ft_cd(char **args, t_list **env, t_minishell *minishell);
-void				ft_echo(char **args);
+void				ft_echo(char **args, t_minishell *mini);
 void				ft_refresh_env_array(t_list *list, t_minishell *minishell);
 void				ft_export(char *envp, t_list **envp_list);
 void				ft_free_hash(t_env *hash);
@@ -103,13 +104,14 @@ void				ft_export_args(char **args, t_list **env_list,
 void				ft_exit(char **arg, t_minishell *minishell);
 void				ft_pwd(t_minishell *minishell);
 void				ft_unset(char *envp, t_list **env_list);
-void				mini_exec(char *command, char **args,
-						t_minishell *minishell);
+void				mini_exec(t_cmd *cmd, t_minishell *minishell);
 void				ft_parsing_and_exec(t_minishell *minishell);
 void				ft_remove_spaces(t_list **list);
 char				*ft_search_in_path(char *cmd, t_minishell *minishell);
 void				ft_unset_args(char **args, t_list **env_list,
 						t_minishell *mini);
+void				ft_open_files(t_cmd *cmd, t_minishell *minishell);
+void				ft_close_files(t_minishell *minishell);
 
 //tokenizer
 int					ft_is_special_token(char *c);

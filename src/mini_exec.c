@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 21:44:42 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/03/03 17:49:57 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/03/10 19:58:54 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,23 +65,28 @@ void	ft_execute(char *command, char **args, t_minishell *minishell)
 	ft_execute_execve(command_path, args, minishell);
 }
 
-void	mini_exec(char *command, char **args, t_minishell *minishell)
+void	mini_exec(t_cmd *cmd, t_minishell *minishell)
 {
 	minishell->exit_code = 0;
-	if (!ft_strncmp_p(command, "cd", 3))
-		ft_cd(&args[1], &minishell->envp, minishell);
-	else if (!ft_strncmp_p(command, "export", 6))
-		ft_export_args(&args[1], &minishell->envp, minishell);
-	else if (!ft_strncmp_p(command, "unset", 5))
-		ft_unset_args(&args[1], &minishell->envp, minishell);
-	else if (!ft_strncmp_p(command, "env", 3))
-		ft_print_env(minishell->envp);
-	else if (!ft_strncmp_p(command, "exit", 4))
-		ft_exit(&args[1], minishell);
-	else if (!ft_strncmp_p(command, "echo", 4))
-		ft_echo(&args[1]);
-	else if (!ft_strncmp_p(command, "pwd", 3))
-		ft_pwd(minishell);
-	else
-		ft_execute(command, args, minishell);
+	ft_open_files(cmd, minishell);
+	if (cmd->cmd && minishell->exit_code == 0)
+	{
+		if (!ft_strncmp_p(cmd->cmd, "cd", 3))
+			ft_cd(&cmd->args[1], &minishell->envp, minishell);
+		else if (!ft_strncmp_p(cmd->cmd, "export", 6))
+			ft_export_args(&cmd->args[1], &minishell->envp, minishell);
+		else if (!ft_strncmp_p(cmd->cmd, "unset", 5))
+			ft_unset_args(&cmd->args[1], &minishell->envp, minishell);
+		else if (!ft_strncmp_p(cmd->cmd, "env", 3))
+			ft_print_env(minishell->envp);
+		else if (!ft_strncmp_p(cmd->cmd, "exit", 4))
+			ft_exit(&cmd->args[1], minishell);
+		else if (!ft_strncmp_p(cmd->cmd, "echo", 4))
+			ft_echo(&cmd->args[1], minishell);
+		else if (!ft_strncmp_p(cmd->cmd, "pwd", 3))
+			ft_pwd(minishell);
+		else
+			ft_execute(cmd->cmd, cmd->args, minishell);
+	}
+	ft_close_files(minishell);
 }
