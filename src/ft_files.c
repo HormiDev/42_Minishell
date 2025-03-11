@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 18:21:02 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/03/10 20:36:30 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/03/11 14:04:11 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_open_files(t_cmd *cmd, t_minishell *minishell)
 	i = 0;
 	while (cmd->outfiles[i])
 	{
-		if (minishell->io_fd[1] > 0)
+		if (minishell->io_fd[1] > 1)
 			close(minishell->io_fd[1]);
 		if (((t_redir *)(cmd->outfiles[i]))->type == 1)
 			minishell->io_fd[1] = open(((t_redir *)(cmd->outfiles[i]))->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
