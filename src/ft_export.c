@@ -143,7 +143,9 @@ void	ft_export_args(char **args, t_list **env_list, t_minishell *mini)
 		ft_alpha_orderer(array);
 		while (array[i])
 		{
-			ft_printf("declare -x %s=\"%s\"\n", array[i], ft_getenv(array[i], *env_list));
+			ft_dprintf(mini->io_fd[1],
+				"declare -x %s=\"%s\"\n", array[i],
+				ft_getenv(array[i], *env_list));
 			i++;
 		}
 		ft_free_alloc(array);

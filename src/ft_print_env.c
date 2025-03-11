@@ -18,11 +18,11 @@
  * @param env Lista de env
  * @return void
  */
-void	ft_print_env(t_list *env)
+void	ft_print_env(t_list *env, int fd)
 {
 	while (env)
 	{
-		printf("%s=%s\n", ((t_env *)env->content)->name, ((t_env *)env->content)->value);
+		ft_dprintf(fd, "%s=%s\n", ((t_env *)env->content)->name, ((t_env *)env->content)->value);
 		env = env->next;
 	}
 }

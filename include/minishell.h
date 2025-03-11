@@ -96,8 +96,8 @@ void				ft_init_shlvl(t_minishell *minishell);
 int					ft_isnumber(char *str);
 t_minishell			*ft_loading_minishell(char **envp);
 char				*ft_getenv(char *needle, t_list *envp);
+void				ft_print_env(t_list *env, int fd);
 void				ft_update_prompt(t_minishell *minishell);
-void				ft_print_env(t_list *env);
 void				ft_export(char *envp, t_list **envp_list);
 void				ft_export_args(char **args, t_list **env_list,
 						t_minishell *mini);

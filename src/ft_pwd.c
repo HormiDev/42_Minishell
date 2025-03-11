@@ -14,5 +14,5 @@
 
 void	ft_pwd(t_minishell *minishell)
 {
-	printf("%s\n", minishell->cwd);
+	ft_dprintf(minishell->io_fd[1], "%s\n", minishell->cwd);
 }
