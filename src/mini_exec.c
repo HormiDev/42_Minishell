@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 21:44:42 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/03/10 19:58:54 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/03/14 02:52:26 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	ft_execute(char *command, char **args, t_minishell *minishell)
 {
 	char	*command_path;
 
-	if (ft_strchr(command, '/') && !access(command, X_OK))
+	if (ft_strchr(command, '/'))
 	{
 		ft_execute_execve(command, args, minishell);
 		return ;
