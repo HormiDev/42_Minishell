@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 21:32:31 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/03/03 17:55:29 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/03/28 15:20:07 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,29 +131,29 @@ void	ft_alpha_orderer(char **array)
 	}
 }
 
-void	ft_export_args(char **args, t_list **env_list, t_minishell *mini)
+void	ft_export_args(t_cmd *cmd, t_minishell *mini)
 {
 	int		i;
 	char	**array;
 
 	i = 0;
-	if (ft_splitlen(args) == 0)
+	if (ft_splitlen(cmd->args) == 1)
 	{
-		array = create_array_env_name(*env_list);
+		array = create_array_env_name(mini->envp);
 		ft_alpha_orderer(array);
 		while (array[i])
 		{
-			ft_dprintf(mini->io_fd[1],
+			ft_dprintf(cmd->io_fd[1],
 				"declare -x %s=\"%s\"\n", array[i],
-				ft_getenv(array[i], *env_list));
+				ft_getenv(array[i], mini->envp));
 			i++;
 		}
 		ft_free_alloc(array);
 		return ;
 	}
-	while (args[i])
+	while (cmd->args[i])
 	{
-		ft_export(args[i], env_list);
+		ft_export(cmd->args[i], &mini->envp);
 		i++;
 	}
 	ft_refresh_env_array(mini->envp, mini);

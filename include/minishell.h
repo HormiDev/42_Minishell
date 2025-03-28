@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:34:17 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/03/10 19:47:30 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/03/28 19:43:43 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,14 @@ typedef struct s_redir
 	int		type;
 }	t_redir;
 
+/**
+ * @brief Estructura para almacenar distintos tipos de datos
+ * 
+ * @param data Puntero a los datos
+ * @param type Tipo de datos
+ * 
+ * @note type puede ser 0 (t_cmd), 1 (char *)
+ */
 typedef struct s_data_container
 {
 	void	*data;
@@ -46,6 +54,7 @@ typedef struct s_cmd
 	char	**args;
 	t_redir	**infiles;
 	t_redir	**outfiles;
+	int		io_fd[2];
 }	t_cmd;
 
 typedef	struct s_env
@@ -64,12 +73,12 @@ typedef struct s_minishell
 	char			cwd_short[PATH_MAX];
 	char			prompt[PATH_MAX + 1024];// revisar tamaño maximo posible
 	int				exit_code;
-	int				io_fd[2];
 	t_list			*envp;
 	char			**envp_array;
+	int				**pipeline;
 }	t_minishell;
 
-typedef struct s_building
+/*typedef struct s_building
 {
 	t_list	*content;
 	int		id;
@@ -82,14 +91,16 @@ typedef struct s_building
 	struct s_building	*lower_floor;
 	struct s_building	*next;
 	struct s_building	*prev;
-}	t_building;
+}	t_building;*/
 
 void				clean_and_exit(int exit_code);
 void				ft_array_to_list(char **envp, t_list **envp_list);
-void				ft_cd(char **args, t_list **env, t_minishell *minishell);
-void				ft_echo(char **args, t_minishell *mini);
+//void				ft_cd(char **args, t_list **env, t_minishell *minishell);
+void				ft_cd(t_cmd *cmd, t_minishell *minishell);
+//void				ft_echo(char **args, t_minishell *mini);
+void				ft_echo(t_cmd *cmd);
+void				ft_execute_builtin(t_cmd *cmd, t_minishell *minishell);
 void				ft_refresh_env_array(t_list *list, t_minishell *minishell);
-void				ft_export(char *envp, t_list **envp_list);
 void				ft_free_hash(t_env *hash);
 void				ft_init_env(t_minishell *minishell);
 void				ft_init_shlvl(t_minishell *minishell);
@@ -99,19 +110,24 @@ char				*ft_getenv(char *needle, t_list *envp);
 void				ft_print_env(t_list *env, int fd);
 void				ft_update_prompt(t_minishell *minishell);
 void				ft_export(char *envp, t_list **envp_list);
-void				ft_export_args(char **args, t_list **env_list,
-						t_minishell *mini);
+//void				ft_export_args(char **args, t_list **env_list,
+//						t_minishell *mini);
+void				ft_export_args(t_cmd *cmd, t_minishell *mini);
 void				ft_exit(char **arg, t_minishell *minishell);
-void				ft_pwd(t_minishell *minishell);
+void				ft_pwd(t_cmd *cmd, t_minishell *minishell);
 void				ft_unset(char *envp, t_list **env_list);
 void				mini_exec(t_cmd *cmd, t_minishell *minishell);
 void				ft_parsing_and_exec(t_minishell *minishell);
+int					ft_pipe_counter(t_list *token_list);
+void				ft_pipex_and_exec(t_minishell *minishell, t_list *token_list);
 void				ft_remove_spaces(t_list **list);
 char				*ft_search_in_path(char *cmd, t_minishell *minishell);
 void				ft_unset_args(char **args, t_list **env_list,
 						t_minishell *mini);
 void				ft_open_files(t_cmd *cmd, t_minishell *minishell);
-void				ft_close_files(t_minishell *minishell);
+void				ft_close_files(t_cmd *cmd);
+int					ft_pipeline(t_minishell *minishell, t_cmd **cmds,
+						int num_pipes);
 
 //tokenizer
 int					ft_is_special_token(char *c);

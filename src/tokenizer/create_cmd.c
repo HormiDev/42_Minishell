@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 20:32:45 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/02/19 22:05:02 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/03/28 19:43:43 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ t_cmd	*ft_create_cmd(t_list *list)
 	new_cmd->args = ft_alloc_lst((counts[2] + 1) * sizeof(char *), 4);
 	new_cmd->infiles = ft_alloc_lst((counts[0] + 1) * sizeof(t_redir *), 4);
 	new_cmd->outfiles = ft_alloc_lst((counts[1] + 1) * sizeof(t_redir *), 4);
+	new_cmd->io_fd[0] = 0;
+	new_cmd->io_fd[1] = 1;
 	ft_memset(counts, 0, 3 * sizeof(int));
 	while (list)
 	{

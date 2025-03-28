@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 18:13:52 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/02/21 15:01:58 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/03/28 17:21:59 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,5 +133,6 @@ t_list	*ft_create_cmds(t_list *list)
 		ft_create_cmds_while(&list, &tmp2, &is_cmd);
 		ft_create_and_clear_cmds(&list, &cmds, &tmp, &is_cmd);
 	}
+	//ft_print_cmdlist(cmds);
 	return (cmds);
 }

@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 20:47:36 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/03/03 17:54:44 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/03/28 13:29:42 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,16 @@ void	ft_modify_env(t_list **env, t_minishell *minishell, char *path)
 	}
 }
 
-void	ft_cd(char **args, t_list **env, t_minishell *minishell)
+void	ft_cd(t_cmd *cmd, t_minishell *minishell)
 {
+	char	**args;
 	char	*path;
-
+	t_list	*env;
+	
+	env = minishell->envp;
+	args = &cmd->args[1];
 	if (!args[0])
-		path = ft_getenv("HOME", *env);
+		path = ft_getenv("HOME", env);
 	else if (args[1])
 	{
 		ft_putstr_fd("minishell: cd: too many arguments\n", 2);
@@ -54,5 +58,5 @@ void	ft_cd(char **args, t_list **env, t_minishell *minishell)
 		minishell->exit_code = 1;
 	}
 	else
-		ft_modify_env(env, minishell, path);
+		ft_modify_env(&env, minishell, path);
 }
