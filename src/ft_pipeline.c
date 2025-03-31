@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 11:36:15 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/03/28 19:45:51 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/03/31 20:46:36 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int ft_pipeline(t_minishell *minishell, t_cmd **cmds, int num_pipes)
 	
 	minishell->pipeline = ft_alloc_lst(sizeof(int *) * (num_pipes + 1), 4);
 	i = 0;
-	while (i < num_pipes - 1)
+	while (i < num_pipes)
 	{
 		minishell->pipeline[i] = ft_alloc_lst(sizeof(int) * 2, 4);
 		if (pipe(minishell->pipeline[i]) == -1)

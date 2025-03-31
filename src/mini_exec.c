@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 21:44:42 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/03/28 19:54:41 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/03/31 20:53:44 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,22 @@ void	ft_execute(t_cmd *cmd, t_minishell *minishell)
 	char	*command;
 	char	**args;
 
-	dup2(cmd->io_fd[0], 0);
-	dup2(cmd->io_fd[1], 1);
 	ft_open_files(cmd, minishell);
-	command = ft_search_in_path(cmd->cmd, minishell);
+	if (cmd->io_fd[0] != 0)
+	{
+		dup2(cmd->io_fd[0], 0);
+		close(cmd->io_fd[0]);
+	}
+	if (cmd->io_fd[1] != 1)
+	{
+		dup2(cmd->io_fd[1], 1);
+		close(cmd->io_fd[1]);
+	}
+	ft_close_pipes(minishell);
+	if (ft_strchr(cmd->cmd, '/'))
+		command = cmd->cmd;
+	else
+		command = ft_search_in_path(cmd->cmd, minishell);
 	if (!command)
 	{
 		ft_dprintf(2, "%s%s: command not found%s\n", RED, cmd->cmd, RESET);
@@ -84,6 +96,7 @@ void	mini_exec(t_cmd *cmd, t_minishell *minishell)
 	if (ft_isbuiltin(cmd->cmd))
 	{
 		ft_execute_builtin(cmd, minishell);
+		ft_close_pipes(minishell);
 		exit(minishell->exit_code);
 	}
 	else
@@ -130,7 +143,7 @@ void	ft_pipex_and_exec(t_minishell *minishell, t_list *token_list)
 	num_of_pipes = ft_pipe_counter(token_list);
 	pids = ft_alloc_lst(sizeof(pid_t) * (num_of_pipes + 2), 4);
 	commands_array = ft_cmd_array_converter(token_list);
-	if (num_of_pipes)
+	if (num_of_pipes  || !ft_isbuiltin((*commands_array)->cmd))
 	{
 		i = 0;
 		ft_pipeline(minishell, commands_array, num_of_pipes);
@@ -147,9 +160,14 @@ void	ft_pipex_and_exec(t_minishell *minishell, t_list *token_list)
 				mini_exec(commands_array[i], minishell);
 			i++;
 		}
+		ft_close_pipes(minishell);
+		i = 0;
+		while (pids[i])
+		{
+			waitpid(pids[i], &minishell->exit_code, 0);
+			i++;
+		}
 	}
-	else if (ft_isbuiltin((*commands_array)->cmd))
-		ft_execute_builtin(*commands_array, minishell);
 	else
-		ft_execute(*commands_array, minishell);// crear un fork o mober al bucle
+		ft_execute_builtin(*commands_array, minishell);
 }

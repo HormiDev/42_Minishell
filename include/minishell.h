@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:34:17 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/03/28 19:43:43 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/03/31 19:45:50 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ void				ft_open_files(t_cmd *cmd, t_minishell *minishell);
 void				ft_close_files(t_cmd *cmd);
 int					ft_pipeline(t_minishell *minishell, t_cmd **cmds,
 						int num_pipes);
+void				ft_close_pipes(t_minishell *minishell);
 
 //tokenizer
 int					ft_is_special_token(char *c);
