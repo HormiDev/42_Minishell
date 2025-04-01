@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 16:26:50 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/04/01 20:21:20 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/02 01:14:53 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ void	ft_parsing_and_exec(t_minishell *mini)
 	if (!token_list)
 		return ;
 	token_list = ft_create_cmds(token_list); //revisar que la lista recibida se libere durante la creacion de los comandos
-	ft_create_heredocs(token_list, mini);
+	if (token_list)
+		ft_create_heredocs(token_list, mini);
 	//para el bonus aqui se tendra que dividir la lista varias listas partiendo por los || y &&
 	//commands_array = ft_cmd_array_converter(token_list);
 	// crear funcion de compresion para parentesis que meta todo lo que hay dentro de un parentesis en un solo nodo
@@ -74,6 +75,7 @@ void	ft_parsing_and_exec(t_minishell *mini)
 	*/
 	if (token_list)
 		ft_pipex_and_exec(mini, token_list);
+	ft_clear_here_docs(mini);
 	/*
 	if (token_list && ((t_data_container *)token_list->content)->type == 0)
 	{

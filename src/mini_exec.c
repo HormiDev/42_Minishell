@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 21:44:42 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/04/01 20:19:50 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/02 01:14:48 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,21 +160,21 @@ void	ft_pipex_and_exec(t_minishell *mini, t_list *token_list)
 	if (num_of_pipes  || !ft_isbuiltin((*commands_array)->cmd))
 	{
 		i = 0;
-		ft_pipeline(minishell, commands_array, num_of_pipes);
+		ft_pipeline(mini, commands_array, num_of_pipes);
 		while(commands_array[i])
 		{
 			pids[i] = fork();
 			if (pids[i] < 0)
 			{
 				ft_dprintf(2, "%s%s: %s%s\n", RED, "fork", strerror(errno), RESET);
-				minishell->exit_code = 1;
+				mini->exit_code = 1;
 				return ;
 			}
 			else if (pids[i] == 0)
-				mini_exec(commands_array[i], minishell);
+				mini_exec(commands_array[i], mini);
 			i++;
 		}
-		ft_close_pipes(minishell);
+		ft_close_pipes(mini);
 		i = 0;
 		while (pids[i])
 		{
@@ -182,10 +182,10 @@ void	ft_pipex_and_exec(t_minishell *mini, t_list *token_list)
 			i++;
 		}
 		if (WIFSIGNALED(last_exit_cmd_status))
-			minishell->exit_code = (128 + WTERMSIG(last_exit_cmd_status));
+			mini->exit_code = (128 + WTERMSIG(last_exit_cmd_status));
 		if (WIFEXITED(last_exit_cmd_status))
-			minishell->exit_code = (WEXITSTATUS(last_exit_cmd_status));
+			mini->exit_code = (WEXITSTATUS(last_exit_cmd_status));
 	}
 	else
-		ft_execute_builtin(*commands_array, minishell);
+		ft_execute_builtin(*commands_array, mini);
 }
