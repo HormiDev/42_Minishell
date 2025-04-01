@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 20:47:36 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/03/28 13:29:42 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/01 19:21:31 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ void	ft_cd(t_cmd *cmd, t_minishell *minishell)
 	{
 		ft_dprintf(2, "minishell: cd: %s: %s\n", path, strerror(errno));
 		minishell->exit_code = 1;
+		return ;
 	}
-	else
-		ft_modify_env(&env, minishell, path);
+	ft_modify_env(&env, minishell, path);
+	minishell->exit_code = 0;
 }

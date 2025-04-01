@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 21:44:42 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/04/01 03:03:45 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/01 20:19:50 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ t_cmd	**ft_cmd_array_converter(t_list *token_list)
 }
 
 
-void	ft_pipex_and_exec(t_minishell *minishell, t_list *token_list)
+void	ft_pipex_and_exec(t_minishell *mini, t_list *token_list)
 {
 	int		num_of_pipes;
 	t_cmd	**commands_array;

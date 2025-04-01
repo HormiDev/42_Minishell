@@ -6,14 +6,14 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 13:04:27 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/03/28 14:06:22 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/01 19:41:33 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
 //void	ft_echo(char **args, t_minishell *mini)
-void	ft_echo(t_cmd *cmd)
+void	ft_echo(t_cmd *cmd, t_minishell *mini)
 {
 	char	flag;
 	char	**args;
@@ -29,10 +29,14 @@ void	ft_echo(t_cmd *cmd)
 		flag = 0;
 		i++;
 	}
-	ft_dprintf(cmd->io_fd[1], "%s", args[i++]);
+	if (ft_dprintf(cmd->io_fd[1], "%s", args[i++]) == -1)
+		return (ft_error_dprintf(mini));
 	while (args[i])
-		ft_dprintf(cmd->io_fd[1], " %s", args[i++]);
+		if (ft_dprintf(cmd->io_fd[1], " %s", args[i++]) == -1)
+			return (ft_error_dprintf(mini));
 	if (flag)
-		ft_dprintf(cmd->io_fd[1], "\n");
+		if (ft_dprintf(cmd->io_fd[1], "\n") == -1)
+			return (ft_error_dprintf(mini));
+	mini->exit_code = 0;
 }
 

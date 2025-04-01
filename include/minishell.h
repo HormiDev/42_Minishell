@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:34:17 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/04/01 03:03:17 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/01 20:19:50 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct s_cmd
 	int		io_fd[2];
 }	t_cmd;
 
-typedef	struct s_env
+typedef struct s_env
 {
 	char	*name;
 	char	*value;
@@ -76,6 +76,7 @@ typedef struct s_minishell
 	t_list			*envp;
 	char			**envp_array;
 	int				**pipeline;
+	t_list			*here_docs;
 }	t_minishell;
 
 /*typedef struct s_building
@@ -98,7 +99,8 @@ void				ft_array_to_list(char **envp, t_list **envp_list);
 //void				ft_cd(char **args, t_list **env, t_minishell *minishell);
 void				ft_cd(t_cmd *cmd, t_minishell *minishell);
 //void				ft_echo(char **args, t_minishell *mini);
-void				ft_echo(t_cmd *cmd);
+//void				ft_echo(t_cmd *cmd);
+void				ft_echo(t_cmd *cmd, t_minishell *mini);
 void				ft_execute_builtin(t_cmd *cmd, t_minishell *minishell);
 void				ft_refresh_env_array(t_list *list, t_minishell *minishell);
 void				ft_free_hash(t_env *hash);
@@ -107,7 +109,8 @@ void				ft_init_shlvl(t_minishell *minishell);
 int					ft_isnumber(char *str);
 t_minishell			*ft_loading_minishell(char **envp);
 char				*ft_getenv(char *needle, t_list *envp);
-void				ft_print_env(t_list *env, int fd);
+//void				ft_print_env(t_list *env, int fd);
+void				ft_print_env(t_list *env, int fd, t_minishell *mini);
 void				ft_update_prompt(t_minishell *minishell);
 void				ft_export(char *envp, t_list **envp_list);
 //void				ft_export_args(char **args, t_list **env_list,
@@ -119,7 +122,7 @@ void				ft_unset(char *envp, t_list **env_list);
 void				mini_exec(t_cmd *cmd, t_minishell *minishell);
 void				ft_parsing_and_exec(t_minishell *minishell);
 int					ft_pipe_counter(t_list *token_list);
-void				ft_pipex_and_exec(t_minishell *minishell, t_list *token_list);
+void				ft_pipex_and_exec(t_minishell *mini, t_list *token_list);
 void				ft_remove_spaces(t_list **list);
 char				*ft_search_in_path(char *cmd, t_minishell *minishell);
 void				ft_unset_args(char **args, t_list **env_list,
@@ -129,6 +132,7 @@ void				ft_close_files(t_cmd *cmd);
 int					ft_pipeline(t_minishell *minishell, t_cmd **cmds,
 						int num_pipes);
 void				ft_close_pipes(t_minishell *minishell);
+void				ft_error_dprintf(t_minishell *minishell);
 
 //tokenizer
 int					ft_is_special_token(char *c);

@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 21:32:31 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/03/28 15:20:07 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/01 19:36:32 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,7 @@ void	ft_export_args(t_cmd *cmd, t_minishell *mini)
 			i++;
 		}
 		ft_free_alloc(array);
+		mini->exit_code = 0;
 		return ;
 	}
 	while (cmd->args[i])
@@ -157,4 +158,5 @@ void	ft_export_args(t_cmd *cmd, t_minishell *mini)
 		i++;
 	}
 	ft_refresh_env_array(mini->envp, mini);
+	mini->exit_code = 0;
 }

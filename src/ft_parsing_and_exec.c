@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 16:26:50 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/03/28 19:45:46 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/01 20:21:20 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,33 +50,34 @@ int	ft_pipe_counter(t_list *token_list)
 	return (count);
 }
 
-void	ft_parsing_and_exec(t_minishell *minishell)
+void	ft_parsing_and_exec(t_minishell *mini)
 {
 	t_list	*token_list;
 	//t_cmd	*cmd;
 
-	token_list = ft_tokenizer(minishell->line, minishell);
+	token_list = ft_tokenizer(mini->line, mini);
 	if (!token_list)
 		return ;
 	token_list = ft_create_cmds(token_list); //revisar que la lista recibida se libere durante la creacion de los comandos
+	ft_create_heredocs(token_list, mini);
 	//para el bonus aqui se tendra que dividir la lista varias listas partiendo por los || y &&
 	//commands_array = ft_cmd_array_converter(token_list);
 	// crear funcion de compresion para parentesis que meta todo lo que hay dentro de un parentesis en un solo nodo
 	//ft_pipe_counter(token_list);
-	//ft_pipeline(minishell, token_list);
+	//ft_pipeline(mini, token_list);
 	/*
-	if (!minishell->num_of_pipes)
+	if (!mini->num_of_pipes)
 	{
 		cmd = (t_cmd *)(((t_data_container *)(token_list->content))->data);
-		mini_exec(cmd, minishell);
+		mini_exec(cmd, mini);
 	}
 	*/
 	if (token_list)
-		ft_pipex_and_exec(minishell, token_list);
+		ft_pipex_and_exec(mini, token_list);
 	/*
 	if (token_list && ((t_data_container *)token_list->content)->type == 0)
 	{
 		cmd = (t_cmd *)(((t_data_container *)(token_list->content))->data);
-		mini_exec(cmd, minishell);
+		mini_exec(cmd, mini);
 	}*/
 }
