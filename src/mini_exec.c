@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 21:44:42 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/03/31 20:53:44 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/01 03:03:45 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,26 @@ void	ft_execute_execve(char *command, char **args, t_minishell *minishell)
 	minishell->exit_code = WEXITSTATUS(exit_status);
 }
 
+void	ft_pid_exit_with_error(void)
+{
+	ft_alloc_lst(0, 0);
+	if (errno == EACCES || errno == EISDIR || errno == ENOEXEC
+		|| errno == ENAMETOOLONG)
+		exit(126);
+	exit(127);
+}
 
 void	ft_execute(t_cmd *cmd, t_minishell *minishell)
 {
 	char	*command;
 	char	**args;
 
-	ft_open_files(cmd, minishell);
+	if (ft_open_files(cmd) == -1)
+	{
+		ft_close_pipes(minishell);
+		ft_alloc_lst(0, 0);
+		exit(1);
+	}
 	if (cmd->io_fd[0] != 0)
 	{
 		dup2(cmd->io_fd[0], 0);
@@ -69,13 +82,13 @@ void	ft_execute(t_cmd *cmd, t_minishell *minishell)
 		command = ft_search_in_path(cmd->cmd, minishell);
 	if (!command)
 	{
-		ft_dprintf(2, "%s%s: command not found%s\n", RED, cmd->cmd, RESET);
-		minishell->exit_code = 127;
+		ft_alloc_lst(0, 0);
 		exit(127);
 	}
 	args = cmd->args;
 	execve(command, args, minishell->envp_array);
-	exit(127);
+	perror(command);
+	ft_pid_exit_with_error();
 }
 
 int	ft_isbuiltin(char *command)
@@ -139,6 +152,7 @@ void	ft_pipex_and_exec(t_minishell *minishell, t_list *token_list)
 	t_cmd	**commands_array;
 	pid_t	*pids;
 	int		i;
+	int		last_exit_cmd_status;
 
 	num_of_pipes = ft_pipe_counter(token_list);
 	pids = ft_alloc_lst(sizeof(pid_t) * (num_of_pipes + 2), 4);
@@ -164,9 +178,13 @@ void	ft_pipex_and_exec(t_minishell *minishell, t_list *token_list)
 		i = 0;
 		while (pids[i])
 		{
-			waitpid(pids[i], &minishell->exit_code, 0);
+			waitpid(pids[i], &last_exit_cmd_status, 0);
 			i++;
 		}
+		if (WIFSIGNALED(last_exit_cmd_status))
+			minishell->exit_code = (128 + WTERMSIG(last_exit_cmd_status));
+		if (WIFEXITED(last_exit_cmd_status))
+			minishell->exit_code = (WEXITSTATUS(last_exit_cmd_status));
 	}
 	else
 		ft_execute_builtin(*commands_array, minishell);

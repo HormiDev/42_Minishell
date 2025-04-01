@@ -6,13 +6,13 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 18:21:02 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/03/28 19:46:35 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/01 03:03:04 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	ft_open_files(t_cmd *cmd, t_minishell *minishell)
+int	ft_open_files(t_cmd *cmd)
 {
 	int	i;
 
@@ -27,8 +27,7 @@ void	ft_open_files(t_cmd *cmd, t_minishell *minishell)
 		{
 			perror(cmd->infiles[i]->file);//revisar
 			strerror(errno);
-			minishell->exit_code = 1;
-			return ;
+			return (-1);
 		}
 		i++;
 	}
@@ -45,11 +44,11 @@ void	ft_open_files(t_cmd *cmd, t_minishell *minishell)
 		{
 			perror(cmd->outfiles[i]->file);//revisar
 			strerror(errno);
-			minishell->exit_code = 1;
-			return ;
+			return (-1);
 		}
 		i++;
 	}
+	return (0);
 }
 
 void	ft_close_files(t_cmd *cmd)

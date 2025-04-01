@@ -59,3 +59,5 @@ revisar exit codes emitidos por exit
 buscar solucion a que hacer con el path en caso de que no exista el envairoment al cargar la minishell
 	opcion facil (leer del fichero del path y guardarlo en en env)
 	opcion dificil(leer del fichero del path y guardarlo en una variable de respaldo, que la ejecucion lea tambien de esa variable de respaldo y tanto unset como export modifiquen esa variable a parte del env)
+
+configurar exit code de los builting, y chequear posibles errores

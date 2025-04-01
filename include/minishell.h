@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:34:17 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/03/31 19:45:50 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/01 03:03:17 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void				ft_remove_spaces(t_list **list);
 char				*ft_search_in_path(char *cmd, t_minishell *minishell);
 void				ft_unset_args(char **args, t_list **env_list,
 						t_minishell *mini);
-void				ft_open_files(t_cmd *cmd, t_minishell *minishell);
+int					ft_open_files(t_cmd *cmd);
 void				ft_close_files(t_cmd *cmd);
 int					ft_pipeline(t_minishell *minishell, t_cmd **cmds,
 						int num_pipes);

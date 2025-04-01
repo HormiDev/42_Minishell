@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 11:21:40 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/03/28 14:54:22 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/01 03:03:32 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 void	ft_execute_builtin(t_cmd *cmd, t_minishell *minishell)
 {
-	ft_open_files(cmd, minishell);
-	if (minishell->exit_code == 0)
+	if (ft_open_files(cmd) != -1)
 	{
 		if (!ft_strncmp_p(cmd->cmd, "cd", 3))
 			ft_cd(cmd, minishell);
