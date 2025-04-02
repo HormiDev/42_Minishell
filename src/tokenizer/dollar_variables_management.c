@@ -20,6 +20,48 @@
 	return (ft_strdup_ae("SOY_UNA_VARIABLE_DE_PRUEBA"));
 }*/
 
+static char *ft_trim_spaces(char *var)
+{
+	int		len;
+	char	*trimmed;
+	char	*ret;
+
+	len = ft_strlen_p(var);
+	printf("len1: %d\n", len);
+	trimmed = var;
+	while (*trimmed)
+	{
+		if (*trimmed == ' ' || *trimmed == '\t')
+		{
+			trimmed++;
+			while(*trimmed == ' ' || *trimmed == '\t')
+			{
+				trimmed++;
+				len--;
+			}
+			continue ;
+		}
+		trimmed++;
+	}
+	printf("len2: %d\n", len);
+	trimmed = ft_alloc_lst(len * sizeof(char), 4);
+	ret = trimmed;
+	while (*var)
+	{
+		if (*var == ' ' || *var == '\t')
+		{
+			*trimmed = *var;
+			while(*var == ' ' || *var == '\t')
+				var++;
+			continue ;
+		}
+		*trimmed = *var;
+		trimmed++;
+		var++;
+	}
+	//ft_free_alloc(var);
+	return (ret);
+}
 /**
 * @brief Funcion que obtiene el nombre de la variable de entorno
 * @example $HOME, -> HOME
@@ -47,7 +89,11 @@ static char	*ft_parse_var(char *str, int *i, t_minishell *mini)
 	if (len == 0)
 		return ("$");
 	var = ft_substr_ae(str, 0, len);
-	return (ft_getenv(var, mini->envp));
+	var = ft_getenv(var, mini->envp);
+	if (ft_strchr(var, ' ') || ft_strchr(var, '\t'))
+		var = ft_trim_spaces(var);
+	printf("var: %s\n", var);
+	return (var);
 }
 
 static void	ft_put_single_quotes(t_list *list)
