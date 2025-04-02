@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 21:44:42 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/04/02 01:14:48 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/02 16:58:11 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	ft_isbuiltin(char *command)
 
 void	mini_exec(t_cmd *cmd, t_minishell *minishell)
 {
-	if (ft_isbuiltin(cmd->cmd))
+	if (!cmd->cmd || ft_isbuiltin(cmd->cmd))
 	{
 		ft_execute_builtin(cmd, minishell);
 		ft_close_pipes(minishell);
@@ -157,7 +157,7 @@ void	ft_pipex_and_exec(t_minishell *mini, t_list *token_list)
 	num_of_pipes = ft_pipe_counter(token_list);
 	pids = ft_alloc_lst(sizeof(pid_t) * (num_of_pipes + 2), 4);
 	commands_array = ft_cmd_array_converter(token_list);
-	if (num_of_pipes  || !ft_isbuiltin((*commands_array)->cmd))
+	if (num_of_pipes || ((*commands_array)->cmd && !ft_isbuiltin((*commands_array)->cmd)))
 	{
 		i = 0;
 		ft_pipeline(mini, commands_array, num_of_pipes);

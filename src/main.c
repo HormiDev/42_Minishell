@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:28:53 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/02/21 15:01:58 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/02 16:19:00 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,23 @@ int	main(int argc, char **argv, char **envp)
 	if (argc != 1 || !argv)
 		return (ft_putstr_fd("Error: invalid arguments\n", 2), 1);
 	minishell = ft_loading_minishell(envp);
+	ft_config_signals();
 	//ft_export("USER_ZDOTDIR=hola que tal estamos", &minishell->envp);
 	//ft_export("TARTA=hola que tal estamos", &minishell->envp);
 	//ft_unset("LS_COLORS", &minishell->envp);
 	while (1)
 	{
 		ft_update_prompt(minishell);
-		//minishell->line = ft_add_to_alloc_lst_e(ft_input(minishell->prompt));//revisar reservade memoria y liberacion
-		minishell->line = ft_add_to_alloc_lst_e(ft_input(minishell->prompt));
-		minishell->line[ft_strlen(minishell->line) - 1] = '\0';
+		minishell->line = readline(minishell->prompt);//revisar reservade memoria y liberacion
+		//minishell->line = ft_add_to_alloc_lst_e(ft_input(minishell->prompt));
+		//minishell->line[ft_strlen(minishell->line) - 1] = '\0';
 		if (!minishell->line)
-			break;
+			minishell->line = ft_strdup_ae("exit");
+		else
+			ft_add_to_alloc_lst_e(minishell->line);
 		if (*minishell->line)
 		{
-			//add_history(minishell->line);
+			add_history(minishell->line);
 			ft_parsing_and_exec(minishell);
 		}
 		ft_free_alloc((minishell->line));//en caso de lentitud eliminar

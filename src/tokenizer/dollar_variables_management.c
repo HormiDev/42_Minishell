@@ -99,7 +99,7 @@ void	ft_dollar_variable_converter(t_list *list, t_minishell *mini)
 
 	while (list)
 	{
-		if (!ft_strncmp_p((char *)list->content, "<<", 2))
+		if (!ft_strncmp_p((char *)list->content, "<<", 2) && list->next)
 			ft_put_single_quotes(list->next);
 		if (*(char *)list->content != '\'')
 		{

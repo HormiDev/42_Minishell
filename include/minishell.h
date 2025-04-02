@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:34:17 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/04/02 01:08:14 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/02 12:45:44 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <linux/limits.h>
 # include <sys/wait.h>
 # include <errno.h>
+# include <signal.h>
 
 /**
  * @brief Estructura para almacenar los datos de redirecciones
@@ -135,6 +136,7 @@ void				ft_close_pipes(t_minishell *minishell);
 void				ft_error_dprintf(t_minishell *minishell);
 void				ft_create_heredocs(t_list *cmd_list, t_minishell *minishell);
 void				ft_clear_here_docs(t_minishell *minishell);
+void				ft_config_signals(void);
 
 //tokenizer
 int					ft_is_special_token(char *c);
