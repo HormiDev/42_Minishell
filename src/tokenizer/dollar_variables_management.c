@@ -53,6 +53,7 @@ static char *ft_trim_spaces(char *var)
 			*trimmed = *var;
 			while(*var == ' ' || *var == '\t')
 				var++;
+			trimmed++;
 			continue ;
 		}
 		*trimmed = *var;
