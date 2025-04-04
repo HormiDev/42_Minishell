@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:34:17 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/04/04 16:40:51 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/04 19:46:32 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ void				ft_clear_here_docs(t_minishell *minishell);
 void				ft_config_signals(void);
 
 //tokenizer
+char				*ft_parse_var(char *str, int *i, t_minishell *mini);
 int					ft_is_special_token(char *c);
 void				ft_print_syntax_error_message(char *token);
 int					ft_check_token_list(t_list **list, t_minishell *minishell);

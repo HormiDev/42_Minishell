@@ -6,11 +6,12 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 22:04:40 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/02/21 15:01:58 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/04 19:35:57 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
 
 int	ft_check_token_list(t_list **list, t_minishell *minishell)
 {

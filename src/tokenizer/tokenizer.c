@@ -94,6 +94,119 @@ static int	ft_tokenizer_while(char *str, t_list **list, int *i, int *start)
 	return (1);
 }
 
+char	*ft_search_variable(char *str, t_minishell *mini)
+{
+	t_list	*tmp;
+
+	if (str[0] == 0)
+		return (ft_strdup_ae("$"));
+	if (str[0] == '?')
+		return (ft_add_to_alloc_lst_e(ft_itoa(mini->exit_code)));
+	tmp = mini->envp;
+	while (tmp)
+	{
+		if (ft_strncmp_p(((t_env *)tmp->content)->name, str, ft_strlen_p(str) + 1) == 0)
+			return (ft_strdup_ae(((t_env *)tmp->content)->value));
+		tmp = tmp->next;
+	}
+	return (ft_strdup_ae(""));
+}
+
+int	ft_end_var(char *str)
+{
+	int		i;
+
+	i = 1;
+	if (str[i] == '?')
+		return (i + 1);
+	while (str[i] && (ft_isalnum(str[i]) || str[i] == '_'))
+		i++;
+	return (i);
+}
+
+void	ft_unquoted_dollar_variable_converter(t_list *list, t_minishell *mini)
+{
+	char *dollar;
+	char *var;
+	int var_end;
+	t_list *tmp;
+	char **split_var;
+
+	while (list)
+	{
+		if (ft_strncmp_p((char *)list->content, "$", 2) == 0)
+		{
+			list = list->next;
+			continue ;
+		}
+		dollar = ft_strchr_p((char *)list->content, '$');
+		if (dollar && *(char *)list->content != '\''
+			&& *(char *)list->content != '\"')
+		{
+			if (*(char *)list->content != '$')
+			{
+				var = ft_strdup_ae(dollar);
+				dollar[0] = '\0';
+				tmp = list->next;
+				list->next = ft_lstnew_ae(var);
+				list->next->next = tmp;
+				list = list->next;
+				dollar = ft_strchr_p((char *)list->content, '$');
+			}
+			var_end = ft_end_var(dollar);
+			if (dollar[var_end] != 0)
+			{
+				tmp = list->next;
+				list->next = ft_lstnew_ae(ft_strdup_ae(&dollar[var_end]));
+				list->next->next = tmp;
+				dollar[var_end] = '\0';
+			}
+			var = ft_search_variable(&dollar[1], mini);
+			ft_free_alloc(list->content);
+			if (*var)
+			{
+				if (ft_strchr_p(" \t\n\r\f\v", var[0]))
+				{
+					list->content = ft_strdup_ae(" ");
+					tmp = list->next;
+					list->next = ft_lstnew_ae(ft_strdup_ae(""));
+					list->next->next = tmp;
+					list = list->next;
+				}
+				if (ft_strchr_p(" \t\n\r\f\v", var[ft_strlen_p(var) - 1]))
+				{
+					tmp = list->next;
+					list->next = ft_lstnew_ae(ft_strdup_ae(" "));
+					list->next->next = tmp;
+				}
+				split_var = ft_split_chars_ae(var, " \t\n\r\f\v");
+				var_end = 0;
+				while (split_var[var_end])
+				{
+					tmp = list->next;
+					list->next = ft_lstnew_ae(split_var[var_end]);
+					list->next->next = tmp;
+					list = list->next;
+					var_end++;
+					if (split_var[var_end])
+					{
+						tmp = list->next;
+						list->next = ft_lstnew_ae(ft_strdup_ae(" "));
+						list->next->next = tmp;
+						list = list->next;
+					}
+				}
+			}
+			else
+			{
+				ft_free_alloc(var);
+				list->content = ft_strdup_ae("");
+			}
+		}
+		list = list->next;
+	}
+}
+
 t_list	*ft_tokenizer(char *str, t_minishell *minishell)
 {
 	t_list	*list;
@@ -111,6 +224,7 @@ t_list	*ft_tokenizer(char *str, t_minishell *minishell)
 	if (i - start)
 		ft_lstadd_back(&list, ft_lstnew_ae
 			(ft_substr_ae(str, start, i - start)));
+	ft_unquoted_dollar_variable_converter(list, minishell);
 	ft_put_quotes(list);
 	if (!ft_check_token_list(&list, minishell))
 	{

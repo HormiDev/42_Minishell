@@ -70,7 +70,7 @@ static char *ft_trim_spaces(char *var)
 * @param i Indice de la cadena de texto
 * @return char* Nombre de la variable de entorno
 */
-static char	*ft_parse_var(char *str, int *i, t_minishell *mini)
+char	*ft_parse_var(char *str, int *i, t_minishell *mini)
 {
 	size_t	len;
 	char	*var;
@@ -141,7 +141,6 @@ void	ft_dollar_variable_converter(t_list *list, t_minishell *mini)
 	int		i;
 	char	*var;
 
-	//ft_print(list);
 	while (list)
 	{
 		if (!ft_strncmp_p((char *)list->content, "<<", 2) && list->next)
@@ -156,7 +155,7 @@ void	ft_dollar_variable_converter(t_list *list, t_minishell *mini)
 					i++;
 					var = ft_parse_var(&((char *)list->content)[i], &i, mini);
 					list->content = ft_split_and_join(list->content, var, i);
-					i = ft_strlen_p(var);
+					i = ft_strlen_p(list->content);
 				}
 				else
 					i++;
