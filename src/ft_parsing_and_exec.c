@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 16:26:50 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/04/02 01:14:53 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/04 16:44:38 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	ft_parsing_and_exec(t_minishell *mini)
 	token_list = ft_tokenizer(mini->line, mini);
 	if (!token_list)
 		return ;
+	//ft_print(token_list);
 	token_list = ft_create_cmds(token_list); //revisar que la lista recibida se libere durante la creacion de los comandos
 	if (token_list)
 		ft_create_heredocs(token_list, mini);

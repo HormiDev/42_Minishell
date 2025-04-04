@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:34:17 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/04/02 12:45:44 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/04 16:40:51 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ typedef struct s_minishell
 	struct s_building	*prev;
 }	t_building;*/
 
+void	ft_print(t_list *list);//BORRAR
+
 void				clean_and_exit(int exit_code);
 void				ft_array_to_list(char **envp, t_list **envp_list);
 //void				ft_cd(char **args, t_list **env, t_minishell *minishell);
@@ -113,7 +115,7 @@ char				*ft_getenv(char *needle, t_list *envp);
 //void				ft_print_env(t_list *env, int fd);
 void				ft_print_env(t_list *env, int fd, t_minishell *mini);
 void				ft_update_prompt(t_minishell *minishell);
-void				ft_export(char *envp, t_list **envp_list);
+int					ft_export(char *envp, t_list **envp_list);
 //void				ft_export_args(char **args, t_list **env_list,
 //						t_minishell *mini);
 void				ft_export_args(t_cmd *cmd, t_minishell *mini);

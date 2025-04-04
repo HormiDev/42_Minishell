@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:28:53 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/04/02 20:00:46 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/03 16:32:31 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,22 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		ft_update_prompt(minishell);
-		//minishell->line = readline(minishell->prompt);//revisar reservade memoria y liberacion
-		minishell->line = ft_input(minishell->prompt);
+		minishell->line = readline(minishell->prompt);//revisar reservade memoria y liberacion
+		/*minishell->line = ft_input(minishell->prompt);
 		if (minishell->line)//no necesario para readline, revisar
-			minishell->line[ft_strlen_p(minishell->line) - 1] = '\0';//no necesario para readline
+			minishell->line[ft_strlen_p(minishell->line) - 1] = '\0';//no necesario para readline*/
 		if (!minishell->line)
 			minishell->line = ft_strdup_ae("exit");
 		else
 			ft_add_to_alloc_lst_e(minishell->line);
 		if (*minishell->line)
 		{
-			//add_history(minishell->line);
+			add_history(minishell->line);
 			ft_parsing_and_exec(minishell);
 		}
 		ft_free_alloc((minishell->line));//en caso de lentitud eliminar
 	}
-	//rl_clear_history();
+	rl_clear_history();
 	ft_alloc_lst(0, 0);
 	return (0);
 }

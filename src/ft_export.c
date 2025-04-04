@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 21:32:31 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/04/01 19:36:32 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/04 16:39:56 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_env	*ft_create_hash(char *envp, int i)
 	return (hash);
 }
 
-void	ft_export(char *envp, t_list **envp_list)
+int	ft_export(char *envp, t_list **envp_list)
 {
 	t_env	*hash;
 	t_list	*tmp_list;
@@ -66,9 +66,21 @@ void	ft_export(char *envp, t_list **envp_list)
 
 	i = 0;
 	while (envp[i] && envp[i] != '=')
+	{
+		if (!ft_isalnum(envp[i]) && envp[i] != '_')
+		{
+			printf("%sexport: %s: not a valid identifier%s\n", RED, envp, RESET);
+			return (1);
+		}
 		i++;
-	if (!envp[i])
-		return ;
+	}
+	if (!envp[i] || !envp[i + 1] || i == 0)
+	{
+
+		if (i == 0)
+			printf("%sexport: %s: not a valid identifier%s\n", RED, envp, RESET);
+		return (1);
+	}
 	hash = ft_create_hash(envp, i);
 	tmp_list = *envp_list;
 	while (tmp_list && (t_env *)tmp_list->content)
@@ -80,11 +92,12 @@ void	ft_export(char *envp, t_list **envp_list)
 			tmp_list->content = hash;
 			if (ft_strncmp_p(hash->name, "SHLVL", 6) == 0)
 				ft_export_shlvl((t_env *)tmp_list->content);
-			return ;
+			return	(1);
 		}
 		tmp_list = tmp_list->next;
 	}
 	ft_lstadd_back(envp_list, ft_lstnew_ae(hash));
+	return (0);
 }
 
 char	**create_array_env_name(t_list *env_list)
@@ -152,11 +165,7 @@ void	ft_export_args(t_cmd *cmd, t_minishell *mini)
 		mini->exit_code = 0;
 		return ;
 	}
-	while (cmd->args[i])
-	{
-		ft_export(cmd->args[i], &mini->envp);
-		i++;
-	}
+	while (cmd->args[++i])
+		mini->exit_code = ft_export(cmd->args[i], &mini->envp);
 	ft_refresh_env_array(mini->envp, mini);
-	mini->exit_code = 0;
 }

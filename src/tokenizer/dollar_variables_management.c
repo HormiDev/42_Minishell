@@ -19,7 +19,7 @@
 		return (NULL);
 	return (ft_strdup_ae("SOY_UNA_VARIABLE_DE_PRUEBA"));
 }*/
-
+/*
 static char *ft_trim_spaces(char *var)
 {
 	int		len;
@@ -62,7 +62,7 @@ static char *ft_trim_spaces(char *var)
 	}
 	//ft_free_alloc(var);
 	return (ret);
-}
+}*/
 /**
 * @brief Funcion que obtiene el nombre de la variable de entorno
 * @example $HOME, -> HOME
@@ -90,11 +90,7 @@ static char	*ft_parse_var(char *str, int *i, t_minishell *mini)
 	if (len == 0)
 		return ("$");
 	var = ft_substr_ae(str, 0, len);
-	var = ft_getenv(var, mini->envp);
-	if (ft_strchr(var, ' ') || ft_strchr(var, '\t'))
-		var = ft_trim_spaces(var);
-	printf("var: %s\n", var);
-	return (var);
+	return (ft_getenv(var, mini->envp));
 }
 
 static void	ft_put_single_quotes(t_list *list)
@@ -129,6 +125,7 @@ static char	*ft_split_and_join(char *str, char *var, int i)
 		len++;
 	substr = ft_substr_ae(str, 0, len);
 	jointed_str = ft_strjoin_ae(ft_strjoin_ae(substr, var), &str[i]);
+	//jointed_str[1] = '@';//borrar
 	ft_free_alloc(substr);
 	return (jointed_str);
 }
@@ -144,6 +141,7 @@ void	ft_dollar_variable_converter(t_list *list, t_minishell *mini)
 	int		i;
 	char	*var;
 
+	//ft_print(list);
 	while (list)
 	{
 		if (!ft_strncmp_p((char *)list->content, "<<", 2) && list->next)
