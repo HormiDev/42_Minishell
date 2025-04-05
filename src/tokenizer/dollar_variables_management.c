@@ -83,7 +83,6 @@ char	*ft_parse_var(char *str, int *i, t_minishell *mini)
 	len = 0;
 	while (str[len] == '_' || ft_isalnum(str[len]))
 	{
-		
 		len++;
 		(*i)++;
 	}
@@ -114,19 +113,17 @@ static void	ft_put_single_quotes(t_list *list)
 	}
 }
 
-static char	*ft_split_and_join(char *str, char *var, int i)
+static char	*ft_split_and_join(char *str, char *var, int *i)
 {
-	int		len;
-	char	*substr;
+	char	*substr[2];
 	char	*jointed_str;
 
-	len = 0;
-	while (str[len] != '$')
-		len++;
-	substr = ft_substr_ae(str, 0, len);
-	jointed_str = ft_strjoin_ae(ft_strjoin_ae(substr, var), &str[i]);
-	//jointed_str[1] = '@';//borrar
-	ft_free_alloc(substr);
+	substr[0] = ft_substr_ae(str, 0, i[1]);
+	substr[1] = ft_strjoin_ae(substr[0], var);
+	jointed_str = ft_strjoin_ae(substr[1], &str[i[0]]);
+	i[0] = ft_strlen_p(substr[1]);
+	ft_free_alloc(substr[0]);
+	ft_free_alloc(substr[1]);
 	return (jointed_str);
 }
 
@@ -138,7 +135,7 @@ static char	*ft_split_and_join(char *str, char *var, int i)
 */
 void	ft_dollar_variable_converter(t_list *list, t_minishell *mini)
 {
-	int		i;
+	int		i[2];
 	char	*var;
 
 	while (list)
@@ -147,18 +144,18 @@ void	ft_dollar_variable_converter(t_list *list, t_minishell *mini)
 			ft_put_single_quotes(list->next);
 		if (*(char *)list->content != '\'')
 		{
-			i = 0;
-			while (((char *)list->content)[i])
+			i[0] = 0;
+			while (((char *)list->content)[i[0]])
 			{
-				if (((char *)list->content)[i] == '$')
+				if (((char *)list->content)[i[0]++] == '$')
 				{
-					i++;
-					var = ft_parse_var(&((char *)list->content)[i], &i, mini);
+					i[1] = i[0] - 1;
+					var = ft_parse_var(&((char *)list->content)[i[0]],
+							&i[0], mini);
+					if (!ft_strncmp_p(var, "$", 2))
+						continue ;
 					list->content = ft_split_and_join(list->content, var, i);
-					i = ft_strlen_p(list->content);
 				}
-				else
-					i++;
 			}
 		}
 		list = list->next;
