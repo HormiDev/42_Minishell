@@ -226,9 +226,7 @@ t_list	*ft_tokenizer(char *str, t_minishell *minishell)
 	if (i - start)
 		ft_lstadd_back(&list, ft_lstnew_ae
 			(ft_substr_ae(str, start, i - start)));
-	ft_print(list);
 	ft_unquoted_dollar_variable_converter(list, minishell);
-	ft_print(list);
 	ft_put_quotes(list);
 	if (!ft_check_token_list(&list, minishell))
 	{
