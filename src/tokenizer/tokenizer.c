@@ -173,6 +173,8 @@ void	ft_unquoted_dollar_variable_converter(t_list *list, t_minishell *mini)
 					list->next->next = tmp;
 					list = list->next;
 				}
+				else
+					list->content = ft_strdup_ae("");
 				if (ft_strchr_p(" \t\n\r\f\v", var[ft_strlen_p(var) - 1]))
 				{
 					tmp = list->next;
@@ -224,7 +226,9 @@ t_list	*ft_tokenizer(char *str, t_minishell *minishell)
 	if (i - start)
 		ft_lstadd_back(&list, ft_lstnew_ae
 			(ft_substr_ae(str, start, i - start)));
+	ft_print(list);
 	ft_unquoted_dollar_variable_converter(list, minishell);
+	ft_print(list);
 	ft_put_quotes(list);
 	if (!ft_check_token_list(&list, minishell))
 	{
