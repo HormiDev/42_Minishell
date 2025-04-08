@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
+/*   By: ide-dieg <ide-dieg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:28:53 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/04/03 16:32:31 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/08 17:58:02 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	main(int argc, char **argv, char **envp)
 			ft_parsing_and_exec(minishell);
 		}
 		ft_free_alloc((minishell->line));//en caso de lentitud eliminar
+		ft_config_signals();
 	}
 	rl_clear_history();
 	ft_alloc_lst(0, 0);

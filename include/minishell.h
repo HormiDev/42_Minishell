@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
+/*   By: ide-dieg <ide-dieg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:34:17 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/04/04 19:46:32 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/08 17:07:18 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,7 @@ void				ft_error_dprintf(t_minishell *minishell);
 void				ft_create_heredocs(t_list *cmd_list, t_minishell *minishell);
 void				ft_clear_here_docs(t_minishell *minishell);
 void				ft_config_signals(void);
+void				ft_signal_child(void);
 
 //tokenizer
 char				*ft_parse_var(char *str, int *i, t_minishell *mini);
