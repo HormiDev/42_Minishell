@@ -30,4 +30,9 @@ void	ft_config_signals(void)
 		ft_dprintf(2, "%sError: %s%s\n", RED, strerror(errno), RESET);
 		exit(1);
 	}
+	if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
+	{
+		ft_dprintf(2, "%sError: %s%s\n", RED, strerror(errno), RESET);
+		exit(1);
+	}
 }
