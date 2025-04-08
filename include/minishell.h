@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:34:17 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/04/08 17:07:18 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/08 23:28:07 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ typedef struct s_minishell
 	char			**envp_array;
 	int				**pipeline;
 	t_list			*here_docs;
+	int				history_fd;
 }	t_minishell;
 
 /*typedef struct s_building
@@ -140,6 +141,7 @@ void				ft_create_heredocs(t_list *cmd_list, t_minishell *minishell);
 void				ft_clear_here_docs(t_minishell *minishell);
 void				ft_config_signals(void);
 void				ft_signal_child(void);
+void				ft_init_history(t_minishell *minishell);
 
 //tokenizer
 char				*ft_parse_var(char *str, int *i, t_minishell *mini);

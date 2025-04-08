@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_loading_minishell.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
+/*   By: ide-dieg <ide-dieg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 17:30:21 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/02/05 20:09:25 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/08 23:28:57 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,6 @@ t_minishell	*ft_loading_minishell(char **envp)
 		minishell->user = ft_strdup_ae("ide-dieg");
 		minishell->host = ft_strdup_ae("dagimeno");
 	}
+	ft_init_history(minishell);
 	return (minishell);
 }

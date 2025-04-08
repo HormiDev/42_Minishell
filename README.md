@@ -62,3 +62,7 @@ buscar solucion a que hacer con el path en caso de que no exista el envairoment 
 
 Hacer que el heredoc imprima el valor de las variables de entorno
 que las variables de entorno en el parseo sean spliteadas
+
+El fd de el historial queda abierto al cerrar la minishell 
+	Opcion1: asegurarse de que se cierre en todas las posibles salidas
+	Opcion2: abrir y cerrar el fd cada vez que se tenga que usar
