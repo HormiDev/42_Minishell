@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ide-dieg <ide-dieg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 21:44:42 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/04/08 18:20:53 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/10 12:49:35 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	ft_isbuiltin(char *command)
 
 void	mini_exec(t_cmd *cmd, t_minishell *minishell)
 {
-	//ft_signal_child();
+	//ft_config_signals_in_exec();
 	if (!cmd->cmd || ft_isbuiltin(cmd->cmd))
 	{
 		ft_execute_builtin(cmd, minishell);
@@ -166,7 +166,7 @@ void	ft_pipex_and_exec(t_minishell *mini, t_list *token_list)
 		{
 			pids[i] = fork();
 			//printf("hola\n");
-			ft_signal_child();
+			ft_config_signals_in_exec();
 			if (pids[i] < 0)
 			{
 				ft_dprintf(2, "%s%s: %s%s\n", RED, "fork", strerror(errno), RESET);

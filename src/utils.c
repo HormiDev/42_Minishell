@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
+/*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 20:40:52 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/02/05 21:13:29 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/10 18:11:26 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_isnumber(char *str)
 
 void	clean_and_exit(int exit_code)
 {
-	//rl_clear_history();
+	rl_clear_history();
 	ft_alloc_lst(0, 0);
 	exit(exit_code);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parsing_and_exec.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
+/*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 16:26:50 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/04/04 16:44:38 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/10 18:35:38 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void	ft_parsing_and_exec(t_minishell *mini)
 {
 	t_list	*token_list;
 	//t_cmd	*cmd;
+	pid_t	herdoc_pid;
+	int		here_fork_status;
 
 	token_list = ft_tokenizer(mini->line, mini);
 	if (!token_list)
@@ -61,7 +63,34 @@ void	ft_parsing_and_exec(t_minishell *mini)
 	//ft_print(token_list);
 	token_list = ft_create_cmds(token_list); //revisar que la lista recibida se libere durante la creacion de los comandos
 	if (token_list)
-		ft_create_heredocs(token_list, mini);
+	{
+		ft_config_signals_in_exec();
+		herdoc_pid = fork();
+		if (herdoc_pid == -1)
+		{	
+			ft_dprintf(2, "%sError: %s%s\n", RED, strerror(errno), RESET);
+			clean_and_exit(1);
+		}
+		if (herdoc_pid == 0)
+		{
+			ft_config_signals_in_heredoc();
+			ft_create_heredocs(token_list, mini);
+			exit(0);
+		}
+		ft_save_heredocs(token_list, mini);
+		if (waitpid(herdoc_pid, &here_fork_status, 0) == -1)
+		{
+			ft_dprintf(2, "%sError: %s%s\n", RED, strerror(errno), RESET);
+			clean_and_exit(1);
+		}
+		if (WIFSIGNALED(here_fork_status))
+		{
+			ft_clear_here_docs(mini);
+			ft_free_alloc_lst_clear(&token_list, ft_free_alloc);
+			mini->exit_code = (128 + WTERMSIG(here_fork_status));
+			return ;
+		}
+	}
 	//para el bonus aqui se tendra que dividir la lista varias listas partiendo por los || y &&
 	//commands_array = ft_cmd_array_converter(token_list);
 	// crear funcion de compresion para parentesis que meta todo lo que hay dentro de un parentesis en un solo nodo

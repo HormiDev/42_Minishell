@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_config_signals.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ide-dieg <ide-dieg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 12:00:01 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/04/08 18:26:11 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/10 18:33:04 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_sig_c(int sig)
 	}
 }
 
-void	ft_nada(int sig)
+void	ft_in_exec(int sig)
 {
 	if (sig == SIGINT)
 	{
@@ -48,9 +48,9 @@ void	ft_config_signals(void)
 }
 
 
-void	ft_signal_child(void)
+void	ft_config_signals_in_exec(void)
 {
-	if (signal(SIGINT, ft_nada) == SIG_ERR)
+	if (signal(SIGINT, ft_in_exec) == SIG_ERR)
 	{
 		ft_dprintf(2, "%sError: %s%s\n", RED, strerror(errno), RESET);
 		ft_alloc_lst(0, 0);
@@ -62,4 +62,14 @@ void	ft_signal_child(void)
 		ft_alloc_lst(0, 0);
 		exit(1);
 	}*/
+}
+
+void	ft_config_signals_in_heredoc(void)
+{
+	if (signal(SIGINT, SIG_DFL) == SIG_ERR)
+	{
+		ft_dprintf(2, "%sError: %s%s\n", RED, strerror(errno), RESET);
+		ft_alloc_lst(0, 0);
+		exit(1);
+	}
 }

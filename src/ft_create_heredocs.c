@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_create_heredocs.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ide-dieg <ide-dieg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 19:57:31 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/04/08 17:35:37 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/10 18:27:07 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static void	ft_read_here_doc(char *limiter, int here_doc_fd)
 
 	ft_printf("%s > ", limiter);
 	line = get_next_line(0);
-	ft_printf("hola\n");
 	if (line && line[0] != 0)
 		line[ft_strlen_p(line) - 1] = '\0';
 	while (line && ft_strncmp_p(line, limiter, ft_strlen(limiter) + 1) != 0)
