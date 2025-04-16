@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 13:59:48 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/04/16 01:59:40 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/16 22:02:00 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,33 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
+int ft_alnum_strcmp(const char *s1, const char *s2)
+{
+	int	i;
+	int char1;
+	int char2;
+
+	if (s1 == 0 || s2 == 0)
+		return (0);
+	i = 0;
+	while (s1[i] && s2[i] && s1[i] == s2[i])
+		i++;
+	char1 = s1[i];
+	char2 = s2[i];
+	if (char1 >= '0' && char1 <= '9')
+		char1 = 128 + char1 - 48;
+	else if (char1 >= 'a' && char1 <= 'z')
+		char1 = 128 + char1 - 97 + 10;
+	else if (char1 >= 'A' && char1 <= 'Z')
+		char1 = 128 + char1 - 65 + 10;
+	if (char2 >= '0' && char2 <= '9')
+		char2 = 128 + char2 - 48;
+	else if (char2 >= 'a' && char2 <= 'z')
+		char2 = 128 + char2 - 97 + 10;
+	else if (char2 >= 'A' && char2 <= 'Z')
+		char2 = 128 + char2 - 65 + 10;
+	return ((unsigned char)char1 - (unsigned char)char2);
+}
 int	ft_is_order_wildcard(t_list *list)
 {
 	char	*str1;
@@ -47,12 +74,22 @@ int	ft_is_order_wildcard(t_list *list)
 		str2 = ft_search_alnum_char(list->next->content);
 		if ((str1 == NULL && str2 == NULL
 			&& ft_strcmp(list->content, list->next->content) > 0 )
-			|| (str1 != NULL && str2 != NULL && ft_strcmp(str1, str2) > 0)
+			|| (str1 != NULL && str2 != NULL && ft_alnum_strcmp(str1, str2) > 0)
 			|| (str1 != NULL && str2 == NULL))
 			return (0);
 		list = list->next;
 	}
 	return (1);
+}
+
+void	ft_print_list(t_list *list)//borrar funcion
+{
+	while (list)
+	{
+		ft_printf("%s ", list->content);
+		list = list->next;
+	}
+	ft_printf("\n");
 }
 
 void	ft_order_wildcards(t_list *list)
@@ -72,7 +109,7 @@ void	ft_order_wildcards(t_list *list)
 			str2 = ft_search_alnum_char(aux->next->content);
 			if ((str1 == NULL && str2 == NULL
 				&& ft_strcmp(list->content, list->next->content) > 0 )
-				|| (str1 != NULL && str2 != NULL && ft_strcmp(str1, str2) > 0)
+				|| (str1 != NULL && str2 != NULL && ft_alnum_strcmp(str1, str2) > 0)
 				|| (str1 != NULL && str2 == NULL))
 			{
 				str1 = aux->content;
@@ -179,12 +216,7 @@ int main(int argc, char *argv[])
 	ft_order_wildcards(list);
 	if (list == NULL)
 		ft_lstadd_back(&list, ft_lstnew_ae(ft_strdup_ae(argv[1])));
-	while (list)
-	{
-		ft_printf("%s ", list->content);
-		list = list->next;
-	}
-	ft_printf("\n");
+	ft_print_list(list);
 	ft_alloc_lst(0, 0);
 	return (0);
 }
