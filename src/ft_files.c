@@ -22,8 +22,8 @@ static int	ft_open_infiles(t_cmd *cmd)
 		if (cmd->io_fd[0] > 0)
 			close(cmd->io_fd[0]);
 		if (((t_redir *)(cmd->infiles[i]))->type == 0)
-			cmd->io_fd[0] = open(((t_redir *)
-						(cmd->infiles[i]))->file, O_RDONLY);
+			cmd->io_fd[0] = open(((t_redir *)(cmd->infiles[i]))->file,
+					O_RDONLY);
 		if (cmd->io_fd[0] < 0)
 		{
 			perror(cmd->infiles[i]->file);//revisar
