@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
+/*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 12:46:47 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/03/03 17:33:27 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/22 20:15:45 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static int	is_argument_valid(char *arg)
 		return (0);
 	return (1);
 }
+
 /**
  * @brief Salir del minishell liberando la memoria y limpiando el historial
  * 
@@ -60,3 +61,4 @@ void	ft_exit(char **arg, t_minishell *minishell)
 	minishell->line = NULL;
 	clean_and_exit((unsigned int)ft_atoi_p(arg[0]));
 }
+

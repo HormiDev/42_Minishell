@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:34:17 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/04/14 14:02:04 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/22 20:22:15 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,22 +81,6 @@ typedef struct s_minishell
 	t_list			*here_docs;
 	int				history_fd;
 }	t_minishell;
-
-/*typedef struct s_building
-{
-	t_list	*content;
-	int		id;
-	int		id_parent;
-	int		level;
-	int		status;
-	int		separator;  //el tipo de separador que sigue al nodo, puede ser 0(no hay separador), 1(&&) o 2(||) 0  
-	int		redirection; //el tipo de accion a ejecutar 0(nada), 1 (|), 2 (<), 3(>), 4(<<), 5(>>)
-	struct s_building	*upper_floor;
-	struct s_building	*lower_floor;
-	struct s_building	*next;
-	struct s_building	*prev;
-}	t_building;*/
-
 
 void	ft_print(t_list *list);//BORRAR
 

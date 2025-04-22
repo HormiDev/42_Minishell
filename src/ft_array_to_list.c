@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_array_to_list.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
+/*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 21:31:23 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/02/02 20:39:15 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/22 20:16:41 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_array_to_list(char **envp, t_list **envp_list)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (envp[i])

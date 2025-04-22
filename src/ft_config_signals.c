@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 12:00:01 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/04/10 18:33:04 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/22 20:19:42 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	ft_config_signals(void)
 	}
 }
 
-
 void	ft_config_signals_in_exec(void)
 {
 	if (signal(SIGINT, ft_in_exec) == SIG_ERR)
@@ -56,12 +55,6 @@ void	ft_config_signals_in_exec(void)
 		ft_alloc_lst(0, 0);
 		exit(1);
 	}
-	/*if (signal(SIGQUIT, SIG_DFL) == SIG_ERR)
-	{
-		ft_dprintf(2, "%sError: %s%s\n", RED, strerror(errno), RESET);
-		ft_alloc_lst(0, 0);
-		exit(1);
-	}*/
 }
 
 void	ft_config_signals_in_heredoc(void)

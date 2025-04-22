@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
+/*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 13:04:27 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/04/01 19:41:33 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/22 20:26:01 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,5 @@ void	ft_echo(t_cmd *cmd, t_minishell *mini)
 	if (flag)
 		if (ft_dprintf(cmd->io_fd[1], "\n") == -1)
 			return (ft_error_dprintf(mini));
-	mini->exit_code = 0;
+	
 }
-
