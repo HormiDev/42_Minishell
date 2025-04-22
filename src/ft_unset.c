@@ -29,7 +29,7 @@ void	ft_unset(char *envp, t_list **env_list)
 	while (tmp_list->next)
 	{
 		if (!ft_strncmp_p(((t_env *)tmp_list->next->content)->name, envp,
-			ft_strlen_p(envp) + 1))
+				ft_strlen_p(envp) + 1))
 		{
 			tmp_list_free = tmp_list->next;
 			tmp_list->next = tmp_list->next->next;
@@ -51,6 +51,6 @@ void	ft_unset_args(char **args, t_list **env_list, t_minishell *mini)
 		ft_unset(args[i], env_list);
 		i++;
 	}
-	ft_refresh_env_array(mini->envp, mini);	
+	ft_refresh_env_array(mini->envp, mini);
 	mini->exit_code = 0;
 }
