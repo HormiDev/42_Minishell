@@ -24,11 +24,11 @@ int	ft_isnumber(char *str)
 	while (ft_isdigit(str[i]))
 		i++;
 	if (str[i] && (str[i] != ' ' || (str[i] > 8 && str[i] < 14)))
-		return(0);
+		return (0);
 	while (str[i] == ' ' || (str[i] > 8 && str[i] < 14))
 		i++;
 	if (str[i] && (str[i] != ' ' || (str[i] > 8 && str[i] < 14)))
-		return(0);
+		return (0);
 	return (1);
 }
 
