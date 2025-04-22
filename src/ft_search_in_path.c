@@ -23,8 +23,8 @@ char	*ft_search_in_path(char *cmd, t_minishell *minishell)
 	if (!cmd || !minishell->envp || !tmp)
 		return (cmd);
 	path = ft_split_ae(tmp, ':');
-	i = 0;
-	while (path[i])
+	i = -1;
+	while (path[++i])
 	{
 		tmp2 = ft_strjoin_ae(path[i], "/");
 		tmp = ft_strjoin_ae(tmp2, cmd);
@@ -35,7 +35,6 @@ char	*ft_search_in_path(char *cmd, t_minishell *minishell)
 			return (tmp);
 		}
 		ft_free_alloc(tmp);
-		i++;
 	}
 	ft_dprintf(2, "%sminishell: %s: cmd not found%s\n", RED, cmd, RESET);
 	minishell->exit_code = 127;
