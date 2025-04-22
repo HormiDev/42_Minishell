@@ -21,9 +21,9 @@ void	ft_modify_env(t_list **env, t_minishell *minishell, char *path)
 	ft_free_alloc(tmp);
 	if (getcwd(minishell->cwd, PATH_MAX) == NULL)
 	{
-		ft_dprintf(2, "minishell: cd: %s: %s\n", path, strerror(errno));//mejor comentario que el original
+		ft_dprintf(2, "minishell: cd: %s: %s\n", path, strerror(errno));
 		ft_sprintf(minishell->cwd, "%s/%s", ft_getenv("OLDPWD", *env),
-					path);
+			path);
 		minishell->exit_code = 1;
 	}
 	else
@@ -39,7 +39,7 @@ void	ft_cd(t_cmd *cmd, t_minishell *minishell)
 	char	**args;
 	char	*path;
 	t_list	*env;
-	
+
 	env = minishell->envp;
 	args = &cmd->args[1];
 	if (!args[0])
