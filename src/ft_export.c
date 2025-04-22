@@ -12,87 +12,48 @@
 
 #include "../include/minishell.h"
 
-void	ft_export_shlvl(t_env *env)
+static t_env	*ft_check_input(char *env)
 {
-	char	*tmp;
-	int		number;
-
-	number = ft_atoi_p(env->value);
-	if (!ft_isnumber(env->value) || number < 0 
-		|| number > 1000)
-	{
-		ft_free_alloc(env->value);
-		env->value = ft_strdup_ae("0");
-		ft_free_alloc(env->full);
-		tmp = ft_strjoin_ae(env->name, "=");
-		env->full = ft_strjoin_ae(tmp, env->value);
-		ft_free_alloc(tmp);
-	}
-	else
-	{
-		ft_free_alloc(env->value);
-		env->value = ft_add_to_alloc_lst_e(ft_itoa(number));
-		ft_free_alloc(env->full);
-		tmp = ft_strjoin_ae(env->name, "=");
-		env->full = ft_strjoin_ae(tmp, env->value);
-		ft_free_alloc(tmp);
-	}
-}
-
-void	ft_free_hash(t_env *hash)
-{
-	ft_free_alloc(hash->name);
-	ft_free_alloc(hash->value);
-	ft_free_alloc(hash->full);
-	ft_free_alloc(hash);
-}
-
-t_env	*ft_create_hash(char *envp, int i)
-{
-	t_env	*hash;
-
-	hash = (t_env *)ft_alloc_lst(sizeof(t_env), 3);
-	hash->full = ft_strdup_ae(envp);
-	hash->name = ft_substr_ae(envp, 0, i);
-	hash->value = ft_strdup_ae(envp + i + 1);
-	return (hash);
-}
-
-int	ft_export(char *envp, t_list **envp_list)
-{
-	t_env	*hash;
-	t_list	*tmp_list;
-	int		i;
+	int	i;
 
 	i = 0;
-	while (envp[i] && envp[i] != '=')
+	while (env[i] && env[i] != '=')
 	{
-		if (!ft_isalnum(envp[i]) && envp[i] != '_')
+		if (!ft_isalnum(env[i]) && env[i] != '_')
 		{
-			printf("%sexport: %s: not a valid identifier%s\n", RED, envp, RESET);
-			return (1);
+			printf("%sexport: %s: not a valid identifier%s\n", RED, env, RESET);
+			return (NULL);
 		}
 		i++;
 	}
-	if (!envp[i] || !envp[i + 1] || i == 0)
+	if (!env[i] || !env[i + 1] || i == 0)
 	{
-
 		if (i == 0)
-			printf("%sexport: %s: not a valid identifier%s\n", RED, envp, RESET);
-		return (1);
+			printf("%sexport: %s: not a valid identifier%s\n", RED, env, RESET);
+		return (NULL);
 	}
-	hash = ft_create_hash(envp, i);
+	return (ft_create_hash(env, i));
+}
+
+int	ft_export(char *env, t_list **envp_list)
+{
+	t_env	*hash;
+	t_list	*tmp_list;
+
+	hash = ft_check_input(env);
+	if (!hash)
+		return (1);
 	tmp_list = *envp_list;
 	while (tmp_list && (t_env *)tmp_list->content)
 	{
 		if (!ft_strncmp_p(((t_env *)tmp_list->content)->name, hash->name,
-			ft_strlen_p(hash->name) + 1))
+				ft_strlen_p(hash->name) + 1))
 		{
 			ft_free_hash((t_env *)tmp_list->content);
 			tmp_list->content = hash;
 			if (ft_strncmp_p(hash->name, "SHLVL", 6) == 0)
 				ft_export_shlvl((t_env *)tmp_list->content);
-			return	(1);
+			return (1);
 		}
 		tmp_list = tmp_list->next;
 	}

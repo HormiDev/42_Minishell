@@ -122,6 +122,9 @@ int					ft_export(char *envp, t_list **envp_list);
 //void				ft_export_args(char **args, t_list **env_list,
 //						t_minishell *mini);
 void				ft_export_args(t_cmd *cmd, t_minishell *mini);
+void				ft_export_shlvl(t_env *env);
+t_env				*ft_create_hash(char *envp, int i);
+void				ft_free_hash(t_env *hash);
 void				ft_exit(char **arg, t_minishell *minishell);
 void				ft_pwd(t_cmd *cmd, t_minishell *minishell);
 void				ft_unset(char *envp, t_list **env_list);
