@@ -20,9 +20,9 @@
  * @param data
  * @param type
 */
-t_data_container *ft_new_data_container(void *data, int type)
+t_data_container	*ft_new_data_container(void *data, int type)
 {
-	t_data_container *data_container;
+	t_data_container	*data_container;
 
 	data_container = ft_alloc_lst(sizeof(t_data_container), 4);
 	data_container->data = data;

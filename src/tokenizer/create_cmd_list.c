@@ -81,13 +81,13 @@ static void	ft_create_and_clear_cmds(t_list **list, t_list **cmds, t_list **tmp,
 {
 	if (*is_cmd)
 	{
-		ft_lstadd_back(cmds, 
+		ft_lstadd_back(cmds,
 			ft_lstnew_ae(ft_new_data_container(ft_create_cmd(*tmp), 0)));
 	}
 	if (*list)
-		ft_lstadd_back(cmds, 
-			ft_lstnew_ae(ft_new_data_container(ft_strdup_ae((*list)->content),
-				1)));
+		ft_lstadd_back(cmds,
+			ft_lstnew_ae(ft_new_data_container
+				(ft_strdup_ae((*list)->content), 1)));
 	if (*list)
 	{
 		*tmp = *list;
@@ -109,7 +109,7 @@ static void	ft_create_cmds_while(t_list **list, t_list **tmp2, int *is_cmd)
 		{
 			if (*is_cmd)
 				(*tmp2)->next = NULL;
-			break;
+			break ;
 		}
 		*is_cmd = 1;
 		*tmp2 = *list;

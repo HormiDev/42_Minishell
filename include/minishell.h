@@ -143,6 +143,8 @@ void				ft_print_syntax_error_message(char *token);
 int					ft_check_token_list(t_list **list, t_minishell *minishell);
 void				ft_dollar_variable_converter(t_list *list,
 						t_minishell *minishell);
+void				ft_unquoted_dollar_variable_converter(t_list *list,
+						t_minishell *mini);
 void				ft_join_str_tokenizer(t_list *list);
 void				ft_put_quotes(t_list *list);
 int					ft_check_parenthesis(t_list *tks);

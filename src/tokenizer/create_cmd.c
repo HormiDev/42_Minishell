@@ -33,7 +33,7 @@ static void	ft_count_arrays(t_list *list, int *cmd_redir_count)
 static t_redir	*ft_create_redir(char *str)
 {
 	t_redir	*new_redir;
-	
+
 	new_redir = ft_alloc_lst(sizeof(t_redir), 4);
 	if (!ft_strncmp_p(str, ">>", 2))
 	{
@@ -65,7 +65,7 @@ static void	ft_create_cmd_while(t_list *list, t_cmd *new_cmd, int *counts)
 		new_cmd->infiles[counts[0]] = ft_create_redir((char *)list->content);
 		counts[0]++;
 	}
-	else if(!ft_strncmp_p((char *)list->content, ">", 1))
+	else if (!ft_strncmp_p((char *)list->content, ">", 1))
 	{
 		new_cmd->outfiles[counts[1]] = ft_create_redir((char *)list->content);
 		counts[1]++;
@@ -73,7 +73,7 @@ static void	ft_create_cmd_while(t_list *list, t_cmd *new_cmd, int *counts)
 	else
 	{
 		new_cmd->args[counts[2]] = ft_substr_ae((char *)list->content, 1,
-			ft_strlen_p((char *)list->content) - 2);
+				ft_strlen_p((char *)list->content) - 2);
 		counts[2]++;
 	}
 }
@@ -81,8 +81,8 @@ static void	ft_create_cmd_while(t_list *list, t_cmd *new_cmd, int *counts)
 t_cmd	*ft_create_cmd(t_list *list)
 {
 	t_cmd	*new_cmd;
-	int 	counts[3];
-	
+	int		counts[3];
+
 	ft_memset(counts, 0, 3 * sizeof(int));
 	new_cmd = ft_alloc_lst(sizeof(t_cmd), 4);
 	ft_count_arrays(list, counts);

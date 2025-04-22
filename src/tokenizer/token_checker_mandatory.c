@@ -12,7 +12,6 @@
 
 #include "../../include/minishell.h"
 
-
 int	ft_check_token_list(t_list **list, t_minishell *minishell)
 {
 	t_list	*tmp;

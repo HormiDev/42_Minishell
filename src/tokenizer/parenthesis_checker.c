@@ -12,7 +12,6 @@
 
 #include "../../include/minishell.h"
 
-
 /**
  * @file ft_parenthesis_checker.c
  * @brief Verifica si hay instrucciones después de los tokens.
