@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
+/*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 14:53:38 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/02/13 19:30:33 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/22 21:27:26 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../include/minishell.h"
+
+#include "../include/minishell.h"
 
 void	ft_init_shlvl(t_minishell *minishell)
 {

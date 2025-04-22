@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipeline.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
+/*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 11:36:15 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/03/31 20:46:36 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/22 21:31:19 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ void	ft_close_pipes(t_minishell *minishell)
  * @param minishell Estructura principal del programa
  * @return 0 si hay un error, 1 si todo va bien
 */
-int ft_pipeline(t_minishell *minishell, t_cmd **cmds, int num_pipes)
+int	ft_pipeline(t_minishell *minishell, t_cmd **cmds, int num_pipes)
 {
-	int		i;
-	
+	int	i;
+
 	minishell->pipeline = ft_alloc_lst(sizeof(int *) * (num_pipes + 1), 4);
 	i = 0;
 	while (i < num_pipes)
