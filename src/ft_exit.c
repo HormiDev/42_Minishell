@@ -61,4 +61,3 @@ void	ft_exit(char **arg, t_minishell *minishell)
 	minishell->line = NULL;
 	clean_and_exit((unsigned int)ft_atoi_p(arg[0]));
 }
-
