@@ -54,35 +54,39 @@ void	ft_here_doc(char *limiter, char *file)
 	get_next_line(-1);
 }
 
+static void	ft_heredoc_creator(t_list *cmd_list, t_minishell *mini)
+{
+	int			i;
+	t_cmd		*cmd;
+	char		heredoc[30];
+	static int	here_doc_num = 0;
+
+	cmd = (t_cmd *)((t_data_container *)(cmd_list->content))->data;
+	i = 0;
+	while (cmd->infiles[i])
+	{
+		if (cmd->infiles[i]->type == 3)
+		{
+			ft_sprintf(heredoc, "/tmp/heredoc_%d", here_doc_num);
+			ft_lstadd_back(&mini->here_docs,
+				ft_lstnew_ae(ft_strdup_ae(heredoc)));
+			ft_here_doc(cmd->infiles[i]->file,
+				ft_lstlast(mini->here_docs)->content);
+			ft_free_alloc(cmd->infiles[i]->file);
+			cmd->infiles[i]->file = ft_lstlast(mini->here_docs)->content;
+			cmd->infiles[i]->type = 0;
+			here_doc_num++;
+		}
+		i++;
+	}
+}
+
 void	ft_create_heredocs(t_list *cmd_list, t_minishell *minishell)
 {
-	int 	i;
-	t_cmd	*cmd;
-	char	heredoc[30];
-	int		num_heredocs;
-
-	num_heredocs = 0;
 	while (cmd_list)
 	{
 		if (((t_data_container *)(cmd_list->content))->type == 0)
-		{
-			cmd = (t_cmd *)((t_data_container *)(cmd_list->content))->data;
-			i = 0;
-			while (cmd->infiles[i])
-			{
-				if (cmd->infiles[i]->type == 3)
-				{
-					ft_sprintf(heredoc, "/tmp/heredoc_%d", num_heredocs);
-					ft_lstadd_back(&minishell->here_docs, ft_lstnew_ae(ft_strdup_ae(heredoc)));
-					ft_here_doc(cmd->infiles[i]->file, ft_lstlast(minishell->here_docs)->content);
-					ft_free_alloc(cmd->infiles[i]->file);
-					cmd->infiles[i]->file = ft_lstlast(minishell->here_docs)->content;
-					cmd->infiles[i]->type = 0;
-					num_heredocs++;
-				}
-				i++;
-			}
-		}
+			ft_heredoc_creator(cmd_list, minishell);
 		cmd_list = cmd_list->next;
 	}
 }
