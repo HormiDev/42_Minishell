@@ -12,6 +12,19 @@
 
 #include "../include/minishell.h"
 
+int	ft_isbuiltin(char *command)
+{
+	if (!ft_strncmp_p(command, "cd", 3)
+		|| !ft_strncmp_p(command, "export", 6)
+		|| !ft_strncmp_p(command, "unset", 5)
+		|| !ft_strncmp_p(command, "env", 3)
+		|| !ft_strncmp_p(command, "exit", 4)
+		|| !ft_strncmp_p(command, "echo", 4)
+		|| !ft_strncmp_p(command, "pwd", 3))
+		return (1);
+	return (0);
+}
+
 void	ft_execute_builtin(t_cmd *cmd, t_minishell *minishell)
 {
 	if (ft_open_files(cmd) != -1)
