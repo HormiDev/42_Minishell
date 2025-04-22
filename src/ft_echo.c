@@ -17,7 +17,6 @@ static void	ft_newline(t_cmd *cmd)
 	write(cmd->io_fd[1], "\n", 1);
 }
 
-//void	ft_echo(char **args, t_minishell *mini)
 void	ft_echo(t_cmd *cmd, t_minishell *mini)
 {
 	char	flag;
@@ -26,7 +25,7 @@ void	ft_echo(t_cmd *cmd, t_minishell *mini)
 
 	args = &cmd->args[1];
 	if (!args[0])
-		return (ft_newline(cmd));	
+		return (ft_newline(cmd));
 	flag = 1;
 	i = 0;
 	if (ft_strncmp_p(args[0], "-n", 3) == 0)
