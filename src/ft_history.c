@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_history.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ide-dieg <ide-dieg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 23:18:46 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/04/08 23:56:36 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/24 00:13:59 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,10 @@ void	ft_init_history(t_minishell *minishell)
 	if (home)
 	{
 		ft_sprintf(history_file, "%s/.minishell_history", home);
-		minishell->history_fd = open(history_file,
+		minishell->history_fd = ft_open_fd_lst(2, history_file,
 				O_RDWR | O_CREAT | O_APPEND, 0644);
 		if (minishell->history_fd < 0)
-		{
-			ft_dprintf(2, "%s%s: %s%s\n", RED, "open", strerror(errno), RESET);
-			ft_alloc_lst(0, 0);
-			minishell->exit_code = 1;
-		}
+			return ;
 		home = get_next_line(minishell->history_fd);
 		while (home)
 		{

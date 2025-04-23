@@ -12,57 +12,18 @@
 
 #include "../../include/minishell.h"
 
-//borrar esta funcion
-/*static char	*ft_getenv_2(char *needle)
+int	ft_end_var(char *str)
 {
-	if (*needle == 0)
-		return (NULL);
-	return (ft_strdup_ae("SOY_UNA_VARIABLE_DE_PRUEBA"));
-}*/
-/*
-static char *ft_trim_spaces(char *var)
-{
-	int		len;
-	char	*trimmed;
-	char	*ret;
+	int		i;
 
-	len = ft_strlen_p(var);
-	printf("len1: %d\n", len);
-	trimmed = var;
-	while (*trimmed)
-	{
-		if (*trimmed == ' ' || *trimmed == '\t')
-		{
-			trimmed++;
-			while(*trimmed == ' ' || *trimmed == '\t')
-			{
-				trimmed++;
-				len--;
-			}
-			continue ;
-		}
-		trimmed++;
-	}
-	printf("len2: %d\n", len);
-	trimmed = ft_alloc_lst(len * sizeof(char), 4);
-	ret = trimmed;
-	while (*var)
-	{
-		if (*var == ' ' || *var == '\t')
-		{
-			*trimmed = *var;
-			while(*var == ' ' || *var == '\t')
-				var++;
-			trimmed++;
-			continue ;
-		}
-		*trimmed = *var;
-		trimmed++;
-		var++;
-	}
-	//ft_free_alloc(var);
-	return (ret);
-}*/
+	i = 1;
+	if (str[i] == '?')
+		return (i + 1);
+	while (str[i] && (ft_isalnum(str[i]) || str[i] == '_'))
+		i++;
+	return (i);
+}
+
 /**
 * @brief Funcion que obtiene el nombre de la variable de entorno
 * @example $HOME, -> HOME

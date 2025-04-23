@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:28:53 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/04/10 13:26:25 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/23 17:11:09 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,5 @@ int	main(int argc, char **argv, char **envp)
 	ft_config_signals();
 	ft_main_loop(minishell);
 	rl_clear_history();
-	ft_alloc_lst(0, 0);
+	ft_alloc_clear();
 }

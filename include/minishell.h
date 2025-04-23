@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:34:17 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/04/22 20:22:15 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/23 18:26:52 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,8 +143,7 @@ void				ft_print_syntax_error_message(char *token);
 int					ft_check_token_list(t_list **list, t_minishell *minishell);
 void				ft_dollar_variable_converter(t_list *list,
 						t_minishell *minishell);
-void				ft_unquoted_dollar_variable_converter(t_list *list,
-						t_minishell *mini);
+int					ft_end_var(char *str);
 void				ft_join_str_tokenizer(t_list *list);
 void				ft_put_quotes(t_list *list);
 int					ft_check_parenthesis(t_list *tks);
@@ -160,7 +159,10 @@ t_data_container	*ft_new_data_container(void *data, int type);
 void				ft_join_redirections(t_list *list);
 int					ft_check_redirections(t_list *list);
 t_list				*ft_create_cmds(t_list *list);
+char				*ft_search_variable(char *str, t_minishell *mini);
 t_list				*ft_tokenizer(char *str, t_minishell *minishell);
+void				ft_unquoted_dollar_variable_converter(t_list *list,
+						t_minishell *mini);
 
 #endif
 
