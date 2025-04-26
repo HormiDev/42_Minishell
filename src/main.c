@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:28:53 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/04/23 17:11:09 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/26 21:56:40 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc != 1 || !argv)
 		return (ft_putstr_fd("Error: invalid arguments\n", 2), 1);
+	ft_add_exit_function(clear_history);
 	minishell = ft_loading_minishell(envp);
 	ft_config_signals();
 	ft_main_loop(minishell);

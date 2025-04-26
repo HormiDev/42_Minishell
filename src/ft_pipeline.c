@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 11:36:15 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/04/22 21:31:19 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/26 18:58:40 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	ft_close_pipes(t_minishell *minishell)
 	i = 0;
 	while (minishell->pipeline[i])
 	{
-		close(minishell->pipeline[i][0]);
-		close(minishell->pipeline[i][1]);
+		ft_close_alloc(minishell->pipeline[i][0]);
+		ft_close_alloc(minishell->pipeline[i][1]);
 		i++;
 	}
 }
@@ -47,6 +47,8 @@ int	ft_pipeline(t_minishell *minishell, t_cmd **cmds, int num_pipes)
 			minishell->exit_code = 129;
 			return (0);
 		}
+		ft_add_fd_to_alloc_lst_ie(minishell->pipeline[i][0]);
+		ft_add_fd_to_alloc_lst_ie(minishell->pipeline[i][1]);
 		cmds[i]->io_fd[1] = minishell->pipeline[i][1];
 		cmds[i + 1]->io_fd[0] = minishell->pipeline[i][0];
 		i++;

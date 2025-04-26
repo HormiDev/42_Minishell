@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 16:26:50 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/04/22 21:25:49 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/26 21:50:41 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static int	exec(t_list *token_list, t_minishell *mini)
 	{
 		ft_config_signals_in_heredoc();
 		ft_create_heredocs(token_list, mini);
-		exit(0);
+		clean_and_exit(0);
 	}
 	ft_save_heredocs(token_list, mini);
 	if (waitpid(herdoc_pid, &here_fork_status, 0) == -1)

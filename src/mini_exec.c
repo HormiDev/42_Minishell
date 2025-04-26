@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 21:44:42 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/04/10 12:49:35 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/26 21:49:17 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	mini_exec(t_cmd *cmd, t_minishell *minishell)
 	{
 		ft_execute_builtin(cmd, minishell);
 		ft_close_pipes(minishell);
-		exit(minishell->exit_code);
+		clean_and_exit(minishell->exit_code);
 	}
 	else
 		ft_execute(cmd, minishell);
@@ -104,8 +104,8 @@ void	ft_pipex_and_exec(t_minishell *mini, t_list *token_list)
 	if (num_of_pipes || ((*cmds_array)->cmd
 			&& !ft_isbuiltin((*cmds_array)->cmd)))
 	{
-		ft_pipeline(mini, cmds_array, num_of_pipes);
-		if (!ft_pipex_loop(cmds_array, pids, mini))
+		if (!ft_pipeline(mini, cmds_array, num_of_pipes)
+			|| !ft_pipex_loop(cmds_array, pids, mini))
 			return ;
 		ft_close_pipes(mini);
 		ft_waiting_loop(pids, mini);

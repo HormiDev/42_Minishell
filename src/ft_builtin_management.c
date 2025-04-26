@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin_management.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
+/*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 11:21:40 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/04/01 19:44:50 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/26 21:35:19 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 int	ft_isbuiltin(char *command)
 {
 	if (!ft_strncmp_p(command, "cd", 3)
-		|| !ft_strncmp_p(command, "export", 6)
-		|| !ft_strncmp_p(command, "unset", 5)
-		|| !ft_strncmp_p(command, "env", 3)
-		|| !ft_strncmp_p(command, "exit", 4)
-		|| !ft_strncmp_p(command, "echo", 4)
-		|| !ft_strncmp_p(command, "pwd", 3))
+		|| !ft_strncmp_p(command, "export", 7)
+		|| !ft_strncmp_p(command, "unset", 6)
+		|| !ft_strncmp_p(command, "env", 4)
+		|| !ft_strncmp_p(command, "exit", 5)
+		|| !ft_strncmp_p(command, "echo", 5)
+		|| !ft_strncmp_p(command, "pwd", 4))
 		return (1);
 	return (0);
 }
@@ -31,17 +31,17 @@ void	ft_execute_builtin(t_cmd *cmd, t_minishell *minishell)
 	{
 		if (!ft_strncmp_p(cmd->cmd, "cd", 3))
 			ft_cd(cmd, minishell);
-		else if (!ft_strncmp_p(cmd->cmd, "export", 6))
+		else if (!ft_strncmp_p(cmd->cmd, "export", 7))
 			ft_export_args(cmd, minishell);
-		else if (!ft_strncmp_p(cmd->cmd, "unset", 5))
+		else if (!ft_strncmp_p(cmd->cmd, "unset", 6))
 			ft_unset_args(&cmd->args[1], &minishell->envp, minishell);
-		else if (!ft_strncmp_p(cmd->cmd, "env", 3))
+		else if (!ft_strncmp_p(cmd->cmd, "env", 4))
 			ft_print_env(minishell->envp, cmd->io_fd[1], minishell);
-		else if (!ft_strncmp_p(cmd->cmd, "exit", 4))
+		else if (!ft_strncmp_p(cmd->cmd, "exit", 5))
 			ft_exit(&cmd->args[1], minishell);
-		else if (!ft_strncmp_p(cmd->cmd, "echo", 4))
+		else if (!ft_strncmp_p(cmd->cmd, "echo", 5))
 			ft_echo(cmd, minishell);
-		else if (!ft_strncmp_p(cmd->cmd, "pwd", 3))
+		else if (!ft_strncmp_p(cmd->cmd, "pwd", 4))
 			ft_pwd(cmd, minishell);
 	}
 	else

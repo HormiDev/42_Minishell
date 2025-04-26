@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 19:57:31 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/04/10 18:27:07 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/26 21:46:06 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ void	ft_here_doc(char *limiter, char *file)
 	if (here_doc_fd == -1)
 	{
 		perror("open");
-		ft_alloc_lst(0, 0);
-		exit(1);
+		clean_and_exit(1);
 	}
 	ft_read_here_doc(limiter, here_doc_fd);
 	close(here_doc_fd);

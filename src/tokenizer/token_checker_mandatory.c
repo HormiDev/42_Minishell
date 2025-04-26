@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_checker_mandatory.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
+/*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 22:04:40 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/04/04 19:35:57 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/25 15:33:43 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
