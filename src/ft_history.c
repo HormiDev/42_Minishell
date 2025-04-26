@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 23:18:46 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/04/24 00:13:59 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/26 22:04:44 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ void	ft_init_history(t_minishell *minishell)
 	if (home)
 	{
 		ft_sprintf(history_file, "%s/.minishell_history", home);
-		minishell->history_fd = ft_open_fd_lst(2, history_file,
+		minishell->history_fd = open(history_file,
 				O_RDWR | O_CREAT | O_APPEND, 0644);
+		ft_add_fd_to_alloc_lst_ie(minishell->history_fd);
 		if (minishell->history_fd < 0)
 			return ;
 		home = get_next_line(minishell->history_fd);
