@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 19:57:31 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/04/26 21:46:06 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/29 21:45:32 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static void	ft_heredoc_creator(t_list *cmd_list, t_minishell *mini)
 	{
 		if (cmd->infiles[i]->type == 3)
 		{
-			ft_sprintf(heredoc, "/tmp/heredoc_%d", here_doc_num);
+			ft_snprintf(heredoc, 30, "/tmp/heredoc_%d", here_doc_num);
 			ft_lstadd_back(&mini->here_docs,
 				ft_lstnew_ae(ft_strdup_ae(heredoc)));
 			ft_here_doc(cmd->infiles[i]->file,

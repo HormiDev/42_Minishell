@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 18:03:29 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/04/22 21:46:44 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/29 21:42:15 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	ft_loop_through_infiles(t_cmd *cmd, t_minishell *mini)
 	{
 		if (cmd->infiles[i]->type == 3)
 		{
-			ft_sprintf(heredoc, "/tmp/heredoc_%d", num);
+			ft_snprintf(heredoc, 30, "/tmp/heredoc_%d", num);
 			ft_lstadd_back(&mini->here_docs,
 				ft_lstnew_ae(ft_strdup_ae(heredoc)));
 			ft_free_alloc(cmd->infiles[i]->file);

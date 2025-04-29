@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 22:05:41 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/04/29 17:33:17 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/29 21:22:59 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	ft_put_quotes(t_list *list)
 		if (!ft_is_special_token((char *)list->content))
 		{
 			wildcard = ft_strchr_p((char *)list->content, '*');
-			while (wildcard && *(char *)list->content != '\"' && *(char *)list->content != '\'')
+			while (wildcard)
 			{
 				*wildcard = 1;
 				wildcard = ft_strchr_p(wildcard + 1, '*');

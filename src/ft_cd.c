@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
+/*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 20:47:36 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/04/01 19:21:31 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/29 21:41:12 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_modify_env(t_list **env, t_minishell *minishell, char *path)
 	if (getcwd(minishell->cwd, PATH_MAX) == NULL)
 	{
 		ft_dprintf(2, "minishell: cd: %s: %s\n", path, strerror(errno));
-		ft_sprintf(minishell->cwd, "%s/%s", ft_getenv("OLDPWD", *env),
+		ft_snprintf(minishell->cwd, PATH_MAX, "%s/%s", ft_getenv("OLDPWD", *env),
 			path);
 		minishell->exit_code = 1;
 	}
