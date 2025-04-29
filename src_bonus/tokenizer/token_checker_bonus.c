@@ -1,4 +1,4 @@
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 int	ft_check_token_list(t_list **list, t_minishell *minishell)
 {
@@ -14,7 +14,8 @@ int	ft_check_token_list(t_list **list, t_minishell *minishell)
 		return (0);
 	}
 	ft_dollar_variable_converter(*list, minishell);
-	ft_join_str_tokenizer(*list);
+	ft_join_str_tokenizer(*list);	
+	ft_manage_wildcards(*list);
 	ft_remove_spaces(list);
 	if (!ft_check_redirections(*list))
 		return (0);

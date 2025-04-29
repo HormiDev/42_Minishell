@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+         #
+#    By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/10 21:51:45 by ide-dieg          #+#    #+#              #
-#    Updated: 2025/04/02 20:00:46 by ide-dieg         ###   ########.fr        #
+#    Updated: 2025/04/26 22:17:35 by ide-dieg         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
-SRC_DIR = src
+SRC_DIR = src_bonus
 INCLUDE_DIR = include
 BUILD_DIR = build
 CFILES = $(wildcard $(SRC_DIR)/*.c) $(wildcard $(SRC_DIR)/*/*.c)

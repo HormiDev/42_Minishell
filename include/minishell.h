@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:34:17 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/04/23 18:26:52 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/26 22:23:53 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,15 @@ char				*ft_search_variable(char *str, t_minishell *mini);
 t_list				*ft_tokenizer(char *str, t_minishell *minishell);
 void				ft_unquoted_dollar_variable_converter(t_list *list,
 						t_minishell *mini);
+//bonus
+void				ft_manage_wildcards(t_list *list);
+void				ft_process_wildcards(char *dir, char *str, t_list **list);
+int					ft_number_of_wildcards(char *wildcard);
+char				*ft_get_wildcard_search(char *str, char **wildcard,
+						char *needle, int *numbers);
+void				ft_free_array_content(void **array,
+						void (*free_func)(void *));
+void				ft_order_wildcards(t_list *list);
 
 #endif
 
