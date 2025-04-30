@@ -77,6 +77,7 @@ int	ft_number_of_wildcards(char *wildcard)
 		{
 			while (wildcard[i] == 1)
 				i++;
+			i--;
 			number_of_wildcards++;
 		}
 		i++;

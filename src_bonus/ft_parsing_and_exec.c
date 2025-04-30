@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 16:26:50 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/04/30 18:09:36 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/30 19:16:53 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,8 +167,9 @@ void	ft_parsing_and_exec(t_minishell *mini)
 		mini_exec(cmd, mini);
 	}
 	*/
+	mini->exit_code = 0;
 	i = 0;
-	while (and_or_list[i])
+	while (and_or_list[i] && mini->exit_code != 130)
 	{
 		//ft_print_cmdlist(and_or_list[i]);
 		if (((t_data_container *)(and_or_list[i]->content))->type == 0)
