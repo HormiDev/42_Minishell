@@ -24,7 +24,7 @@ int	ft_check_token_list(t_list **list, t_minishell *minishell)
 		|| ft_verify_correct_order_backwards(*list)
 		|| ft_check_instructions_after_parenthesis(*list)
 		|| ft_check_instructions_before_parenthesis(*list)
-		|| ft_check_for_redundant_parenthesis(*list))
+		/*|| ft_check_for_redundant_parenthesis(*list)*/)
 		return (0);
 	return (1);
 }

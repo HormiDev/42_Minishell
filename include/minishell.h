@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:34:17 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/04/30 15:45:01 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/30 19:25:54 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ void				ft_print_syntax_error_message(char *token);
 int					ft_verify_correct_order_backwards(t_list *tks);
 int					ft_check_instructions_after_parenthesis(t_list *tks);
 int					ft_check_instructions_before_parenthesis(t_list *tks);
-int					ft_check_for_redundant_parenthesis(t_list *tks);
+//int					ft_check_for_redundant_parenthesis(t_list *tks);
 void				ft_remove_quotes(t_list *list);
 t_cmd				*ft_create_cmd(t_list *list);
 t_data_container	*ft_new_data_container(void *data, int type);

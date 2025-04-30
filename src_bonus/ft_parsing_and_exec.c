@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 16:26:50 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/04/30 19:16:53 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/30 21:15:08 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	ft_print_error_and_exit(void)
 	clean_and_exit(1);
 }
 
-static int	exec(t_list *token_list, t_minishell *mini)
+static int	exec_heredocs(t_list *token_list, t_minishell *mini)
 {
 	pid_t	herdoc_pid;
 	int		here_fork_status;
@@ -93,14 +93,31 @@ int	ft_and_or_counter(t_list *token_list)
 	while (token_list)
 	{
 		if (((t_data_container *)token_list->content)->type == 1
-			&& (!ft_strncmp_p((char *)((t_data_container *)token_list->content)->data,
-				"&&", 2) 
-			|| !ft_strncmp_p((char *)((t_data_container *)token_list->content)->data,
-				"||", 2)))
+			&& (!ft_strncmp_p((char *)
+					((t_data_container *)token_list->content)->data, "&&", 2)
+				|| !ft_strncmp_p((char *)
+					((t_data_container *)token_list->content)->data, "||", 2)))
 			and_or_count++;
 		token_list = token_list->next;
 	}
 	return (and_or_count);
+}
+
+static void	ft_split_and_or_loop(t_list **token_list, t_list **prev)
+{
+	while (*token_list)
+	{
+		if (((t_data_container *)(*token_list)->content)->type == 1
+			&& (!ft_strncmp_p((char *)
+					((t_data_container *)(*token_list)->content)->data,
+					"&&", 2)
+				|| !ft_strncmp_p((char *)
+					((t_data_container *)(*token_list)->content)->data,
+					"||", 2)))
+			return ;
+		*prev = *token_list;
+		*token_list = (*token_list)->next;
+	}
 }
 
 t_list	**ft_split_and_or(t_list *token_list)
@@ -108,25 +125,16 @@ t_list	**ft_split_and_or(t_list *token_list)
 	int		and_or_count;
 	t_list	**split_and_or;
 	t_list	*prev;
-	int 	i;
+	int		i;
 
 	and_or_count = ft_and_or_counter(token_list);
-	split_and_or = (t_list **)ft_alloc_lst(sizeof(t_list *) * (and_or_count + 2), 4);
+	split_and_or = (t_list **)ft_alloc_lst
+		(sizeof(t_list *) * (and_or_count + 2), 4);
 	i = 0;
 	split_and_or[i] = token_list;
 	while (i < and_or_count)
 	{
-		while (token_list)
-		{
-			if (((t_data_container *)token_list->content)->type == 1
-				&& (!ft_strncmp_p((char *)((t_data_container *)token_list->content)->data,
-					"&&", 2) 
-				|| !ft_strncmp_p((char *)((t_data_container *)token_list->content)->data,
-					"||", 2)))
-				break;
-			prev = token_list;
-			token_list = token_list->next;
-		}
+		ft_split_and_or_loop(&token_list, &prev);
 		prev->next = NULL;
 		i++;
 		split_and_or[i] = token_list;
@@ -134,6 +142,38 @@ t_list	**ft_split_and_or(t_list *token_list)
 			token_list = token_list->next;
 	}
 	return (split_and_or);
+}
+
+t_list	*ft_capsule_parentesis(t_list *token_list)
+{
+	t_list	*open;
+	t_list	*after_close;
+	t_list	*tmp_prev;
+
+	tmp_prev = token_list;
+	while(token_list)
+	{
+		if (((t_data_container *)token_list->content)->type == 1
+			&& *(char *)(((t_data_container *)token_list->content)->data) == '(')
+		{
+			open = token_list;
+			token_list = token_list->next;
+			after_close = ft_capsule_parentesis(token_list);
+			open->next = after_close->next;
+			((t_data_container *)open->content)->type = 2;
+			((t_data_container *)open->content)->data = token_list;
+			//ft_split_and_or(token_list);
+			after_close->next = 0;
+			open->next = open->next->next;
+			token_list = open->next;
+		}
+		else if (((t_data_container *)token_list->content)->type == 1
+			&& *(char *)(((t_data_container *)token_list->content)->data) == ')')
+			return (tmp_prev);
+		tmp_prev = token_list;
+		token_list = token_list->next;
+	}
+	return (0);
 }
 
 void	ft_parsing_and_exec(t_minishell *mini)
@@ -151,10 +191,12 @@ void	ft_parsing_and_exec(t_minishell *mini)
 	if (token_list)
 	{
 		ft_config_signals_in_exec();
-		if (!exec(token_list, mini))//revisar nombre de funcion, es confuso
+		if (!exec_heredocs(token_list, mini))//revisar nombre de funcion, es confuso
 			return ;
 	}
 	//para el bonus aqui se tendra que dividir la lista varias listas partiendo por los || y &&
+	ft_capsule_parentesis(token_list);
+	ft_print(token_list);
 	and_or_list = ft_split_and_or(token_list);
 	//commands_array = ft_cmd_array_converter(token_list);
 	// crear funcion de compresion para parentesis que meta todo lo que hay dentro de un parentesis en un solo nodo

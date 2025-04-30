@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 18:13:52 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/04/30 16:26:27 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/30 21:12:22 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,17 @@ void	ft_print_cmdlist(t_list *cmds)
 			printf("%-4d", i);
 			ft_print_cmd((t_cmd *)((t_data_container *)cmds->content)->data);
 		}
-		else
+		else if (((t_data_container *)cmds->content)->type == 1)
 		{
 			printf("%-4d", i);
 			printf("%s\n", (char *)((t_data_container *)cmds->content)->data);	
+		}
+		else
+		{
+			printf("%-4d", i);
+			printf("(((((\n");
+			ft_print_cmdlist((t_list *)((t_data_container *)cmds->content)->data);
+			printf(")))))\n");
 		}
 		i++;
 		cmds = cmds->next;

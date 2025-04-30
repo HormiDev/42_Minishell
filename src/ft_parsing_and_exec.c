@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 16:26:50 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/04/26 21:50:41 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/30 19:38:58 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	ft_print_error_and_exit(void)
 	clean_and_exit(1);
 }
 
-static int	exec(t_list *token_list, t_minishell *mini)
+static int	exec_heredocs(t_list *token_list, t_minishell *mini)
 {
 	pid_t	herdoc_pid;
 	int		here_fork_status;
@@ -97,7 +97,7 @@ void	ft_parsing_and_exec(t_minishell *mini)
 	if (token_list)
 	{
 		ft_config_signals_in_exec();
-		if (!exec(token_list, mini))
+		if (!exec_heredocs(token_list, mini))
 			return ;
 	}
 	//para el bonus aqui se tendra que dividir la lista varias listas partiendo por los || y &&
