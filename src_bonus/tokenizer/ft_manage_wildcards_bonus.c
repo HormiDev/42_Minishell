@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 21:34:52 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/04/29 21:34:54 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/30 18:30:08 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static char	*ft_quotes_in(char *str)
 	char	*content;
 
 	content = ft_alloc_lst(ft_strlen_p(str) + 3, 4);
-	sprintf(content, "\"%s\"", str);
+	ft_sprintf(content, "\"%s\"", str);
 	ft_free_alloc(str);
 	return (content);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
+/*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 22:05:41 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/02/19 22:05:47 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/30 18:30:42 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	ft_put_quotes(t_list *list)
 		if (!ft_is_special_token(((char *)list->content)))
 		{
 			str = ft_alloc_lst(ft_strlen_p((char *)list->content) + 3, 3);
-			sprintf(str, "\"%s\"", (char *)list->content);
+			ft_sprintf(str, "\"%s\"", (char *)list->content);
 			ft_free_alloc(list->content);
 			list->content = str;
 		}
@@ -100,7 +100,7 @@ void	ft_join_str_tokenizer(t_list *list)
 				ft_join_str_tokenizer_while(list);
 			tmpstr = (char *)list->content;
 			list->content = ft_alloc_lst(ft_strlen_p(tmpstr) + 3, 3);
-			sprintf((char *)list->content, "\"%s\"", tmpstr);
+			ft_sprintf((char *)list->content, "\"%s\"", tmpstr);
 			ft_free_alloc(tmpstr);
 		}
 		list = list->next;

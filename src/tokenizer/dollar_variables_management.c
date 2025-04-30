@@ -67,7 +67,7 @@ static void	ft_put_single_quotes(t_list *list)
 		{
 			str = ft_substr_ae((char *)list->content, 1,
 					ft_strlen_p((char *)list->content) - 2);
-			sprintf(list->content, "\'%s\'", str);
+			ft_sprintf(list->content, "\'%s\'", str);
 			ft_free_alloc(str);
 		}
 		list = list->next;

@@ -52,7 +52,7 @@ void	ft_join_redirections(t_list *list)
 		{
 			tmp = ft_alloc_lst(ft_strlen_p((char *)list->content)
 					+ ft_strlen_p((char *)list->next->content) + 3, 3);
-			sprintf(tmp, "\"%s%s\"", (char *)list->content,
+			ft_sprintf(tmp, "\"%s%s\"", (char *)list->content,
 				(char *)list->next->content);
 			ft_free_alloc(list->content);
 			list->content = tmp;
