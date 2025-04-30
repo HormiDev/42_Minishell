@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_cmd_list.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
+/*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 18:13:52 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/03/28 17:21:59 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/30 16:26:27 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,8 @@ t_list	*ft_create_cmds(t_list *list)
 		ft_create_cmds_while(&list, &tmp2, &is_cmd);
 		ft_create_and_clear_cmds(&list, &cmds, &tmp, &is_cmd);
 	}
+	//ft_printf("\n");
 	//ft_print_cmdlist(cmds);
+	//ft_printf("\n");
 	return (cmds);
 }

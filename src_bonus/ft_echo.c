@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 13:04:27 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/04/22 22:09:44 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/04/30 18:19:01 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	ft_echo(t_cmd *cmd, t_minishell *mini)
 	char	**args;
 	int		i;
 
+	mini->exit_code = 0;
 	args = &cmd->args[1];
 	if (!args[0])
 		return (ft_newline(cmd));
