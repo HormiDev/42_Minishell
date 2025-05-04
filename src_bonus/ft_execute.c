@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 21:37:58 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/04/26 21:45:43 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/05/04 04:14:57 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,15 @@ void	ft_execute(t_cmd *cmd, t_minishell *minishell)
 	execve(command, cmd->args, minishell->envp_array);
 	perror(command);
 	ft_pid_exit_with_error();
+}
+
+void	ft_and_or_exec(t_cmd *cmd, t_minishell *minishell)
+{
+	if (cmd->io_fd[0] != 0)
+		ft_dup_and_close(cmd->io_fd[0], 0);
+	if (cmd->io_fd[1] != 1)
+		ft_dup_and_close(cmd->io_fd[1], 1);
+	ft_close_pipes(minishell);
+	ft_and_or(minishell, cmd->and_or_list);
+	clean_and_exit(minishell->exit_code);
 }

@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:34:17 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/04/30 19:25:54 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/05/04 03:12:44 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_cmd
 	t_redir	**infiles;
 	t_redir	**outfiles;
 	int		io_fd[2];
+	t_list	**and_or_list;
 }	t_cmd;
 
 typedef struct s_env
@@ -172,6 +173,13 @@ char				*ft_get_wildcard_search(char *str, char **wildcard,
 void				ft_free_array_content(void **array,
 						void (*free_func)(void *));
 void				ft_order_wildcards(t_list *list);
+
+void				ft_and_or(t_minishell *mini, t_list **and_or_list);
+void				ft_and_or_exec(t_cmd *cmd, t_minishell *minishell);
+
+//borrar
+void				ft_print_cmdlist(t_list *cmds);
+void				ft_print_and_or_list(t_list **and_or_list);
 
 #endif
 

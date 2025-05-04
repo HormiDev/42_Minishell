@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 18:13:52 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/04/30 21:12:22 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/05/04 03:40:46 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,17 @@ void	ft_print_cmd(t_cmd *cmd)
 {
 	int	i;
 
+	if (!cmd)
+	{
+		printf("NULL\n");
+		return ;
+	}
 	i = 0;
-	if (cmd->infiles[i])
+	if (cmd->infiles && cmd->infiles[i])
 		printf(" infiles: ");
 	else
 		printf(" infiles: NULL ");
-	while (cmd->infiles[i])
+	while (cmd->infiles && cmd->infiles[i])
 	{
 		if ((((t_redir *)cmd->infiles[i])->type) == 0)
 			printf("<%s ", cmd->infiles[i]->file);
@@ -31,11 +36,11 @@ void	ft_print_cmd(t_cmd *cmd)
 		i++;
 	}
 	i = 0;
-	if (cmd->outfiles[i])
+	if (cmd->outfiles && cmd->outfiles[i])
 		printf(" outfiles: ");
 	else
 		printf(" outfiles: NULL ");
-	while (cmd->outfiles[i])
+	while (cmd->outfiles && cmd->outfiles[i])
 	{
 		if (((t_redir *)cmd->outfiles[i])->type == 1)
 			printf(">%s ", cmd->outfiles[i]->file);
@@ -46,12 +51,24 @@ void	ft_print_cmd(t_cmd *cmd)
 	i = 0;
 	printf(" [cmd: %s] ", cmd->cmd);
 	printf(" args: ");
-	while (cmd->args[i])
+	while (cmd->args && cmd->args[i])
 	{
 		printf("%s ", cmd->args[i]);
 		i++;
 	}
 	printf("\n");
+}
+
+void	ft_print_and_or_list(t_list **and_or_list)
+{
+	int i;
+
+	i = 0;
+	while (and_or_list[i])
+	{
+		ft_print_cmdlist(and_or_list[i]);
+		i++;
+	}
 }
 
 //borrar funcion
@@ -71,12 +88,12 @@ void	ft_print_cmdlist(t_list *cmds)
 			printf("%-4d", i);
 			printf("%s\n", (char *)((t_data_container *)cmds->content)->data);	
 		}
-		else
+		else if (((t_data_container *)cmds->content)->type == 2)
 		{
-			printf("%-4d", i);
-			printf("(((((\n");
-			ft_print_cmdlist((t_list *)((t_data_container *)cmds->content)->data);
-			printf(")))))\n");
+			ft_print_cmd((t_cmd *)((t_data_container *)cmds->content)->data);
+			printf("%-4d\n   ((((((((((((((((((((((((((((((((((((((((((((((((\n", i);
+			ft_print_and_or_list((t_list **)((t_cmd *)((t_data_container *)cmds->content)->data)->and_or_list);
+			printf("   ))))))))))))))))))))))))))))))))))))))))))))))))\n");
 		}
 		i++;
 		cmds = cmds->next;

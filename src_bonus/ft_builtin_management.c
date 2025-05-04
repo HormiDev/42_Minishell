@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 11:21:40 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/04/26 21:35:19 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/05/04 03:35:37 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	ft_isbuiltin(char *command)
 {
+	if (!command)
+		return (0);
 	if (!ft_strncmp_p(command, "cd", 3)
 		|| !ft_strncmp_p(command, "export", 7)
 		|| !ft_strncmp_p(command, "unset", 6)

@@ -6,7 +6,7 @@
 #    By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/10 21:51:45 by ide-dieg          #+#    #+#              #
-#    Updated: 2025/04/30 18:45:17 by ide-dieg         ###   ########.fr        #
+#    Updated: 2025/05/02 17:53:42 by ide-dieg         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRC_DIR = src_bonus
 INCLUDE_DIR = include
 BUILD_DIR = build
 CFILES = $(wildcard $(SRC_DIR)/*.c) $(wildcard $(SRC_DIR)/*/*.c)
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
 LDFLAGS = -lreadline
 # Generamos la lista de objetos usando solo el nombre base de cada fuente
 OFILES = $(addprefix $(BUILD_DIR)/, $(notdir $(CFILES:.c=.o)))

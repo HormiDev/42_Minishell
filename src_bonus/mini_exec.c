@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 21:44:42 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/04/30 18:16:42 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/05/04 04:13:45 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	mini_exec(t_cmd *cmd, t_minishell *minishell)
 {
+	if (cmd->and_or_list)
+		ft_and_or_exec(cmd, minishell);
 	if (!cmd->cmd || ft_isbuiltin(cmd->cmd))
 	{
 		ft_execute_builtin(cmd, minishell);
@@ -43,7 +45,7 @@ t_cmd	**ft_cmd_array_converter(t_list *token_list)
 	tmp = token_list;
 	while (tmp)
 	{
-		if (((t_data_container *)tmp->content)->type == 0)
+		if (((t_data_container *)tmp->content)->type != 1)
 		{
 			cmds_array[i] = (t_cmd *)((t_data_container *)tmp->content)->data;
 			i++;
@@ -101,7 +103,7 @@ void	ft_pipex_and_exec(t_minishell *mini, t_list *token_list)
 	num_of_pipes = ft_pipe_counter(token_list);
 	pids = ft_alloc_lst(sizeof(pid_t) * (num_of_pipes + 2), 4);
 	cmds_array = ft_cmd_array_converter(token_list);
-	if (num_of_pipes || ((*cmds_array)->cmd
+	if (num_of_pipes || (((*cmds_array)->cmd ||  (*cmds_array)->and_or_list)
 			&& !ft_isbuiltin((*cmds_array)->cmd)))
 	{
 		if (!ft_pipeline(mini, cmds_array, num_of_pipes)
