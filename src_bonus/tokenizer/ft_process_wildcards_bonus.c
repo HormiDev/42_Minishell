@@ -6,11 +6,11 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 21:34:42 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/04/29 21:34:45 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/05/06 21:12:15 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../include/minishell_bonus.h"
 
 static int	ft_free_and_leave(char **wildcard_split,
 	char *wildcard_copy, int ret)

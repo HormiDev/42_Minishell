@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/29 21:34:52 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/04/30 18:30:08 by ide-dieg         ###   ########.fr       */
+/*   Created: 2025/05/06 19:11:22 by dagimeno          #+#    #+#             */
+/*   Updated: 2025/05/06 23:34:23 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../include/minishell_bonus.h"
 
 static char	*ft_quotes_out(char *str)
 {
@@ -69,7 +69,7 @@ void	ft_manage_wildcards(t_list *list)
 	char	*content;
 	t_list	*files;
 
-	while(list)
+	while (list)
 	{
 		content = (char *)list->content;
 		if (ft_strchr_p(content, 1))

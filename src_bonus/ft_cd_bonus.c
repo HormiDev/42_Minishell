@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cd.c                                            :+:      :+:    :+:   */
+/*   ft_cd_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/19 20:47:36 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/05/06 22:59:54 by ide-dieg         ###   ########.fr       */
+/*   Created: 2025/05/06 19:25:31 by dagimeno          #+#    #+#             */
+/*   Updated: 2025/05/06 23:21:18 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../include/minishell_bonus.h"
 
 void	ft_modify_env(t_list **env, t_minishell *minishell, char *path)
 {

@@ -6,11 +6,11 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 21:34:46 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/04/29 21:34:51 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/05/06 21:13:54 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../include/minishell_bonus.h"
 
 static char	*ft_search_alnum_char(char *str)
 {

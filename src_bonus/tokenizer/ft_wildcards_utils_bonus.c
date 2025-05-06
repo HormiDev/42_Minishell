@@ -1,6 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_wildcards_utils_bonus.c                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/06 19:14:53 by dagimeno          #+#    #+#             */
+/*   Updated: 2025/05/06 23:31:14 by ide-dieg         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "../../include/minishell.h"
-
+#include "../../include/minishell_bonus.h"
 
 void	ft_free_array_content(void **array, void (*free_func)(void *))
 {

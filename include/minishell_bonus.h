@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   minishell_bonus.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:34:17 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/05/06 22:57:20 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/05/06 22:55:38 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,6 @@ void				clean_and_exit(int exit_code);
 void				ft_array_to_list(char **envp, t_list **envp_list);
 //void				ft_cd(char **args, t_list **env, t_minishell *minishell);
 void				ft_cd(t_cmd *cmd, t_minishell *minishell);
-//void				ft_echo(char **args, t_minishell *mini);
-//void				ft_echo(t_cmd *cmd);
 void				ft_echo(t_cmd *cmd, t_minishell *mini);
 void				ft_execute(t_cmd *cmd, t_minishell *minishell);
 void				ft_execute_builtin(t_cmd *cmd, t_minishell *minishell);
@@ -165,6 +163,17 @@ t_list				*ft_tokenizer(char *str, t_minishell *minishell);
 void				ft_unquoted_dollar_variable_converter(t_list *list,
 						t_minishell *mini);
 //bonus
+void				ft_manage_wildcards(t_list *list);
+void				ft_process_wildcards(char *dir, char *str, t_list **list);
+int					ft_number_of_wildcards(char *wildcard);
+char				*ft_get_wildcard_search(char *str, char **wildcard,
+						char *needle, int *numbers);
+void				ft_free_array_content(void **array,
+						void (*free_func)(void *));
+void				ft_order_wildcards(t_list *list);
+
+void				ft_and_or(t_minishell *mini, t_list **and_or_list);
+void				ft_and_or_exec(t_cmd *cmd, t_minishell *minishell);
 
 //borrar
 void				ft_print_cmdlist(t_list *cmds);

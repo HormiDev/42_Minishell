@@ -1,4 +1,16 @@
-#include "../../include/minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   token_checker_bonus.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/06 19:21:04 by dagimeno          #+#    #+#             */
+/*   Updated: 2025/05/06 23:33:08 by ide-dieg         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../include/minishell_bonus.h"
 
 int	ft_check_token_list(t_list **list, t_minishell *minishell)
 {
@@ -14,7 +26,7 @@ int	ft_check_token_list(t_list **list, t_minishell *minishell)
 		return (0);
 	}
 	ft_dollar_variable_converter(*list, minishell);
-	ft_join_str_tokenizer(*list);	
+	ft_join_str_tokenizer(*list);
 	ft_manage_wildcards(*list);
 	ft_remove_spaces(list);
 	if (!ft_check_redirections(*list))
