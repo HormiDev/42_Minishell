@@ -6,7 +6,7 @@
 #    By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/10 21:51:45 by ide-dieg          #+#    #+#              #
-#    Updated: 2025/05/07 13:28:11 by ide-dieg         ###   ########.fr        #
+#    Updated: 2025/05/07 13:44:14 by ide-dieg         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,6 +66,7 @@ SRC_BONUS =	src_bonus/ft_array_to_list_bonus.c \
 			src_bonus/ft_builtin_management_bonus.c \
 			src_bonus/ft_errors_bonus.c \
 			src_bonus/ft_files_bonus.c \
+			src_bonus/ft_parenthesis_management_bonus.c \
 			src_bonus/ft_parsing_and_exec_bonus.c \
 			src_bonus/ft_save_heredocs_bonus.c \
 			src_bonus/ft_execute_bonus.c \
@@ -140,6 +141,8 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
+
+re_bonus: fclean bonus
 
 .PHONY: all clean fclean re
 

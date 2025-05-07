@@ -6,11 +6,11 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 10:52:49 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/05/07 13:28:43 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/05/07 13:39:42 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell_bonus.h"
+#include "../include/minishell_bonus.h"
 
 static void	ft_split_and_or_loop(t_list **token_list, t_list **prev)
 {

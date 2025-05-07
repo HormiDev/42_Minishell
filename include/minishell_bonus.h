@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:34:17 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/05/07 13:34:26 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/05/07 13:43:13 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <dirent.h>
 
 /**
- * @brief Estructura para almacenar los datos de redirecciones
+ * @brief Estructura para almacenar la información de redirección
  * 
  * @param file Nombre del archivo
  * @param type Tipo de redirección
@@ -165,6 +165,7 @@ void				ft_unquoted_dollar_variable_converter(t_list *list,
 						t_minishell *mini);
 //bonus
 t_list				*ft_capsule_parentesis(t_list *tk_list);
+int					ft_and_or_counter(t_list *token_list);
 t_cmd				*fill_info(t_list **open,
 						t_list **after_close, t_list **tk_list);
 t_list				**ft_split_and_or(t_list *token_list);
