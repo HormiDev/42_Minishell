@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:34:17 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/05/07 13:35:09 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:34:51 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,7 @@
 # include <dirent.h>
 
 /**
- * @brief Estructura para almacenar los datos de redirecciones
- * 
- * @param file Nombre del archivo
- * @param type Tipo de redirección
- * 
- * @note type puede ser 0 (<), 1 (>), 2 (>>), 3 (<<)
+ * @note type can be 0 (<), 1 (>), 2 (>>), 3 (<<)
  */
 typedef struct s_redir
 {
@@ -37,12 +32,7 @@ typedef struct s_redir
 }	t_redir;
 
 /**
- * @brief Estructura para almacenar distintos tipos de datos
- * 
- * @param data Puntero a los datos
- * @param type Tipo de datos
- * 
- * @note type puede ser 0 (t_cmd), 1 (char *)
+ * @note type can be 0 (t_cmd), 1 (char *)
  */
 typedef struct s_data_container
 {
@@ -74,7 +64,7 @@ typedef struct s_minishell
 	char			*host;
 	char			cwd[PATH_MAX];
 	char			cwd_short[PATH_MAX];
-	char			prompt[PATH_MAX + 1024];// revisar tamaño maximo posible
+	char			prompt[PATH_MAX + 1024];
 	int				exit_code;
 	t_list			*envp;
 	char			**envp_array;
@@ -83,14 +73,9 @@ typedef struct s_minishell
 	int				history_fd;
 }	t_minishell;
 
-void				ft_print(t_list *list);//BORRAR
-
 void				clean_and_exit(int exit_code);
 void				ft_array_to_list(char **envp, t_list **envp_list);
-//void				ft_cd(char **args, t_list **env, t_minishell *minishell);
 void				ft_cd(t_cmd *cmd, t_minishell *minishell);
-//void				ft_echo(char **args, t_minishell *mini);
-//void				ft_echo(t_cmd *cmd);
 void				ft_echo(t_cmd *cmd, t_minishell *mini);
 void				ft_execute(t_cmd *cmd, t_minishell *minishell);
 void				ft_execute_builtin(t_cmd *cmd, t_minishell *minishell);
@@ -102,12 +87,9 @@ int					ft_isnumber(char *str);
 int					ft_isbuiltin(char *command);
 t_minishell			*ft_loading_minishell(char **envp);
 char				*ft_getenv(char *needle, t_list *envp);
-//void				ft_print_env(t_list *env, int fd);
 void				ft_print_env(t_list *env, int fd, t_minishell *mini);
 void				ft_update_prompt(t_minishell *minishell);
 int					ft_export(char *envp, t_list **envp_list);
-//void				ft_export_args(char **args, t_list **env_list,
-//						t_minishell *mini);
 void				ft_export_args(t_cmd *cmd, t_minishell *mini);
 void				ft_export_shlvl(t_env *env);
 t_env				*ft_create_hash(char *envp, int i);
@@ -154,7 +136,6 @@ void				ft_print_syntax_error_message(char *token);
 int					ft_verify_correct_order_backwards(t_list *tks);
 int					ft_check_instructions_after_parenthesis(t_list *tks);
 int					ft_check_instructions_before_parenthesis(t_list *tks);
-//int					ft_check_for_redundant_parenthesis(t_list *tks);
 void				ft_remove_quotes(t_list *list);
 t_cmd				*ft_create_cmd(t_list *list);
 t_data_container	*ft_new_data_container(void *data, int type);
@@ -165,10 +146,5 @@ char				*ft_search_variable(char *str, t_minishell *mini);
 t_list				*ft_tokenizer(char *str, t_minishell *minishell);
 void				ft_unquoted_dollar_variable_converter(t_list *list,
 						t_minishell *mini);
-//bonus
-
-//borrar
-void				ft_print_cmdlist(t_list *cmds);
-void				ft_print_and_or_list(t_list **and_or_list);
 
 #endif

@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   create_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
+/*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 20:32:45 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/03/28 19:43:43 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:36:11 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 /**
- * @brief Funcion que cuenta el numero de redirecciones y comandos en una lista
  * 0 = <, 1 = >, 2 = cmd
  */
 static void	ft_count_arrays(t_list *list, int *cmd_redir_count)

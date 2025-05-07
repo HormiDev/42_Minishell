@@ -6,16 +6,11 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 20:47:08 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/05/07 13:27:13 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:48:49 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell_bonus.h"
-
-void	ft_print_cmdlist(t_list *cmds);
-void	ft_print(t_list *list);
-void	ft_print_cmd(t_cmd *cmd);
-//no olvidar borrar estas funciones cuando hayamos hecho todo
 
 static void	ft_print_error_and_exit(void)
 {

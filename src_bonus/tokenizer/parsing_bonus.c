@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 19:17:19 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/05/06 21:17:29 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:46:19 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,6 @@ void	ft_remove_spaces(t_list **list)
 	}
 }
 
-/**
- * @brief funcion que pone comillas "" a los strings para diferenciarlos 
- * del resto de tokens
- * @example hola || adios -> "hola" || "adios"
- */
 void	ft_put_quotes(t_list *list)
 {
 	char	*str;
@@ -84,12 +79,6 @@ static void	ft_join_str_tokenizer_while(t_list *list)
 	list->next = list->next->next;
 }
 
-/**
- * @brief funcion que une los strings que estan entre comillas
- * @example "hola mundo"' que tal '$VAR -> "hola mundo que tal var_content"
- * @param list lista de tokens
- * @return void
- */
 void	ft_join_str_tokenizer(t_list *list)
 {
 	char	*tmpstr;

@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 21:34:46 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/05/06 21:13:54 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:44:45 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static char	*ft_search_alnum_char(char *str)
 	return (NULL);
 }
 
-int	ft_strcmp(const char *s1, const char *s2)//meter en libft
+int	ft_strcmp(const char *s1, const char *s2)
 {
 	int	i;
 

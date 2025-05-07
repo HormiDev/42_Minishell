@@ -6,17 +6,16 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 19:09:43 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/05/06 21:10:16 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:43:59 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell_bonus.h"
 
 /**
- * @brief Funcion que crea un contenedor de datos
  * type = 0 -> t_cmd
  * type = 1 -> char *
- * type = 2 -> parentesis
+ * type = 2 -> parenthesis
  * 
  * @param data
  * @param type

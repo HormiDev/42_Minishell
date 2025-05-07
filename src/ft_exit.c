@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 12:46:47 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/04/22 20:15:45 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:41:31 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,6 @@ static int	is_argument_valid(char *arg)
 	return (1);
 }
 
-/**
- * @brief Salir del minishell liberando la memoria y limpiando el historial
- * 
- * @return void
- */
 void	ft_exit(char **arg, t_minishell *minishell)
 {
 	int				len;

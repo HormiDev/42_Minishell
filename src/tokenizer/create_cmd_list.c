@@ -6,75 +6,11 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 18:13:52 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/05/07 13:25:37 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:35:55 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-//borrar funcion
-void	ft_print_cmd(t_cmd *cmd)
-{
-	int	i;
-
-	i = 0;
-	if (cmd->infiles[i])
-		printf(" infiles: ");
-	else
-		printf(" infiles: NULL ");
-	while (cmd->infiles[i])
-	{
-		if ((((t_redir *)cmd->infiles[i])->type) == 0)
-			printf("<%s ", cmd->infiles[i]->file);
-		else if (((t_redir *)cmd->infiles[i])->type == 3)
-			printf("<<%s ", cmd->infiles[i]->file);
-		i++;
-	}
-	i = 0;
-	if (cmd->outfiles[i])
-		printf(" outfiles: ");
-	else
-		printf(" outfiles: NULL ");
-	while (cmd->outfiles[i])
-	{
-		if (((t_redir *)cmd->outfiles[i])->type == 1)
-			printf(">%s ", cmd->outfiles[i]->file);
-		else if (((t_redir *)cmd->outfiles[i])->type == 2)
-			printf(">>%s ", cmd->outfiles[i]->file);
-		i++;
-	}
-	i = 0;
-	printf(" [cmd: %s] ", cmd->cmd);
-	printf(" args: ");
-	while (cmd->args[i])
-	{
-		printf("%s ", cmd->args[i]);
-		i++;
-	}
-	printf("\n");
-}
-
-//borrar funcion
-void	ft_print_cmdlist(t_list *cmds)
-{
-	int i=0;
-
-	while (cmds)
-	{
-		if (((t_data_container *)cmds->content)->type == 0)
-		{
-			printf("%-4d", i);
-			ft_print_cmd((t_cmd *)((t_data_container *)cmds->content)->data);
-		}
-		else
-		{
-			printf("%-4d", i);
-			printf("%s\n", (char *)((t_data_container *)cmds->content)->data);	
-		}
-		i++;
-		cmds = cmds->next;
-	}
-}
 
 static void	ft_create_and_clear_cmds(t_list **list, t_list **cmds, t_list **tmp,
 			int *is_cmd)

@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   create_data_container.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
+/*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 20:50:49 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/02/19 22:05:13 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:36:23 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 /**
- * @brief Funcion que crea un contenedor de datos
  * type = 0 -> t_cmd
  * type = 1 -> char *
  * 

@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 11:36:15 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/04/26 18:58:40 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:42:14 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,6 @@ void	ft_close_pipes(t_minishell *minishell)
 	}
 }
 
-/**
- * @brief Crea la pipeline de pipes necesaria para la ejecución de los comandos
- * 
- * @param minishell Estructura principal del programa
- * @return 0 si hay un error, 1 si todo va bien
-*/
 int	ft_pipeline(t_minishell *minishell, t_cmd **cmds, int num_pipes)
 {
 	int	i;

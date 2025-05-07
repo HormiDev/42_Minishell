@@ -6,25 +6,11 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 19:22:23 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/05/06 21:22:27 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:45:15 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell_bonus.h"
-
-//borrar funcion
-void	ft_print(t_list *list)
-{
-	t_list	*tmp;
-
-	tmp = list;
-	while (tmp)
-	{
-		printf("%s,", (char *)tmp->content);
-		tmp = tmp->next;
-	}
-	printf("\n");
-}
 
 int	ft_check_redirections(t_list *list)
 {

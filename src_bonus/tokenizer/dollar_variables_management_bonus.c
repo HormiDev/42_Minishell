@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 19:10:50 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/05/06 21:11:22 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:44:19 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,6 @@ int	ft_end_var(char *str)
 	return (i);
 }
 
-/**
-* @brief Funcion que obtiene el nombre de la variable de entorno
-* @example $HOME, -> HOME
-* @param str Cadena de texto
-* @param i Indice de la cadena de texto
-* @return char* Nombre de la variable de entorno
-*/
 char	*ft_parse_var(char *str, int *i, t_minishell *mini)
 {
 	size_t	len;
@@ -88,12 +81,6 @@ static char	*ft_split_and_join(char *str, char *var, int *i)
 	return (jointed_str);
 }
 
-/**
-* @brief Funcion que convierte las variables de entorno en su valor
-* @example $HOME -> /home/user
-* @param list Lista de tokens
-* @return void
-*/
 void	ft_dollar_variable_converter(t_list *list, t_minishell *mini)
 {
 	int		i[2];

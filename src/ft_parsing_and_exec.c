@@ -6,16 +6,11 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 16:26:50 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/05/07 13:09:28 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:42:03 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-void	ft_print_cmdlist(t_list *cmds);
-void	ft_print(t_list *list);
-void	ft_print_cmd(t_cmd *cmd);
-//no olvidar borrar estas funciones cuando hayamos hecho todo
 
 int	ft_count_pipes(t_list *token_list)
 {

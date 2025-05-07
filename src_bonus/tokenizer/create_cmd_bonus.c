@@ -6,16 +6,12 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 19:10:17 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/05/06 21:10:22 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:43:04 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell_bonus.h"
 
-/**
- * @brief Funcion que cuenta el numero de redirecciones y comandos en una lista
- * 0 = <, 1 = >, 2 = cmd
- */
 static void	ft_count_arrays(t_list *list, int *cmd_redir_count)
 {
 	while (list)

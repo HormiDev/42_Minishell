@@ -12,20 +12,6 @@
 
 #include "../../include/minishell.h"
 
-//borrar funcion
-void	ft_print(t_list *list)
-{
-	t_list	*tmp;
-
-	tmp = list;
-	while (tmp)
-	{
-		printf("%s,", (char *)tmp->content);
-		tmp = tmp->next;
-	}
-	printf("\n");
-}
-
 int	ft_check_redirections(t_list *list)
 {
 	while (list)

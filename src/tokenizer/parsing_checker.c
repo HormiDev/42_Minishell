@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_checker.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ide-dieg <ide-dieg@student.42madrid>       +#+  +:+       +#+        */
+/*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:20:47 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/02/19 22:05:40 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:39:58 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,6 @@ void	ft_print_syntax_error_message(char *token)
 		RED, token, RESET);
 }
 
-/**
- * @file ft_parenthesis_checker.c
- * @brief Verifica si hay paréntesis abiertos y cerrados.
- * 
- * Esta función se encarga de analizar una secuencia de tokens y determinar si
- * existen paréntesis abiertos y cerrados. Si hay un paréntesis cerrado sin un
- * paréntesis abierto, se imprime un mensaje de error.
- * 
- * @param tks Puntero a la estructura de tokens que se va a analizar.
- */
 int	ft_check_parenthesis(t_list *tks)
 {
 	int	parenthesis;
@@ -57,15 +47,6 @@ int	ft_check_parenthesis(t_list *tks)
 	return (parenthesis);
 }
 
-/**
- * @file ft_parenthesis_checker.c
- * @brief Verifica si hay instrucciones después de los tokens.
- * 
- * Esta función se encarga de analizar si despues de un string o un cierre de
- * paréntesis hay un operador lógico o de redirección. |, ||, &&.
- * 
- * @param tks Puntero a la estructura de tokens que se va a analizar.
- */
 int	ft_verify_correct_order_onwards(t_list *tks)
 {
 	int		instructions_after;
@@ -90,15 +71,6 @@ int	ft_verify_correct_order_onwards(t_list *tks)
 	return (0);
 }
 
-/**
- * @file ft_parenthesis_checker.c
- * @brief Verifica si hay instrucciones después de los tokens.
- * 
- * Esta función se encarga de analizar si antes de un string o un apertura de
- * paréntesis hay un operador lógico o de redirección. |, ||, &&, <, >, >>, <<.
- * 
- * @param tks Puntero a la estructura de tokens que se va a analizar.
- */
 int	ft_check_tokens_after_special_found(t_list *tks, int *instructions_last)
 {
 	while (tks)
@@ -123,15 +95,6 @@ int	ft_check_tokens_after_special_found(t_list *tks, int *instructions_last)
 	return (0);
 }
 
-/**
- * @file ft_parenthesis_checker.c
- * @brief Verifica si hay instrucciones después de los tokens.
- * 
- * Esta función se encarga de analizar una secuencia de tokens y determinar si
- * existen instrucciones válidas después de los tokens de |, ||, &&.
- * 
- * @param tks Puntero a la estructura de tokens que se va a analizar.
- */
 int	ft_verify_correct_order_backwards(t_list *tks)
 {
 	int		instructions_last;
