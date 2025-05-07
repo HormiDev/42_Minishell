@@ -6,7 +6,7 @@
 #    By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/10 21:51:45 by ide-dieg          #+#    #+#              #
-#    Updated: 2025/05/07 13:44:14 by ide-dieg         ###   ########.fr        #
+#    Updated: 2025/05/07 13:47:15 by ide-dieg         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -111,12 +111,10 @@ vpath %.c src src/tokenizer src_bonus src_bonus/tokenizer
 
 all: $(NAME)
 
-# Regla genérica para cualquiera de los .c en src/ o src/tokenizer/
 $(OBJDIR)/%.o: %.c
 	@mkdir -p $(OBJDIR)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-# Regla genérica para cualquiera de los .c en src_bonus/ o src_bonus/tokenizer/
 $(OBJDIR_BONUS)/%.o: %.c
 	@mkdir -p $(OBJDIR_BONUS)
 	@$(CC) $(CFLAGS) -c $< -o $@
@@ -133,7 +131,6 @@ bonus: ide-dieg minishell_title update_submodules build_libft $(OBJ_BONUS)
 	@tput cuu1 && tput el
 	@echo "$(VERDE)$(NAME) bonus built!$(NC)"
 
-# Limpieza
 clean: fclean_libft
 	rm -rf $(OBJDIR) $(OBJDIR_BONUS)
 
