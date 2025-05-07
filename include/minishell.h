@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:34:17 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/05/06 22:57:20 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/05/07 13:35:09 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ typedef struct s_minishell
 	int				history_fd;
 }	t_minishell;
 
-void	ft_print(t_list *list);//BORRAR
+void				ft_print(t_list *list);//BORRAR
 
 void				clean_and_exit(int exit_code);
 void				ft_array_to_list(char **envp, t_list **envp_list);
@@ -129,7 +129,8 @@ int					ft_pipeline(t_minishell *minishell, t_cmd **cmds,
 						int num_pipes);
 void				ft_close_pipes(t_minishell *minishell);
 void				ft_error_dprintf(t_minishell *minishell);
-void				ft_create_heredocs(t_list *cmd_list, t_minishell *minishell);
+void				ft_create_heredocs(t_list *cmd_list,
+						t_minishell *minishell);
 void				ft_clear_here_docs(t_minishell *minishell);
 void				ft_config_signals(void);
 void				ft_config_signals_in_exec(void);
@@ -171,4 +172,3 @@ void				ft_print_cmdlist(t_list *cmds);
 void				ft_print_and_or_list(t_list **and_or_list);
 
 #endif
-

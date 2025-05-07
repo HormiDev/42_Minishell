@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 20:36:34 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/05/06 22:36:41 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/05/07 13:24:09 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	ft_open_infiles(t_cmd *cmd)
 		ft_add_fd_to_alloc_lst_ie(cmd->io_fd[0]);
 		if (cmd->io_fd[0] < 0)
 		{
-			perror(cmd->infiles[i]->file);//revisar
+			perror(cmd->infiles[i]->file);
 			strerror(errno);
 			return (-1);
 		}
@@ -54,7 +54,7 @@ static int	ft_open_outfiles(t_cmd *cmd)
 		ft_add_fd_to_alloc_lst_ie(cmd->io_fd[1]);
 		if (cmd->io_fd[1] < 0)
 		{
-			perror(cmd->outfiles[i]->file);//revisar
+			perror(cmd->outfiles[i]->file);
 			strerror(errno);
 			return (-1);
 		}

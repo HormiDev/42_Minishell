@@ -6,11 +6,46 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 20:47:56 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/05/06 22:50:51 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/05/07 13:11:46 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell_bonus.h"
+
+int	ft_count_pipes(t_list *token_list)
+{
+	int		count;
+	t_list	*tmp;
+
+	count = 0;
+	tmp = token_list;
+	while (tmp)
+	{
+		if (((t_data_container *)tmp->content)->type == 0)
+			count++;
+		tmp = tmp->next;
+	}
+	return (count);
+}
+
+int	ft_pipe_counter(t_list *token_list)
+{
+	int					count;
+	t_list				*tmp;
+	t_data_container	*tmp_data;
+
+	count = 0;
+	tmp = token_list;
+	while (tmp)
+	{
+		tmp_data = (t_data_container *)tmp->content;
+		if (tmp_data->type == 1 && ((char *)tmp_data->data)[0] == '|'
+			&& ((char *)tmp_data->data)[1] == '\0')
+			count++;
+		tmp = tmp->next;
+	}
+	return (count);
+}
 
 void	ft_close_pipes(t_minishell *minishell)
 {

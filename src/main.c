@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:28:53 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/04/26 21:56:40 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/05/07 13:10:35 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,7 @@ static void	ft_main_loop(t_minishell *minishell)
 	while (1)
 	{
 		ft_update_prompt(minishell);
-		minishell->line = readline(minishell->prompt);//revisar reservade memoria y liberacion
-		/*minishell->line = ft_input(minishell->prompt);
-		if (minishell->line)//no necesario para readline, revisar
-			minishell->line[ft_strlen_p(minishell->line) - 1] = '\0';//no necesario para readline*/
+		minishell->line = readline(minishell->prompt);
 		if (!minishell->line)
 		{
 			minishell->line = ft_strdup_ae("exit");

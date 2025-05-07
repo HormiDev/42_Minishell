@@ -6,12 +6,12 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 12:34:17 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/05/06 22:55:38 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/05/07 13:34:26 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef MINISHELL_BONUS_H
+# define MINISHELL_BONUS_H
 # include "../42_Libft/libft.h"
 # include "colors.h"
 # include <readline/readline.h>
@@ -83,7 +83,7 @@ typedef struct s_minishell
 	int				history_fd;
 }	t_minishell;
 
-void	ft_print(t_list *list);//BORRAR
+void				ft_print(t_list *list);//BORRAR
 
 void				clean_and_exit(int exit_code);
 void				ft_array_to_list(char **envp, t_list **envp_list);
@@ -127,7 +127,8 @@ int					ft_pipeline(t_minishell *minishell, t_cmd **cmds,
 						int num_pipes);
 void				ft_close_pipes(t_minishell *minishell);
 void				ft_error_dprintf(t_minishell *minishell);
-void				ft_create_heredocs(t_list *cmd_list, t_minishell *minishell);
+void				ft_create_heredocs(t_list *cmd_list,
+						t_minishell *minishell);
 void				ft_clear_here_docs(t_minishell *minishell);
 void				ft_config_signals(void);
 void				ft_config_signals_in_exec(void);
@@ -163,6 +164,12 @@ t_list				*ft_tokenizer(char *str, t_minishell *minishell);
 void				ft_unquoted_dollar_variable_converter(t_list *list,
 						t_minishell *mini);
 //bonus
+t_list				*ft_capsule_parentesis(t_list *tk_list);
+t_cmd				*fill_info(t_list **open,
+						t_list **after_close, t_list **tk_list);
+t_list				**ft_split_and_or(t_list *token_list);
+int					ft_count_pipes(t_list *token_list);
+int					ft_pipe_counter(t_list *token_list);
 void				ft_manage_wildcards(t_list *list);
 void				ft_process_wildcards(char *dir, char *str, t_list **list);
 int					ft_number_of_wildcards(char *wildcard);
@@ -180,4 +187,3 @@ void				ft_print_cmdlist(t_list *cmds);
 void				ft_print_and_or_list(t_list **and_or_list);
 
 #endif
-

@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 22:04:40 by ide-dieg          #+#    #+#             */
-/*   Updated: 2025/04/25 15:33:43 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/05/07 13:26:30 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	ft_check_token_list(t_list **list, t_minishell *minishell)
 			|| !ft_strncmp_p((char *)tmp->content, "(", 1)
 			|| !ft_strncmp_p((char *)tmp->content, ")", 1))
 		{
-			//ft_print_syntax_error_message((char *)tmp->content);
 			printf("%sOperators not allowed in mandatory part%s\n", RED, RESET);
 			return (0);
 		}
