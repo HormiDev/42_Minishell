@@ -6,7 +6,7 @@
 /*   By: ide-dieg <ide-dieg@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 10:52:49 by dagimeno          #+#    #+#             */
-/*   Updated: 2025/05/07 13:39:42 by ide-dieg         ###   ########.fr       */
+/*   Updated: 2025/05/17 20:21:22 by ide-dieg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ t_list	*ft_capsule_parentesis(t_list *tk_list)
 	t_list	*open;
 	t_list	*after_close;
 	t_list	*tmp_prev;
-	t_cmd	*cmd;
 
 	tmp_prev = tk_list;
 	while (tk_list)
@@ -89,7 +88,8 @@ t_list	*ft_capsule_parentesis(t_list *tk_list)
 			((t_data_container *)open->content)->data = open->next;
 			((t_data_container *)open->content)->type = 2;
 			after_close = ft_capsule_parentesis(tk_list->next);
-			cmd = fill_info(&open, &after_close, &tk_list);
+			((t_data_container *)tk_list->content)->data = fill_info(&open, 
+				&after_close, &tk_list);
 		}
 		else if (((t_data_container *)tk_list->content)->type == 1
 			&& *(char *)(((t_data_container *)tk_list->content)->data) == ')')
